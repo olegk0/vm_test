@@ -1,11 +1,11 @@
 # vm_test
 Here is an attempt to write your own virtual machine.
 
-    /compiler - compiler of a C-like language
+    /compiler - compiler of a Go-like language
     /vm - VM implementation for debugging.
     example.ss - example programm
 
-## C-like language (currently supported)
+## Go-like language (currently supported)
     
 ### Arithmetic Operators
 	+
