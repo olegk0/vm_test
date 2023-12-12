@@ -12,7 +12,7 @@
         return pe_syntax_invalid;                                                          \
     }                                                                                      \
     for (; cur_id < VECTOR_SIZE(result->OBJ##s_vect); cur_id++) {                          \
-        MSG_DBG(DL_DBG, "'%s' VS '%s'", result->OBJ##s_vect.data[cur_id].name, token_str); \
+        MSG_DBG(DL_TRC, "'%s' VS '%s'", result->OBJ##s_vect.data[cur_id].name, token_str); \
         int p = 0;                                                                         \
         while (1) {                                                                        \
             if (result->OBJ##s_vect.data[cur_id].name[p] != token_str[p]) {                \

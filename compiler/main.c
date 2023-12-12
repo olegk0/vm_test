@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
                 printf("Warning. Label '%s' is not used.\n", VECTOR_FROM_FIRST(ppr.labels_vect, i).name);
             } else {
                 for (int n = 0; n < VECTOR_FROM_FIRST(ppr.labels_vect, i).jmp_code_offs_cnt; n++) {
-                    printf("id:%d(%s)  jmp_code_offs:%d  code_offs:%d\n", i, VECTOR_FROM_FIRST(ppr.labels_vect, i).name, VECTOR_FROM_FIRST(ppr.labels_vect, i).jmp_code_offs_arr[n], VECTOR_FROM_FIRST(ppr.labels_vect, i).code_offs);
+                    // printf("id:%d(%s)  jmp_code_offs:%d  code_offs:%d\n", i, VECTOR_FROM_FIRST(ppr.labels_vect, i).name, VECTOR_FROM_FIRST(ppr.labels_vect, i).jmp_code_offs_arr[n], VECTOR_FROM_FIRST(ppr.labels_vect, i).code_offs);
                     fix_code_num(&ppr, VECTOR_FROM_FIRST(ppr.labels_vect, i).subs_body, VECTOR_FROM_FIRST(ppr.labels_vect, i).jmp_code_offs_arr[n], VECTOR_FROM_FIRST(ppr.labels_vect, i).code_offs, BITS_TO_BYTES(VARS_ADDR_BITS));
                 }
             }

@@ -14,15 +14,16 @@ func fun1(var10,var20) {
 
 func pwr2(st) {
 	var f
-	if st > 1 {
+	if( st > 1 ){
 		f =  2 * pwr2(st-1)
 	}else{
 		f=2
 	}
 	return f
 }
-	
-	
+
+const d_ampl 4
+
 	cls()
 	var width = scr_w()
 	var height = scr_h()
@@ -31,7 +32,8 @@ func pwr2(st) {
 	var y=rand(height/2)
 	brkpnt
 	cls()
-	while(x<width){
+	while( x<width ){
+
 		var d_x=rand(d_ampl)
 		while(x<width && d_x>0){
 		#brkpnt

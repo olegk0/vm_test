@@ -10,7 +10,7 @@ extern "C" {
 #include <stdio.h>
 
 #define DEBUG 1
-#define DEBUG_LVL 5
+#define DEBUG_LVL 1
 
 #include "debug.h"
 

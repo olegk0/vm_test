@@ -80,60 +80,60 @@ RET {0x24}
 DBG #23 End sub: PWR2 , code offs: 29 
 DBG {0x1} #25 NewLine, code offs: 32 
 DBG #25 cmd CONST , code offs: 32 
-DBG {0x1} #33 NewLine, code offs: 35 
+DBG {0x1} #27 NewLine, code offs: 35 
 CALL_INT_FUNC {0x21} 7 
-DBG {0x1} #34 NewLine, code offs: 40 
-DBG #34 cmd VAR , code offs: 40 
+DBG {0x1} #28 NewLine, code offs: 40 
+DBG #28 cmd VAR , code offs: 40 
 ALLOC {0x12} offs: 16 size: 4 ( WIDTH )
 CALL_INT_FUNC {0x21} 132 
 POP_VAR {0x1B} offs: 16 ( WIDTH )
-DBG {0x1} #35 NewLine, code offs: 50 
-DBG #35 cmd VAR , code offs: 50 
+DBG {0x1} #29 NewLine, code offs: 50 
+DBG #29 cmd VAR , code offs: 50 
 ALLOC {0x12} offs: 20 size: 4 ( HEIGHT )
 CALL_INT_FUNC {0x21} 133 
 POP_VAR {0x1B} offs: 20 ( HEIGHT )
-DBG {0x1} #36 NewLine, code offs: 60 
-DBG #36 cmd PRINT_LN , code offs: 60 
-PUSH_PNT {0x17} offs: 17 type: 1 ( #36_arr16 )
+DBG {0x1} #30 NewLine, code offs: 60 
+DBG #30 cmd PRINT_LN , code offs: 60 
+PUSH_PNT {0x17} offs: 17 type: 1 ( #30_arr16 )
 PUSH_VAR {0x18} offs: 20 ( HEIGHT )
-PUSH_PNT {0x17} offs: 22 type: 1 ( #36_arr29 )
+PUSH_PNT {0x17} offs: 22 type: 1 ( #30_arr29 )
 PUSH_VAR {0x18} offs: 16 ( WIDTH )
 PUSH_PNT {0x17} inline: 33410 type: 0 
 CALL_INT_PROC {0x20} 2 
-DBG {0x1} #37 NewLine, code offs: 83 
-DBG #37 cmd VAR , code offs: 83 
+DBG {0x1} #31 NewLine, code offs: 83 
+DBG #31 cmd VAR , code offs: 83 
 ALLOC {0x12} offs: 24 size: 4 ( X )
 PUSH_NUM {0x16} 0 
 POP_VAR {0x1B} offs: 24 ( X )
-DBG {0x1} #38 NewLine, code offs: 96 
-DBG #38 cmd VAR , code offs: 96 
+DBG {0x1} #32 NewLine, code offs: 96 
+DBG #32 cmd VAR , code offs: 96 
 ALLOC {0x12} offs: 28 size: 4 ( Y )
 PUSH_VAR {0x18} offs: 20 ( HEIGHT )
 PUSH_NUM {0x16} 2 
 PUSH DIV {0x5} (NUM) 2 
 CALL_INT_FUNC {0x21} 129 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #39 NewLine, code offs: 115 
-DBG #39 cmd BRKPNT , code offs: 115 
-BREAK {0x2} #39 
-DBG {0x1} #40 NewLine, code offs: 121 
+DBG {0x1} #33 NewLine, code offs: 115 
+DBG #33 cmd BRKPNT , code offs: 115 
+BREAK {0x2} #33 
+DBG {0x1} #34 NewLine, code offs: 121 
 CALL_INT_FUNC {0x21} 7 
-DBG {0x1} #41 NewLine, code offs: 126 
-DBG #41 cmd WHILE , code offs: 126 
-DBG #41 Label: 4 , code offs: 126 
+DBG {0x1} #35 NewLine, code offs: 126 
+DBG #35 cmd WHILE , code offs: 126 
+DBG #35 Label: 4 , code offs: 126 
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_VAR {0x18} offs: 16 ( WIDTH )
 PUSH LT {0xA} (VAR: WIDTH )16 
 JMP_POP_CMPZ {0x15} Label: 3 (line -1 )
-DBG {0x1} #42 NewLine, code offs: 139 
-DBG #42 cmd VAR , code offs: 139 
+DBG {0x1} #37 NewLine, code offs: 139 
+DBG #37 cmd VAR , code offs: 139 
 ALLOC {0x12} offs: 32 size: 4 ( D_X )
 PUSH_NUM {0x16} 4 
 CALL_INT_FUNC {0x21} 129 
 POP_VAR {0x1B} offs: 32 ( D_X )
-DBG {0x1} #43 NewLine, code offs: 154 
-DBG #43 cmd WHILE , code offs: 154 
-DBG #43 Label: 6 , code offs: 154 
+DBG {0x1} #38 NewLine, code offs: 154 
+DBG #38 cmd WHILE , code offs: 154 
+DBG #38 Label: 6 , code offs: 154 
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_VAR {0x18} offs: 16 ( WIDTH )
 PUSH LT {0xA} (VAR: WIDTH )16 
@@ -142,286 +142,286 @@ PUSH_NUM {0x16} 0
 PUSH GT {0xB} (NUM) 0 
 PUSH AND {0xC} (POP_LAST) 0 
 JMP_POP_CMPZ {0x15} Label: 5 (line -1 )
-DBG {0x1} #45 NewLine, code offs: 177 
-DBG #45 cmd VAR , code offs: 177 
+DBG {0x1} #40 NewLine, code offs: 177 
+DBG #40 cmd VAR , code offs: 177 
 ALLOC {0x12} offs: 36 size: 4 ( T )
 PUSH_NUM {0x16} 45 
 CALL_INT_FUNC {0x21} 129 
 POP_VAR {0x1B} offs: 36 ( T )
-DBG {0x1} #46 NewLine, code offs: 192 
-DBG #46 cmd IF , code offs: 192 
+DBG {0x1} #41 NewLine, code offs: 192 
+DBG #41 cmd IF , code offs: 192 
 PUSH_VAR {0x18} offs: 36 ( T )
 PUSH_NUM {0x16} 15 
 PUSH LT {0xA} (NUM) 15 
 JMP_POP_CMPZ {0x15} Label: 7 (line -1 )
-DBG {0x1} #47 NewLine, code offs: 207 
+DBG {0x1} #42 NewLine, code offs: 207 
 PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH_NUM {0x16} 1 
 PUSH MINUS {0x7} (NUM) 1 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #48 NewLine, code offs: 222 
-DBG #48 cmd  , code offs: 222 
+DBG {0x1} #43 NewLine, code offs: 222 
+DBG #43 cmd  , code offs: 222 
 JMP {0x14} Label: 8 (line -1 )
-DBG #48 Label: 7 , code offs: 225 
-DBG #48 cmd Else , code offs: 225 
-DBG #48 cmd IF , code offs: 225 
+DBG #43 Label: 7 , code offs: 225 
+DBG #43 cmd Else , code offs: 225 
+DBG #43 cmd IF , code offs: 225 
 PUSH_VAR {0x18} offs: 36 ( T )
 PUSH_NUM {0x16} 30 
 PUSH LT {0xA} (NUM) 30 
 JMP_POP_CMPZ {0x15} Label: 9 (line -1 )
-DBG {0x1} #49 NewLine, code offs: 240 
-DBG #49 cmd  , code offs: 240 
+DBG {0x1} #44 NewLine, code offs: 240 
+DBG #44 cmd  , code offs: 240 
 JMP {0x14} Label: 8 (line -1 )
-DBG #49 Label: 9 , code offs: 243 
-DBG #49 cmd Else , code offs: 243 
-DBG #49 cmd  , code offs: 243 
-DBG {0x1} #50 NewLine, code offs: 246 
+DBG #44 Label: 9 , code offs: 243 
+DBG #44 cmd Else , code offs: 243 
+DBG #44 cmd  , code offs: 243 
+DBG {0x1} #45 NewLine, code offs: 246 
 PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH_NUM {0x16} 1 
 PUSH PLUS {0x6} (NUM) 1 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #51 NewLine, code offs: 261 
-DBG #51 cmd  , code offs: 261 
-DBG #51 Label: 8 , code offs: 261 
-DBG {0x1} #53 NewLine, code offs: 264 
-DBG #53 cmd IF , code offs: 264 
+DBG {0x1} #46 NewLine, code offs: 261 
+DBG #46 cmd  , code offs: 261 
+DBG #46 Label: 8 , code offs: 261 
+DBG {0x1} #48 NewLine, code offs: 264 
+DBG #48 cmd IF , code offs: 264 
 PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH_VAR {0x18} offs: 20 ( HEIGHT )
 PUSH GE {0x9} (VAR: HEIGHT )20 
 JMP_POP_CMPZ {0x15} Label: 10 (line -1 )
-DBG {0x1} #54 NewLine, code offs: 277 
+DBG {0x1} #49 NewLine, code offs: 277 
 PUSH_VAR {0x18} offs: 20 ( HEIGHT )
 PUSH_NUM {0x16} 1 
 PUSH MINUS {0x7} (NUM) 1 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #55 NewLine, code offs: 292 
-DBG #55 cmd  , code offs: 292 
+DBG {0x1} #50 NewLine, code offs: 292 
+DBG #50 cmd  , code offs: 292 
 JMP {0x14} Label: 11 (line -1 )
-DBG #55 Label: 10 , code offs: 295 
-DBG #55 cmd Else , code offs: 295 
-DBG #55 cmd IF , code offs: 295 
+DBG #50 Label: 10 , code offs: 295 
+DBG #50 cmd Else , code offs: 295 
+DBG #50 cmd IF , code offs: 295 
 PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH_NUM {0x16} 0 
 PUSH LT {0xA} (NUM) 0 
 JMP_POP_CMPZ {0x15} Label: 12 (line -1 )
-DBG {0x1} #56 NewLine, code offs: 310 
+DBG {0x1} #51 NewLine, code offs: 310 
 PUSH_NUM {0x16} 0 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #57 NewLine, code offs: 321 
-DBG #57 cmd  , code offs: 321 
-DBG #57 Label: 11 , code offs: 321 
-DBG #57 Label: 12 , code offs: 321 
-DBG {0x1} #59 NewLine, code offs: 324 
-DBG #59 cmd VAR , code offs: 324 
+DBG {0x1} #52 NewLine, code offs: 321 
+DBG #52 cmd  , code offs: 321 
+DBG #52 Label: 11 , code offs: 321 
+DBG #52 Label: 12 , code offs: 321 
+DBG {0x1} #54 NewLine, code offs: 324 
+DBG #54 cmd VAR , code offs: 324 
 ALLOC {0x12} offs: 40 size: 4 ( T_Y )
 PUSH_NUM {0x16} 0 
 POP_VAR {0x1B} offs: 40 ( T_Y )
-DBG {0x1} #60 NewLine, code offs: 337 
-DBG #60 cmd WHILE , code offs: 337 
-DBG #60 Label: 14 , code offs: 337 
+DBG {0x1} #55 NewLine, code offs: 337 
+DBG #55 cmd WHILE , code offs: 337 
+DBG #55 Label: 14 , code offs: 337 
 PUSH_VAR {0x18} offs: 40 ( T_Y )
 PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH LE {0x8} (VAR: Y )28 
 JMP_POP_CMPZ {0x15} Label: 13 (line -1 )
-DBG {0x1} #61 NewLine, code offs: 350 
+DBG {0x1} #56 NewLine, code offs: 350 
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_VAR {0x18} offs: 40 ( T_Y )
 CALL_INT_FUNC {0x21} 8 
-DBG {0x1} #63 NewLine, code offs: 361 
+DBG {0x1} #58 NewLine, code offs: 361 
 PUSH_NUM {0x16} 35 
 CALL_INT_FUNC {0x21} 1 
-DBG {0x1} #64 NewLine, code offs: 371 
+DBG {0x1} #59 NewLine, code offs: 371 
 PUSH_VAR {0x18} offs: 40 ( T_Y )
 PUSH_NUM {0x16} 1 
 PUSH PLUS {0x6} (NUM) 1 
 POP_VAR {0x1B} offs: 40 ( T_Y )
-DBG {0x1} #65 NewLine, code offs: 386 
-DBG #65 cmd  , code offs: 386 
-JMP {0x14} Label: 14 (line 60 )
-DBG #65 Label: 13 , code offs: 389 
-DBG {0x1} #69 NewLine, code offs: 392 
+DBG {0x1} #60 NewLine, code offs: 386 
+DBG #60 cmd  , code offs: 386 
+JMP {0x14} Label: 14 (line 55 )
+DBG #60 Label: 13 , code offs: 389 
+DBG {0x1} #64 NewLine, code offs: 392 
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_NUM {0x16} 1 
 PUSH PLUS {0x6} (NUM) 1 
 POP_VAR {0x1B} offs: 24 ( X )
-DBG {0x1} #70 NewLine, code offs: 407 
+DBG {0x1} #65 NewLine, code offs: 407 
 PUSH_VAR {0x18} offs: 32 ( D_X )
 PUSH_NUM {0x16} 1 
 PUSH MINUS {0x7} (NUM) 1 
 POP_VAR {0x1B} offs: 32 ( D_X )
-DBG {0x1} #71 NewLine, code offs: 422 
-DBG #71 cmd  , code offs: 422 
+DBG {0x1} #66 NewLine, code offs: 422 
+DBG #66 cmd  , code offs: 422 
 FREE {0x13} offs: 44 size: 4 ( T_Y )
 FREE {0x13} offs: 40 size: 4 ( T )
-JMP {0x14} Label: 6 (line 43 )
-DBG #71 Label: 5 , code offs: 429 
-DBG {0x1} #75 NewLine, code offs: 432 
-DBG #75 cmd  , code offs: 432 
+JMP {0x14} Label: 6 (line 38 )
+DBG #66 Label: 5 , code offs: 429 
+DBG {0x1} #70 NewLine, code offs: 432 
+DBG #70 cmd  , code offs: 432 
 FREE {0x13} offs: 36 size: 4 ( D_X )
-JMP {0x14} Label: 4 (line 41 )
-DBG #75 Label: 3 , code offs: 437 
-DBG {0x1} #76 NewLine, code offs: 440 
-PUSH_PNT {0x17} offs: 26 type: 1 ( #76_arr32 )
+JMP {0x14} Label: 4 (line 35 )
+DBG #70 Label: 3 , code offs: 437 
+DBG {0x1} #71 NewLine, code offs: 440 
+PUSH_PNT {0x17} offs: 26 type: 1 ( #71_arr32 )
 CALL_INT_FUNC {0x21} 2 
-DBG {0x1} #78 NewLine, code offs: 449 
-DBG #78 cmd VAR , code offs: 449 
+DBG {0x1} #73 NewLine, code offs: 449 
+DBG #73 cmd VAR , code offs: 449 
 ALLOC {0x12} offs: 32 size: 4 ( KEY )
-DBG {0x1} #79 NewLine, code offs: 454 
+DBG {0x1} #74 NewLine, code offs: 454 
 PUSH_VAR {0x18} offs: 16 ( WIDTH )
 PUSH_NUM {0x16} 2 
 PUSH DIV {0x5} (NUM) 2 
 POP_VAR {0x1B} offs: 24 ( X )
-DBG {0x1} #80 NewLine, code offs: 469 
+DBG {0x1} #75 NewLine, code offs: 469 
 PUSH_VAR {0x18} offs: 20 ( HEIGHT )
 PUSH_NUM {0x16} 2 
 PUSH DIV {0x5} (NUM) 2 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #81 NewLine, code offs: 484 
-DBG #81 cmd VAR , code offs: 484 
+DBG {0x1} #76 NewLine, code offs: 484 
+DBG #76 cmd VAR , code offs: 484 
 ALLOC {0x12} offs: 36 size: 4 ( X_P )
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_NUM {0x16} 1 
 PUSH MINUS {0x7} (NUM) 1 
 POP_VAR {0x1B} offs: 36 ( X_P )
-DBG {0x1} #82 NewLine, code offs: 501 
-DBG #82 cmd VAR , code offs: 501 
+DBG {0x1} #77 NewLine, code offs: 501 
+DBG #77 cmd VAR , code offs: 501 
 ALLOC {0x12} offs: 40 size: 4 ( Y_P )
 PUSH_VAR {0x18} offs: 28 ( Y )
 POP_VAR {0x1B} offs: 40 ( Y_P )
-DBG {0x1} #83 NewLine, code offs: 512 
-DBG #83 cmd WHILE , code offs: 512 
-DBG #83 Label: 16 , code offs: 512 
-DBG {0x1} #84 NewLine, code offs: 515 
+DBG {0x1} #78 NewLine, code offs: 512 
+DBG #78 cmd WHILE , code offs: 512 
+DBG #78 Label: 16 , code offs: 512 
+DBG {0x1} #79 NewLine, code offs: 515 
 PUSH_NUM {0x16} 0 
 CALL_INT_FUNC {0x21} 130 
 POP_VAR {0x1B} offs: 32 ( KEY )
-DBG {0x1} #85 NewLine, code offs: 528 
-DBG #85 cmd IF , code offs: 528 
+DBG {0x1} #80 NewLine, code offs: 528 
+DBG #80 cmd IF , code offs: 528 
 PUSH_VAR {0x18} offs: 32 ( KEY )
 PUSH_NUM {0x16} 98 
 PUSH EQ {0x10} (NUM) 98 
 JMP_POP_CMPZ {0x15} Label: 17 (line -1 )
-DBG {0x1} #86 NewLine, code offs: 543 
-DBG #86 cmd BREAK , code offs: 543 
+DBG {0x1} #81 NewLine, code offs: 543 
+DBG #81 cmd BREAK , code offs: 543 
 JMP {0x14} Label: 15 (line -1 )
-DBG {0x1} #87 NewLine, code offs: 549 
-DBG #87 cmd  , code offs: 549 
+DBG {0x1} #82 NewLine, code offs: 549 
+DBG #82 cmd  , code offs: 549 
 JMP {0x14} Label: 18 (line -1 )
-DBG #87 Label: 17 , code offs: 552 
-DBG #87 cmd Else , code offs: 552 
-DBG #87 cmd IF , code offs: 552 
+DBG #82 Label: 17 , code offs: 552 
+DBG #82 cmd Else , code offs: 552 
+DBG #82 cmd IF , code offs: 552 
 PUSH_VAR {0x18} offs: 32 ( KEY )
 PUSH_NUM {0x16} 97 
 PUSH EQ {0x10} (NUM) 97 
 JMP_POP_CMPZ {0x15} Label: 19 (line -1 )
-DBG {0x1} #88 NewLine, code offs: 567 
+DBG {0x1} #83 NewLine, code offs: 567 
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_NUM {0x16} 1 
 PUSH MINUS {0x7} (NUM) 1 
 POP_VAR {0x1B} offs: 24 ( X )
-DBG {0x1} #89 NewLine, code offs: 582 
-DBG #89 cmd IF , code offs: 582 
+DBG {0x1} #84 NewLine, code offs: 582 
+DBG #84 cmd IF , code offs: 582 
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_NUM {0x16} 0 
 PUSH LT {0xA} (NUM) 0 
 JMP_POP_CMPZ {0x15} Label: 20 (line -1 )
-DBG {0x1} #90 NewLine, code offs: 597 
+DBG {0x1} #85 NewLine, code offs: 597 
 PUSH_NUM {0x16} 0 
 POP_VAR {0x1B} offs: 24 ( X )
-DBG {0x1} #91 NewLine, code offs: 608 
-DBG #91 cmd  , code offs: 608 
-DBG #91 Label: 20 , code offs: 608 
-DBG {0x1} #92 NewLine, code offs: 611 
-DBG #92 cmd  , code offs: 611 
+DBG {0x1} #86 NewLine, code offs: 608 
+DBG #86 cmd  , code offs: 608 
+DBG #86 Label: 20 , code offs: 608 
+DBG {0x1} #87 NewLine, code offs: 611 
+DBG #87 cmd  , code offs: 611 
 JMP {0x14} Label: 18 (line -1 )
-DBG #92 Label: 19 , code offs: 614 
-DBG #92 cmd Else , code offs: 614 
-DBG #92 cmd IF , code offs: 614 
+DBG #87 Label: 19 , code offs: 614 
+DBG #87 cmd Else , code offs: 614 
+DBG #87 cmd IF , code offs: 614 
 PUSH_VAR {0x18} offs: 32 ( KEY )
 PUSH_NUM {0x16} 119 
 PUSH EQ {0x10} (NUM) 119 
 JMP_POP_CMPZ {0x15} Label: 21 (line -1 )
-DBG {0x1} #93 NewLine, code offs: 629 
+DBG {0x1} #88 NewLine, code offs: 629 
 PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH_NUM {0x16} 1 
 PUSH MINUS {0x7} (NUM) 1 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #94 NewLine, code offs: 644 
-DBG #94 cmd IF , code offs: 644 
+DBG {0x1} #89 NewLine, code offs: 644 
+DBG #89 cmd IF , code offs: 644 
 PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH_NUM {0x16} 0 
 PUSH LT {0xA} (NUM) 0 
 JMP_POP_CMPZ {0x15} Label: 22 (line -1 )
-DBG {0x1} #95 NewLine, code offs: 659 
+DBG {0x1} #90 NewLine, code offs: 659 
 PUSH_NUM {0x16} 0 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #96 NewLine, code offs: 670 
-DBG #96 cmd  , code offs: 670 
-DBG #96 Label: 22 , code offs: 670 
-DBG {0x1} #97 NewLine, code offs: 673 
-DBG #97 cmd  , code offs: 673 
+DBG {0x1} #91 NewLine, code offs: 670 
+DBG #91 cmd  , code offs: 670 
+DBG #91 Label: 22 , code offs: 670 
+DBG {0x1} #92 NewLine, code offs: 673 
+DBG #92 cmd  , code offs: 673 
 JMP {0x14} Label: 18 (line -1 )
-DBG #97 Label: 21 , code offs: 676 
-DBG #97 cmd Else , code offs: 676 
-DBG #97 cmd IF , code offs: 676 
+DBG #92 Label: 21 , code offs: 676 
+DBG #92 cmd Else , code offs: 676 
+DBG #92 cmd IF , code offs: 676 
 PUSH_VAR {0x18} offs: 32 ( KEY )
 PUSH_NUM {0x16} 115 
 PUSH EQ {0x10} (NUM) 115 
 JMP_POP_CMPZ {0x15} Label: 23 (line -1 )
-DBG {0x1} #98 NewLine, code offs: 691 
+DBG {0x1} #93 NewLine, code offs: 691 
 PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH_NUM {0x16} 1 
 PUSH PLUS {0x6} (NUM) 1 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #99 NewLine, code offs: 706 
-DBG #99 cmd IF , code offs: 706 
+DBG {0x1} #94 NewLine, code offs: 706 
+DBG #94 cmd IF , code offs: 706 
 PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH_VAR {0x18} offs: 20 ( HEIGHT )
 PUSH GE {0x9} (VAR: HEIGHT )20 
 JMP_POP_CMPZ {0x15} Label: 24 (line -1 )
-DBG {0x1} #100 NewLine, code offs: 719 
+DBG {0x1} #95 NewLine, code offs: 719 
 PUSH_VAR {0x18} offs: 20 ( HEIGHT )
 PUSH_NUM {0x16} 1 
 PUSH MINUS {0x7} (NUM) 1 
 POP_VAR {0x1B} offs: 28 ( Y )
-DBG {0x1} #101 NewLine, code offs: 734 
-DBG #101 cmd  , code offs: 734 
-DBG #101 Label: 24 , code offs: 734 
-DBG {0x1} #102 NewLine, code offs: 737 
-DBG #102 cmd  , code offs: 737 
+DBG {0x1} #96 NewLine, code offs: 734 
+DBG #96 cmd  , code offs: 734 
+DBG #96 Label: 24 , code offs: 734 
+DBG {0x1} #97 NewLine, code offs: 737 
+DBG #97 cmd  , code offs: 737 
 JMP {0x14} Label: 18 (line -1 )
-DBG #102 Label: 23 , code offs: 740 
-DBG #102 cmd Else , code offs: 740 
-DBG #102 cmd IF , code offs: 740 
+DBG #97 Label: 23 , code offs: 740 
+DBG #97 cmd Else , code offs: 740 
+DBG #97 cmd IF , code offs: 740 
 PUSH_VAR {0x18} offs: 32 ( KEY )
 PUSH_NUM {0x16} 100 
 PUSH EQ {0x10} (NUM) 100 
 JMP_POP_CMPZ {0x15} Label: 25 (line -1 )
-DBG {0x1} #103 NewLine, code offs: 755 
+DBG {0x1} #98 NewLine, code offs: 755 
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_NUM {0x16} 1 
 PUSH PLUS {0x6} (NUM) 1 
 POP_VAR {0x1B} offs: 24 ( X )
-DBG {0x1} #104 NewLine, code offs: 770 
-DBG #104 cmd IF , code offs: 770 
+DBG {0x1} #99 NewLine, code offs: 770 
+DBG #99 cmd IF , code offs: 770 
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_VAR {0x18} offs: 16 ( WIDTH )
 PUSH GE {0x9} (VAR: WIDTH )16 
 JMP_POP_CMPZ {0x15} Label: 26 (line -1 )
-DBG {0x1} #105 NewLine, code offs: 783 
+DBG {0x1} #100 NewLine, code offs: 783 
 PUSH_VAR {0x18} offs: 16 ( WIDTH )
 PUSH_NUM {0x16} 1 
 PUSH MINUS {0x7} (NUM) 1 
 POP_VAR {0x1B} offs: 24 ( X )
-DBG {0x1} #106 NewLine, code offs: 798 
-DBG #106 cmd  , code offs: 798 
-DBG #106 Label: 26 , code offs: 798 
-DBG {0x1} #107 NewLine, code offs: 801 
-DBG #107 cmd  , code offs: 801 
-DBG #107 Label: 18 , code offs: 801 
-DBG #107 Label: 25 , code offs: 801 
-DBG {0x1} #109 NewLine, code offs: 804 
-DBG #109 cmd IF , code offs: 804 
+DBG {0x1} #101 NewLine, code offs: 798 
+DBG #101 cmd  , code offs: 798 
+DBG #101 Label: 26 , code offs: 798 
+DBG {0x1} #102 NewLine, code offs: 801 
+DBG #102 cmd  , code offs: 801 
+DBG #102 Label: 18 , code offs: 801 
+DBG #102 Label: 25 , code offs: 801 
+DBG {0x1} #104 NewLine, code offs: 804 
+DBG #104 cmd IF , code offs: 804 
 PUSH_VAR {0x18} offs: 36 ( X_P )
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_VAR {0x18} offs: 40 ( Y_P )
@@ -430,31 +430,31 @@ PUSH_VAR {0x18} offs: 28 ( Y )
 PUSH NE {0x11} (VAR: Y )28 
 PUSH NE {0x11} (POP_LAST) 0 
 JMP_POP_CMPZ {0x15} Label: 27 (line -1 )
-DBG {0x1} #110 NewLine, code offs: 825 
+DBG {0x1} #105 NewLine, code offs: 825 
 PUSH_VAR {0x18} offs: 36 ( X_P )
 PUSH_VAR {0x18} offs: 40 ( Y_P )
 CALL_INT_FUNC {0x21} 8 
-DBG {0x1} #111 NewLine, code offs: 836 
+DBG {0x1} #106 NewLine, code offs: 836 
 PUSH_NUM {0x16} 32 
 CALL_INT_FUNC {0x21} 1 
-DBG {0x1} #112 NewLine, code offs: 846 
+DBG {0x1} #107 NewLine, code offs: 846 
 PUSH_VAR {0x18} offs: 24 ( X )
 PUSH_VAR {0x18} offs: 28 ( Y )
 CALL_INT_FUNC {0x21} 8 
-DBG {0x1} #113 NewLine, code offs: 857 
+DBG {0x1} #108 NewLine, code offs: 857 
 PUSH_NUM {0x16} 64 
 CALL_INT_FUNC {0x21} 1 
-DBG {0x1} #114 NewLine, code offs: 867 
+DBG {0x1} #109 NewLine, code offs: 867 
 PUSH_VAR {0x18} offs: 24 ( X )
 POP_VAR {0x1B} offs: 36 ( X_P )
-DBG {0x1} #115 NewLine, code offs: 876 
+DBG {0x1} #110 NewLine, code offs: 876 
 PUSH_VAR {0x18} offs: 28 ( Y )
 POP_VAR {0x1B} offs: 40 ( Y_P )
-DBG {0x1} #116 NewLine, code offs: 885 
-DBG #116 cmd  , code offs: 885 
-DBG #116 Label: 27 , code offs: 885 
-DBG {0x1} #118 NewLine, code offs: 888 
-DBG #118 cmd  , code offs: 888 
-JMP {0x14} Label: 16 (line 83 )
-DBG #118 Label: 15 , code offs: 891 
+DBG {0x1} #111 NewLine, code offs: 885 
+DBG #111 cmd  , code offs: 885 
+DBG #111 Label: 27 , code offs: 885 
+DBG {0x1} #113 NewLine, code offs: 888 
+DBG #113 cmd  , code offs: 888 
+JMP {0x14} Label: 16 (line 78 )
+DBG #113 Label: 15 , code offs: 891 
 END {0x3} 

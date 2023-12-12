@@ -12,11 +12,8 @@ static const char *parse_errorrs_str[] = {ERRORS_LIST};
 #undef CONV_TYPE
 
 parse_error_t PrintError(parse_result_t *result, parse_error_t error) {
-    fprintf(stderr, "\nError: line:%d, pos:%d, ", result->line_str.line_num, result->line_str.line_pnt_ro);
-    // if (token_str) {
-    //     printf("(%s) ", token);
-    // }
-    fprintf(stderr, "(%s) %s(%d)", result->token.data, GetParseErrorStr(error), error);
+    fprintf(stderr, "\nError: line:%d, pos:%d, next to (%s) %s(%d)", result->line_str.line_num, result->line_str.line_pnt_ro,
+            result->token.data, GetParseErrorStr(error), error);
 
     return error;
 }
@@ -100,25 +97,7 @@ parse_error_t parse_string(parse_result_t *result, const char *token_str, const_
                     return pe_array_or_string_too_long;
                 }
             }
-        } /*else if (CUR_SYM() == '\\') {
-            SKIP_SYM();
-            uint8_t params_type;
-            switch (CUR_SYM()) {
-                case 'n':
-                    params_type = print_ss_newline;
-                    break;
-                case 't':
-                    params_type = print_ss_tab;
-                    break;
-                default:
-                    return pe_expression_invalid;
-            }
-            SKIP_SYM();
-            result->params_str.params_type[result->params_str.params_cnt] = params_type;
-            result->params_str.params_cnt++;
-            *const_array_info = NULL;
-            return pe_no_error;
-        }*/
+        }
     }
     return pe_expression_invalid;
 }
@@ -248,11 +227,11 @@ int get_cmd_info_pnt(char *token) {
 
 parse_error_t check_sym(parse_result_t *result, uint8_t step, char optional_step) {
     MSG_DBG(DL_DBG1, "CASE sym check   cur_cmd:%d", result->cur_cmd);
-    parse_error_t pe = GetToken(result);
-    RETURN_ON_ERROR(pe);
+    parse_error_t pe = pe_no_error;  // GetToken(result);
+                                     // RETURN_ON_ERROR(pe);
 
     MSG_DBG(DL_DBG1, "compare, expect >%c< VS available >%c<", step, CUR_SYM());
-    if (CUR_SYM() != step) {
+    if (GET_CUR_SKIP_SPACES() != step) {
         if (!optional_step) {
             MSG_DBG(DL_DBG, "symbol '%c' is missing", step);
         }
