@@ -25,7 +25,7 @@ void ParseFree(parse_result_t *result) {
     VECTOR_FREE(result->const_arrays_vect);
     VECTOR_FREE(result->block_vect);
 
-    VECTOR_FREE(result->line_pnts_vect);
+    // VECTOR_FREE(result->line_pnts_vect);
     VECTOR_FREE(result->obj_main_vect);
     VECTOR_FREE(result->obj_subs_vect);
 }
@@ -41,9 +41,9 @@ parse_error_t ParseLine(parse_result_t *result, int line_num, char *line, int li
     // result->past_cmd = cmd_ext_id_NOP;
     result->params_lvl = 0;
     result->enable_code_gen = 1;
-    result->enable_code_gen_back = 1;
-    //   result->var_info = NULL;
-    // result->func_info = NULL;
+    // result->enable_code_gen_back = 1;
+    //    result->var_info = NULL;
+    //  result->func_info = NULL;
     result->ctx_var_info.array_compile_time_idx = -1;
     result->ctx_var_info.var_info = NULL;
 

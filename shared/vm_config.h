@@ -7,7 +7,7 @@
 #define PRG_ADDR_BITS 16
 // #define ARRAY_INDEX_BITS 8
 #define FUNC_MAX_PARAMS 5
-#define TOKEN_MAX_LEN 10
+#define TOKEN_MAX_LEN 20
 
 #include "fptc.h"
 

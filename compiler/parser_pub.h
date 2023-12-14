@@ -48,7 +48,9 @@ VECTOR(int, ints_vect_t);
 typedef enum {
     vt_none = 0,
     vt_generic,  // fixed point variable
+    vt_arrays = 0x80,
     vt_array_of_byte,
+    vt_array_of_generic,
 } var_type_t;
 
 typedef struct {
@@ -56,7 +58,8 @@ typedef struct {
     int in_block;
     var_type_t type;
     int mem_offs;
-    uint8_t size;  // array max size 255
+    int mem_size;
+    int elm_count;  // array max size 255
     char name[TOKEN_MAX_LEN];
 } var_info_t;
 VECTOR(var_info_t, var_vect_t);
@@ -149,9 +152,9 @@ typedef struct {
 
 typedef struct {
     char enable_code_gen;
-    char enable_code_gen_back;
+    // char enable_code_gen_back;
     line_str_t line_str;
-    bytes_vect_t line_pnts_vect;
+    // bytes_vect_t line_pnts_vect;
     token_str_t token;
     char token_back[TOKEN_MAX_LEN];
     // int labels_max;

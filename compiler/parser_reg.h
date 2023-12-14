@@ -28,22 +28,21 @@ char GetCurSymSkipSpaces(parse_result_t *result);
 // #define EOL_FLAG() result->line_str.new_line_fl
 #define SYM_ROLLBACK() result->line_str.line_pnt_ro--
 
-#define LINE_PNT_STORE()                \
-    VECTOR_NEW(result->line_pnts_vect); \
-    VECTOR_LAST(result->line_pnts_vect) = result->line_str.line_pnt_ro
-#define LINE_PNT_RESTORE()                                              \
-    result->line_str.line_pnt_ro = VECTOR_LAST(result->line_pnts_vect); \
-    VECTOR_POP(result->line_pnts_vect)
-#define LINE_PNT_POP() VECTOR_POP(result->line_pnts_vect)
+#define LINE_PNT_STORE() int line_pnt_back = result->line_str.line_pnt_ro
+//    VECTOR_NEW(result->line_pnts_vect);
+//    VECTOR_LAST(result->line_pnts_vect) = result->line_str.line_pnt_ro
+#define LINE_PNT_RESTORE() result->line_str.line_pnt_ro = line_pnt_back
+//    result->line_str.line_pnt_ro = VECTOR_LAST(result->line_pnts_vect);
+//   VECTOR_POP(result->line_pnts_vect)
+// #define LINE_PNT_POP() VECTOR_POP(result->line_pnts_vect)
 
-#define CODE_GEN_ENABLE() result->enable_code_gen = 1
-#define CODE_GEN_DISABLE() result->enable_code_gen = 0
-#define CODE_GEN_BACKUP_AND_DISABLE()                           \
-    if (result->enable_code_gen) {                              \
-        result->enable_code_gen_back = result->enable_code_gen; \
-        result->enable_code_gen = 0;                            \
-    }
-#define CODE_GEN_RESTORE() result->enable_code_gen = result->enable_code_gen_back
+// #define CODE_GEN_ENABLE() result->enable_code_gen = 1
+// #define CODE_GEN_DISABLE() result->enable_code_gen = 0
+#define CODE_GEN_BACKUP_AND_DISABLE()               \
+    char enable_code_gen = result->enable_code_gen; \
+    result->enable_code_gen = 0;
+
+#define CODE_GEN_RESTORE() result->enable_code_gen = enable_code_gen
 
 // void CopyNameFromToken(parse_result_t *result, char *to);
 #define CopyNameFromToken(to) strncpy(to, result->token.data, result->token.size);

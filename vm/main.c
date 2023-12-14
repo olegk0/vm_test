@@ -63,6 +63,7 @@ void init_screen() {
 
     // timeout(5000);
     //  int c = getch();
+    curs_set(0);
 }
 
 int main(int argc, char **argv) {
@@ -127,6 +128,7 @@ int main(int argc, char **argv) {
 #ifdef WRITE_LOG
                 fclose(outLogP);
 #endif
+                timeout(-1);
                 getch();
                 endwin();
                 return ret;

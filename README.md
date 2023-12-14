@@ -14,7 +14,7 @@ Here is an attempt to write your own virtual machine.
 	/
     
 ### Relational Operators
-	=
+	==
 	!=
 	>
 	<

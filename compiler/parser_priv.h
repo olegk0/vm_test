@@ -10,7 +10,7 @@ extern "C" {
 #include <stdio.h>
 
 #define DEBUG 1
-#define DEBUG_LVL 1
+#define DEBUG_LVL 5
 
 #include "debug.h"
 
@@ -97,6 +97,7 @@ typedef struct {
     // int link;
     fpt value;  // if number
     ctx_var_info_t ctx_var_info;
+    char calc_comptime;
 #ifdef DEBUG
     char name[TOKEN_MAX_LEN];
 #endif
@@ -106,7 +107,8 @@ typedef enum {
     vsm_GET_VAR,
     vsm_SET_VAR,  // set generic var
     vsm_DECLARE_VAR,
-    vsm_DECLARE_ARRAY,
+    vsm_DECLARE_BYTE_ARRAY,
+    vsm_DECLARE_VAR_ARRAY,
     vsm_SET_ARRAY,  // as whole array
     vsm_GET_ARRAY,  // as whole array
 } var_set_mode_t;

@@ -1,115 +1,81 @@
+const snake_max_size 100
+const d_up 1
+const d_down 2
+const d_left 3
+const d_right 4
 
-const sname "some string"
-const aname {1,2,3,4}
+byte snake_x[snake_max_size]
+byte snake_y[snake_max_size]
+var snake_size
+var snake_dir
 
-const vname 123
-#stop
-byte var1[ 4+7 ]
-var var2
+func print_snake(tt) {
 
-func fun1(var10,var20) {
-		print_ln( var10, var20)
-	return 0
+	var new_x=snake_x[0]
+	var new_y=snake_y[0]
+	if snake_dir == d_left { #left
+		new_x=new_x-1
+	}else if snake_dir == d_up { #up
+		new_y=new_y-1
+	}else if snake_dir == d_down { #down
+		new_y=new_y+1
+	}else if snake_dir == d_right { #right
+		new_x=new_x+1
+	}
+	curs(new_x,new_y)
+	putc('X')
+	
+	var t=snake_size-1
+	curs(snake_x[t],snake_y[t])
+	putc(' ')
+	while(t>0){
+		snake_x[t]=snake_x[t-1]
+		snake_y[t]=snake_y[t-1]
+		
+		t=t-1
+		curs(snake_x[t],snake_y[t])
+		putc('#')
+	}
+	snake_x[0]=new_x
+	snake_y[0]=new_y
+	#return 0
 }
 
-func pwr2(st) {
-	var f
-	if( st > 1 ){
-		f =  2 * pwr2(st-1)
-	}else{
-		f=2
-	}
-	return f
-}
-
-const d_ampl 4
+	var scr_width = scr_w()
+	var scr_height = scr_h()
+	
+	snake_x[0]=scr_width/2
+	snake_y[0]=scr_height/2
+	snake_x[1]=snake_x[0]-1
+	snake_y[1]=snake_y[0]
+	snake_size=2
+	snake_dir=rand(1)+1
 
 	cls()
-	var width = scr_w()
-	var height = scr_h()
-	print_ln("\nh:",height," w:",width)
-	var x=0
-	var y=rand(height/2)
-	brkpnt
-	cls()
-	while( x<width ){
+#brkpnt
 
-		var d_x=rand(d_ampl)
-		while(x<width && d_x>0){
-		#brkpnt
-			var t = rand(45)
-			if t < 15 {
-				y = y - 1
-			}else if t < 30 {
-			} else {
-				y = y + 1
-			}
-			
-			if y >= height {
-				y= height - 1
-			} else if y < 0 {
-				y = 0 
-			}
-			
-			var t_y=0
-			while(t_y <= y){
-				curs(x,t_y)
-				#print_ln("x:",x," y:",t_y)
-				putc('#')
-				t_y=t_y+1
-			}
-
-			#curs(x,y)
-			#putc('#')
-			x=x+1
-			d_x=d_x-1
-		}
-
-		#print_ln(">x:",x," y:",y)
-		#x=x+1
-	}
 	puts("Use awsd keys, b - break")
 
 	var key
-	x = width /2
-	y = height/2
-	var x_p =x-1
-	var y_p =y
+
 	while(1){
+		sleep_ms(1000)
 		key = inkey(0)
-		if key = 'b' {
+		if key == 'b' {
 			break
-		}else if key = 'a' { #left
-			x=x-1
-			if x<0 {
-				x=0
-			}
-		}else if key = 'w' { #up
-			y=y-1
-			if y<0 {
-				y=0
-			}
-		}else if key = 's' { #down
-			y=y+1
-			if y>=height {
-				y=height-1
-			}
-		}else if key = 'd' { #right
-			x=x+1
-			if x>=width {
-				x=width-1
-			}
+		}else if key == 'a' { #left
+			snake_dir=d_left
+		}else if key == 'w' { #up
+			snake_dir=d_up
+		}else if key == 's' { #down
+			snake_dir=d_down
+		}else if key == 'd' { #right
+			snake_dir=d_right
+		}else if key == 'i' { #inc
+			snake_size=snake_size+1
 		}
-		
-		if x_p != x || y_p != y {
-			curs(x_p,y_p)
-			putc(' ')
-			curs(x,y)
-			putc('@')
-			x_p=x
-			y_p=y
-		}
-		
+#print_ln("snake_dir:",snake_dir)
+		print_snake(0)
 	}
 
 

@@ -14,7 +14,7 @@ static const char *vm_ops_str[] = {VM_CMD_LIST};
 #undef CONV_TYPE
 
 #define STACK_SIZE 400
-static uint8_t stack[STACK_SIZE];
+static uint8_t mem_heap[STACK_SIZE + 10];
 static int sp;
 static int hp;
 static int ip;
@@ -31,7 +31,7 @@ void dump_stack() {
         if (ll == 0) {
             wprintw(stack_window, "%.4X:", i);
         }
-        wprintw(stack_window, " %.2X", stack[i]);
+        wprintw(stack_window, " %.2X", mem_heap[i]);
         ll++;
         if (ll >= 16) {
             wprintw(stack_window, "\n");
@@ -50,7 +50,7 @@ void dump_vars() {
         if (ll == 0) {
             wprintw(vars_window, "%.4X:", i);
         }
-        wprintw(vars_window, " %.2X", stack[i]);
+        wprintw(vars_window, " %.2X", mem_heap[i]);
         ll++;
         if (ll >= 16) {
             wprintw(vars_window, "\n");
@@ -92,40 +92,40 @@ void dump_code(uint8_t *code_block, int entry_point) {
 
 void push_var_pnt(int addr) {
     // MSG_DBG(DL_TRC, "PUSH pnt:%d", addr);
-    stack[sp] = addr & 0xff;
+    mem_heap[sp] = addr & 0xff;
     addr >>= 8;
     sp--;
-    stack[sp] = addr & 0xff;
+    mem_heap[sp] = addr & 0xff;
     sp--;
 }
 
 int pop_var_pnt() {
     int addr;
     sp++;
-    addr = stack[sp];
+    addr = mem_heap[sp];
     addr <<= 8;
     sp++;
-    addr |= stack[sp];
+    addr |= mem_heap[sp];
     // MSG_DBG(DL_TRC, "POP pnt:%d", addr);
     return addr;
 }
 
 void push_var_pnt_to_heap(int addr) {
     // MSG_DBG(DL_TRC, "PUSH pnt:%d", addr);
-    stack[hp] = addr & 0xff;
+    mem_heap[hp] = addr & 0xff;
     addr >>= 8;
     hp++;
-    stack[hp] = addr & 0xff;
+    mem_heap[hp] = addr & 0xff;
     hp++;
 }
 
 int pop_var_pnt_from_heap() {
     int addr;
     hp--;
-    addr = stack[hp];
+    addr = mem_heap[hp];
     addr <<= 8;
     hp--;
-    addr |= stack[hp];
+    addr |= mem_heap[hp];
     // MSG_DBG(DL_TRC, "POP pnt:%d", addr);
     return addr;
 }
@@ -139,23 +139,23 @@ TODO
 
 void push_code_addr(int addr) {
     // MSG_DBG(DL_TRC, "PUSH code pnt:%d", addr);
-    stack[sp] = addr & 0xff;
+    mem_heap[sp] = addr & 0xff;
     addr >>= 8;
     sp--;
-    stack[sp] = addr & 0xff;
+    mem_heap[sp] = addr & 0xff;
     sp--;
 }
 
 int pop_code_addr(/*int offset_no_change_sp*/) {
     int addr;
     /*if (offset_no_change_sp) {
-        addr = (stack[sp + offset_no_change_sp + 1] << 8) | stack[sp + offset_no_change_sp + 2];
+        addr = (mem_heap[sp + offset_no_change_sp + 1] << 8) | mem_heap[sp + offset_no_change_sp + 2];
     } else {*/
     sp++;
-    addr = stack[sp];
+    addr = mem_heap[sp];
     addr <<= 8;
     sp++;
-    addr |= stack[sp];
+    addr |= mem_heap[sp];
     //}
     // MSG_DBG(DL_TRC, "POP pnt:%d", addr);
     return addr;
@@ -163,20 +163,20 @@ int pop_code_addr(/*int offset_no_change_sp*/) {
 
 void push_code_addr_to_heap(int addr) {
     // MSG_DBG(DL_TRC, "PUSH pnt:%d", addr);
-    stack[hp] = addr & 0xff;
+    mem_heap[hp] = addr & 0xff;
     addr >>= 8;
     hp++;
-    stack[hp] = addr & 0xff;
+    mem_heap[hp] = addr & 0xff;
     hp++;
 }
 
 int pop_code_addr_from_heap() {
     int addr;
     hp--;
-    addr = stack[hp];
+    addr = mem_heap[hp];
     addr <<= 8;
     hp--;
-    addr |= stack[hp];
+    addr |= mem_heap[hp];
     // MSG_DBG(DL_TRC, "POP pnt:%d", addr);
     return addr;
 }
@@ -189,18 +189,19 @@ fpt pop_num() {
     for (int i = 0; i < BITS_TO_BYTES(FPT_BITS); i++) {
         val <<= 8;
         sp++;
-        val |= stack[sp];
-        MSG_DBG(DL_TRC, "Bpop:%d", stack[sp]);
+        val |= mem_heap[sp];
+        MSG_DBG(DL_TRC, "Bpop:%d", mem_heap[sp]);
     }
     MSG_DBG(DL_TRC, "val:%d", fpt2i(val));
     return val;
 }
 
 void push_num(fpt value) {
-    MSG_DBG(DL_TRC, "val:%d", fpt2i(value));
+    MSG_DBG(DL_DBG1, "val:%d", fpt2i(value));
     for (int i = 0; i < BITS_TO_BYTES(FPT_BITS); i++) {
-        stack[sp] = value & 0xff;
-        MSG_DBG(DL_TRC, "Bpush:%d", stack[sp]);
+        MSG_DBG(DL_DBG1, "sp:%d value:%d", sp, value);
+        mem_heap[sp] = value & 0xff;
+        MSG_DBG(DL_TRC, "Bpush:%d", mem_heap[sp]);
         value >>= 8;
         sp--;
     }
@@ -248,7 +249,7 @@ void print_gen_num(fpt value) {
 uint8_t *get_var_pnt(int *size) {
     uint8_t *pnt;
     sp++;
-    uint8_t pnt_type = stack[sp];
+    uint8_t pnt_type = mem_heap[sp];
     MSG_DBG(DL_TRC, "pnt_type:%d", pnt_type);
     switch (pnt_type) {
         case vvt_const_array_pnt: {
@@ -261,7 +262,7 @@ uint8_t *get_var_pnt(int *size) {
         case vvt_inline:
             /*const_block[vm_header->const_block_size];*/
             *size = BITS_TO_BYTES(VARS_ADDR_BITS);
-            pnt = stack + sp + 1;
+            pnt = mem_heap + sp + 1;
             sp += *size;
             break;
     }
@@ -327,6 +328,10 @@ err_code_t call_funcs(uint8_t func_type, uint8_t func_id, fpt *ret_value) {
                     freq = freq;
                     len = len;
                     beep();
+                } break;
+                case func_SLEEP_MS: {
+                    int uS = fpt2i(pop_num());
+                    usleep(uS * 1000);
                 } break;
                 case func_OUT: {
                     int data = fpt2i(pop_num());
@@ -453,8 +458,9 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 3. vars [var_offset]  =  value
                 */
                 READ_VAR_OFFS(var_offs);
-                uint8_t byte = code_block[ip + 1];
-                stack[var_offs] = byte;
+                uint8_t byte = code_block[ip + 3];
+                // MSG_DBG(DL_TRC, "LOAD_BYTE:%d to %d", byte, var_offs);
+                mem_heap[var_offs] = byte;
             } break;
             case vmo_POP_TO_NOWHERE: {
                 /*
@@ -469,7 +475,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 3. vars[byte_offset]  =  value( byte)
                 */
                 READ_VAR_OFFS(var_offs);
-                stack[var_offs] = stack[sp + BITS_TO_BYTES(FPT_WBITS)];
+                mem_heap[var_offs] = mem_heap[sp + BITS_TO_BYTES(FPT_WBITS)];
                 sp += BITS_TO_BYTES(FPT_BITS);
             } break;
             case vmo_POP_VAR: {
@@ -481,8 +487,8 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 READ_VAR_OFFS(var_offs);
                 for (int i = BITS_TO_BYTES(FPT_BITS) - 1; i >= 0; i--) {
                     sp++;  // stack up
-                    stack[var_offs + i] = stack[sp];
-                    // MSG_DBG(DL_TRC, "POP_VAR:%d", stack[sp]);
+                    mem_heap[var_offs + i] = mem_heap[sp];
+                    // MSG_DBG(DL_TRC, "POP_VAR:%d", mem_heap[sp]);
                 }
             } break;
             case vmo_POP_bARRAY_BY_IDX: {
@@ -494,9 +500,9 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 */
                 {
                     READ_VAR_OFFS(var_offs);
-                    int arr_idx = stack[sp + BITS_TO_BYTES(FPT_BITS) + BITS_TO_BYTES(FPT_WBITS)];  // ARRAY_INDEX_BITS == 8
-                    uint8_t val = stack[sp + BITS_TO_BYTES(FPT_WBITS)];
-                    stack[var_offs + arr_idx + 1] = val;
+                    int arr_idx = mem_heap[sp + BITS_TO_BYTES(FPT_BITS) + BITS_TO_BYTES(FPT_WBITS)];  // ARRAY_INDEX_BITS == 8
+                    uint8_t val = mem_heap[sp + BITS_TO_BYTES(FPT_WBITS)];
+                    mem_heap[var_offs + arr_idx + 1] = val;
                     // printf("var_offs: %d, arr_idx: %d, value: %d\n", var_offs, arr_idx, val);
                     sp += BITS_TO_BYTES(FPT_BITS) * 2;  // arr_idx and value
                 }
@@ -507,8 +513,8 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 2. PUSH value
                 */
                 for (int i = 1; i <= BITS_TO_BYTES(FPT_BITS); i++) {
-                    stack[sp] = code_block[ip + i];
-                    MSG_DBG(DL_TRC, "PUSH_NUM:%d", stack[sp]);
+                    mem_heap[sp] = code_block[ip + i];
+                    MSG_DBG(DL_TRC, "PUSH_NUM:%d", mem_heap[sp]);
                     sp--;  // stack down
                 }
                 break;
@@ -519,12 +525,12 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 3. PUSH const_offset(gen_num)
                 4. PUSH const_type(byte)
                 */
-                stack[sp] = code_block[ip + 1];  // offs1
+                mem_heap[sp] = code_block[ip + 1];  // offs1
                 sp--;
-                stack[sp] = code_block[ip + 2];  // offs2
+                mem_heap[sp] = code_block[ip + 2];  // offs2
                 sp--;
-                stack[sp] = code_block[ip + 3];  // type
-                // MSG_DBG(DL_TRC, "type:%d", stack[sp]);
+                mem_heap[sp] = code_block[ip + 3];  // type
+                // MSG_DBG(DL_TRC, "type:%d", mem_heap[sp]);
                 MSG_INF("offs:%d  type:%d", (code_block[ip + 2] << 8) | code_block[ip + 1], code_block[ip + 3]);
                 sp--;
             } break;
@@ -536,9 +542,9 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 READ_VAR_OFFS(var_offs);
                 int val = 0;
                 for (int i = 0; i < BITS_TO_BYTES(FPT_BITS); i++) {
-                    stack[sp] = stack[var_offs + i];
-                    val |= stack[sp] << (8 * i);
-                    //  MSG_INF("PUSH_VAR:%d  %d", val, stack[sp]);
+                    mem_heap[sp] = mem_heap[var_offs + i];
+                    val |= mem_heap[sp] << (8 * i);
+                    // MSG_INF("PUSH_VAR:%d  %d", val, mem_heap[sp]);
                     sp--;  // stack down
                 }
                 MSG_INF("value:%d", val >> 8);
@@ -549,7 +555,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 2. PUSH vars[byte_offset] (as gen_num)
                 */
                 READ_VAR_OFFS(var_offs);
-                push_num(i2fpt(stack[var_offs]));
+                push_num(i2fpt(mem_heap[var_offs]));
             } break;
             case vmo_PUSH_bARRAY_BY_IDX: {
                 /*
@@ -559,9 +565,9 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 */
                 {
                     READ_VAR_OFFS(var_offs);
-                    int arr_idx = stack[sp + BITS_TO_BYTES(FPT_WBITS)];  // ARRAY_INDEX_BITS == 8
-                    sp += BITS_TO_BYTES(FPT_BITS);                       // pop arr_idx
-                    uint8_t val = stack[var_offs + arr_idx + 1];
+                    int arr_idx = mem_heap[sp + BITS_TO_BYTES(FPT_WBITS)];  // ARRAY_INDEX_BITS == 8
+                    sp += BITS_TO_BYTES(FPT_BITS);                          // pop arr_idx
+                    uint8_t val = mem_heap[var_offs + arr_idx + 1];
                     MSG_DBG(DL_TRC, "arr  offs:%d   idx:%d  val:%d", var_offs, arr_idx, val);
                     push_num(i2fpt(val));
                 }

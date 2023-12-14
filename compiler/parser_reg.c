@@ -103,38 +103,38 @@ parse_error_t RegisterLabel(parse_result_t *result, const char *token_str, char 
 */
 parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int array_size, var_set_mode_t mode, var_info_t **var_info) {
     MSG_DBG(DL_TRC, "line:%d  var:%s  array_size:%d  mode:%d", result->line_str.line_num, token_str, array_size, mode);
-    /*
-        if (array_size < 0) {
-            ttype = vt_generic;
-            tsize = BITS_TO_BYTES(FPT_BITS );  //
-        } else {                     // byte array
-            ttype = vt_array_of_byte;
-            tsize = array_size + BITS_TO_BYTES(ARRAY_INDEX_BITS);  //+size byte
-        }
-    */
+
     FIND_OBJECT(var);
     char new_object = 0;
     var_type_t ttype = vt_generic;
-    int tsize;
+    int mem_size = 0;
+    int elm_count = 0;
     switch (mode) {
         case vsm_GET_VAR:  // get generic or array element
             break;
         case vsm_SET_VAR:  // set generic var
             break;
-        case vsm_DECLARE_ARRAY:
+        case vsm_DECLARE_VAR_ARRAY:
+            ttype = vt_array_of_generic;
+            mem_size = array_size * BITS_TO_BYTES(FPT_BITS) + 1;
+            elm_count = array_size;
+            new_object = 1;
+            break;
+        case vsm_DECLARE_BYTE_ARRAY:
             ttype = vt_array_of_byte;
-            tsize = array_size + 1;  // ARRAY_INDEX_BITS / 8;
+            mem_size = array_size + 1;  // ARRAY_INDEX_BITS / 8;
+            elm_count = array_size;
             new_object = 1;
             break;
         case vsm_DECLARE_VAR:
-            tsize = BITS_TO_BYTES(FPT_BITS);
+            mem_size = BITS_TO_BYTES(FPT_BITS);
             new_object = 1;
             break;
         case vsm_SET_ARRAY:
-            ttype = vt_array_of_byte;
+            ttype = vt_arrays;
             break;
         case vsm_GET_ARRAY:
-            ttype = vt_array_of_byte;
+            ttype = vt_arrays;
             break;
         default:
             return pe_syntax_invalid;
@@ -147,22 +147,24 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
             return pe_object_exist;
         } else {
             *var_info = found_obj;
-            if (found_obj->type != ttype) {
+            if (!(found_obj->type & ttype)) {  // TODO
                 // MSG_ERR("Var: %s already declared", token_str);
-                if (new_object) {
-                    return pe_var_redeclare;
-                }
                 return pe_var_incompatible;
             }
-            if (array_size > 0 && array_size + 1 >= (*var_info)->size) {
+            if (array_size > 0 && array_size >= (*var_info)->elm_count) {
                 return pe_array_index_overrange;
             }
         }
         // return pe_no_error;
-    } else {  // Not Found
+    } else {                   // Not Found
+        if (mem_size > 255) {  // There is a size limit for now
+            MSG_ERR("At the moment the physical size of the array is limited to 255 bytes.");
+            return pe_array_index_overrange;
+        }
         NOT_FOUND_OBJECT(var);
         (*var_info)->type = ttype;
-        (*var_info)->size = tsize;
+        (*var_info)->elm_count = elm_count;
+        (*var_info)->mem_size = mem_size;
         (*var_info)->in_block = VECTOR_SIZE(result->block_vect);
         (*var_info)->subs_body = result->subs_body;
         ret = VmOp_VarHeap(result, (*var_info), 1);
@@ -171,7 +173,7 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
         if (result->vars_memory > result->vars_memory_max) {
             result->vars_memory_max = result->vars_memory;
         }*/
-        MSG_DBG(DL_DBG, "Register var:%s, type:%s, size:%d, subs_body:%d", token_str, array_size < 0 ? "generic" : "array", tsize, (*var_info)->subs_body);
+        MSG_DBG(DL_DBG, "Register var:%s, type:%s, mem_size:%d, subs_body:%d", token_str, array_size < 0 ? "generic" : "array", mem_size, (*var_info)->subs_body);
     }
 
     return ret;
@@ -184,7 +186,7 @@ parse_error_t UnregisterLastBlockVars(parse_result_t *result) {
     while (VECTOR_SIZE(result->vars_vect) > 0) {
         var_info_t *last_obj = VECTOR_LAST_PNT(result->vars_vect);
         if (last_obj->in_block == in_block) {
-            MSG_DBG(DL_DBG, "UnRegister var:%s, type:%d, size:%d  in_block:%d", last_obj->name, last_obj->type, last_obj->size, in_block);
+            MSG_DBG(DL_DBG, "UnRegister var:%s, type:%d, mem_size:%d  in_block:%d", last_obj->name, last_obj->type, last_obj->mem_size, in_block);
             pe = VmOp_VarHeap(result, last_obj, 0);
             if (pe) {
                 break;

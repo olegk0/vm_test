@@ -22,6 +22,8 @@ typedef parse_error_t (*exp_pars_t)(parse_result_t *, expr_info_t *);
 parse_error_t register_expr(vm_ops_list_t ops, expr_info_t *l_expr, exp_pars_t exp_pars, parse_result_t *result) {
     expr_info_t r_expr;
 
+    r_expr.calc_comptime = l_expr->calc_comptime;
+
     parse_error_t pe = exp_pars(result, &r_expr);
     if (pe == pe_no_error) {
         if (l_expr->type == pcs_number && r_expr.type == pcs_number) {
@@ -128,7 +130,7 @@ parse_error_t ExpParse(parse_result_t *result) {
     expr_cur.type = 0;
     expr_cur.value = 0;
     result->brackets_cnt = 0;
-    result->calc_comptime = 0;
+    expr_cur.calc_comptime = 0;
     MSG_DBG(DL_TRC, ">line_pnt:%d", result->line_str.line_pnt_ro);
     parse_error_t pe = expLevel_0(result, &expr_cur);
     if (pe == pe_no_error) {
@@ -138,6 +140,7 @@ parse_error_t ExpParse(parse_result_t *result) {
             // pe = VmOp_ArgNum(result, expr_cur.value);
         }
     }
+    result->calc_comptime = 0;
     MSG_DBG(DL_TRC, "<pe:%d  line_pnt:%d   >%c<(%d)", pe, result->line_str.line_pnt_ro, CUR_SYM(), CUR_SYM());
     return pe;
 }
@@ -149,13 +152,14 @@ parse_error_t ExpParseCompileTime(parse_result_t *result, fpt *val) {
     expr_cur.type = 0;
     expr_cur.value = 0;
     result->brackets_cnt = 0;
-    result->calc_comptime = 1;
+    expr_cur.calc_comptime = 1;
     parse_error_t pe = expLevel_0(result, &expr_cur);
     if (pe == pe_no_error) {
         if (expr_cur.type != pcs_number) {
             MSG_DBG(DL_DBG, "Unable to evaluate expression at compile time");
             pe = pe_error_eval_exp;
         } else {
+            result->calc_comptime = 1;
             *val = expr_cur.value;
             // MSG_DBG(DL_DBG, " VAL:%d", *val);
             Print_fpt(expr_cur.value);
@@ -172,9 +176,10 @@ parse_error_t expLevel_0(parse_result_t *result, expr_info_t *expr_cur) {
     MSG_DBG(DL_TRC, "=line_pnt:%d  >%c<(%d)", result->line_str.line_pnt_ro, sym, sym);
     if (pe == pe_no_error) {
         SKIP_SYM();
-        if (sym == '=') {  // =
+        if (sym == '=' && CUR_SYM() == '=') {  // ==
+            SKIP_SYM();
             pe = register_expr(vmo_EQ, expr_cur, expLevel_0, result);
-        } else if (sym == '!' && CUR_SYM() == '=') {  // ||
+        } else if (sym == '!' && CUR_SYM() == '=') {  // !=
             SKIP_SYM();
             pe = register_expr(vmo_NE, expr_cur, expLevel_0, result);
         } else {
@@ -309,7 +314,7 @@ parse_error_t expLevel_6(parse_result_t *result, expr_info_t *expr_cur) {
         pe = register_expr(vmo_NOT, expr_cur, expLevel_6, result);
     } else {
         parse_type_t exp_type = parse_exp_token(result);
-        MSG_DBG(DL_DBG1, "exp_type:%d   line_pnt:%d  cur_sym:%c token.size:%d", exp_type, result->line_str.line_pnt_ro, CUR_SYM(), result->token.size);
+        MSG_DBG(DL_DBG1, "exp_type:%d  calc_comptime:%d  line_pnt:%d  cur_sym:%c token.size:%d", exp_type, expr_cur->calc_comptime, result->line_str.line_pnt_ro, CUR_SYM(), result->token.size);
         expr_cur->type = exp_type;
 #ifdef DEBUG
         if (result->token.size) {
@@ -323,7 +328,7 @@ parse_error_t expLevel_6(parse_result_t *result, expr_info_t *expr_cur) {
             } break;
             case pcs_number: {
                 ParseNum(result, expr_cur);
-                if (result->calc_comptime == 0) {
+                if (expr_cur->calc_comptime == 0) {
                     VmOp_ArgNum(result, expr_cur->value);
                 }
             } break;
@@ -355,7 +360,7 @@ parse_error_t expLevel_6(parse_result_t *result, expr_info_t *expr_cur) {
                         expr_cur->value = i2fpt(symb);
                         strncpy(expr_cur->name, "char", TOKEN_MAX_LEN);
                         expr_cur->type = pcs_number;
-                        if (result->calc_comptime == 0) {
+                        if (expr_cur->calc_comptime == 0) {
                             VmOp_ArgNum(result, expr_cur->value);
                         }
                     } else {
@@ -364,7 +369,9 @@ parse_error_t expLevel_6(parse_result_t *result, expr_info_t *expr_cur) {
                 }
             } break;
             case pcs_variable: {
+                // MSG_DBG(DL_TRC, "enable_code_gen:%d", result->enable_code_gen);
                 pe = ParseVar(result, vsm_GET_VAR, &expr_cur->ctx_var_info);
+                // MSG_DBG(DL_TRC, "enable_code_gen:%d", result->enable_code_gen);
                 if (pe == pe_no_error) {
                     pe = VmOp_ArgVar(result, &expr_cur->ctx_var_info);
                 } else {
@@ -374,7 +381,7 @@ parse_error_t expLevel_6(parse_result_t *result, expr_info_t *expr_cur) {
                         expr_cur->type = pcs_number;
                         expr_cur->value = const_gen_info->data;
                         strncpy(expr_cur->name, const_gen_info->name, TOKEN_MAX_LEN);
-                        if (result->calc_comptime == 0) {
+                        if (expr_cur->calc_comptime == 0) {
                             VmOp_ArgNum(result, expr_cur->value);
                         }
                     }

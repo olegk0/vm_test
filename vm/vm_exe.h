@@ -1,13 +1,13 @@
 #ifndef VM_EXE_H_
 #define VM_EXE_H_
 
-#include <stdint.h>
-#include "debug.h"
-#include "../shared/vm_config.h"
-
 // #define DEBUG 1
 #define DEBUG_LVL 2
 // #define WRITE_LOG
+
+#include <stdint.h>
+#include "debug.h"
+#include "../shared/vm_config.h"
 
 typedef enum {
     ec_ok,

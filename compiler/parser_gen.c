@@ -147,14 +147,14 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
     char token_str_bak[TOKEN_MAX_LEN] = {0};
     if (CUR_SYM() == '[') {  // array
         if (mode == vsm_DECLARE_VAR) {
-            return pe_syntax_invalid;
+            mode = vsm_DECLARE_VAR_ARRAY;
         }
         // is_array = 1;
         strncpy(token_str_bak, result->token.data, TOKEN_MAX_LEN);
         SKIP_SYM();  //'['
         MSG_DBG(DL_DBG, "is array, idx >[ ");
         fpt val;
-        if (mode == vsm_DECLARE_ARRAY) {
+        if (mode == vsm_DECLARE_BYTE_ARRAY || mode == vsm_DECLARE_VAR_ARRAY) {
             pe = ExpParseCompileTime(result, &val);
             if (pe == pe_no_error) {
                 array_size = fpt2i(val);
@@ -174,7 +174,7 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
             // ENABLE_CODE_GEN();
             if (pe == pe_no_error) {
                 ctx_var_info->array_compile_time_idx = fpt2i(val);
-                LINE_PNT_POP();
+                // LINE_PNT_POP();
             } else {
                 LINE_PNT_RESTORE();
                 if (pe == pe_error_eval_exp) {
@@ -198,7 +198,7 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
         } else {
             return pe_syntax_invalid;
         }
-    }
+    }  // array
 
     MSG_DBG(DL_DBG1, "cur_sym:>%c<", CUR_SYM());
 
@@ -335,7 +335,7 @@ parse_error_t Check_as_array(parse_result_t *result, char *token_str) {
                     pe = RegisterConstArray(result, result->token.data, NULL, 0, 0, &const_array_info);
                     if (pe == pe_no_error) {
                         const_action(result, const_array_info);
-                        LINE_PNT_POP();
+                        // LINE_PNT_POP();
                     } else {
                         LINE_PNT_RESTORE();
                     }
@@ -468,7 +468,7 @@ begin:
                                     MSG_DBG(DL_DBG, "End proc:%s  have_ret:%d", result->func_info->name, result->func_info->have_ret);
                                     if (!result->func_info->have_ret) {
                                         // VmOp_PopRet(result);
-                                        VmOp_ArgNum(result, FPT_ZERO);
+                                        //  VmOp_ArgNum(result, FPT_ZERO); move to VmOp_Return
                                     }
                                     pe = VmOp_Return(result, result->func_info);
                                     EndSubContext(result);
@@ -602,7 +602,7 @@ begin:
                         }
                     } break;
                     case cmd_id_BYTE:  // only array
-                        pe = ParseVar(result, vsm_DECLARE_ARRAY, &result->ctx_var_info);
+                        pe = ParseVar(result, vsm_DECLARE_BYTE_ARRAY, &result->ctx_var_info);
                         break;
                     case cmd_id_VAR:
                         pe = ParseVar(result, vsm_DECLARE_VAR, &result->ctx_var_info);
@@ -673,7 +673,7 @@ begin:
             LINE_PNT_STORE();
             pe = ExpParseCompileTime(result, &calc_val);
             if (pe == pe_no_error) {
-                LINE_PNT_POP();
+                // LINE_PNT_POP();
                 MSG_DBG(DL_DBG1, "___EXP1___");
                 if (result->cur_cmd == cmd_id_CONST) {
                     const_gen_info_t *const_gen_info;
@@ -682,7 +682,7 @@ begin:
                 }
             } else {
                 if (result->cur_cmd == cmd_id_CONST) {
-                    LINE_PNT_POP();
+                    // LINE_PNT_POP();
                     break;
                 }
                 MSG_DBG(DL_DBG1, "===EXP2===");
