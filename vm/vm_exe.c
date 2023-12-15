@@ -184,6 +184,25 @@ int pop_code_addr_from_heap() {
     TODO
 #endif
 
+void push_var(int var_offs) {
+    // int val = 0;
+    for (int i = 0; i < BITS_TO_BYTES(FPT_BITS); i++) {
+        mem_heap[sp] = mem_heap[var_offs + i];
+        // val |= mem_heap[sp] << (8 * i);
+        //  MSG_INF("PUSH_VAR:%d  %d", val, mem_heap[sp]);
+        sp--;  // stack down
+    }
+    // MSG_INF("value:%d", val >> 8);
+}
+
+void pop_var(int var_offs) {
+    for (int i = BITS_TO_BYTES(FPT_BITS) - 1; i >= 0; i--) {
+        sp++;  // stack up
+        mem_heap[var_offs + i] = mem_heap[sp];
+        // MSG_DBG(DL_TRC, "POP_VAR:%d", mem_heap[sp]);
+    }
+}
+
 fpt pop_num() {
     int val = 0;
     for (int i = 0; i < BITS_TO_BYTES(FPT_BITS); i++) {
@@ -306,6 +325,13 @@ err_code_t call_funcs(uint8_t func_type, uint8_t func_id, fpt *ret_value) {
                 case func_SCR_H:
                     (*ret_value) = i2fpt(getmaxy(main_window));
                     break;
+                case func_SCR_SYM: {
+                    int c_y = fpt2i(pop_num());
+                    int c_x = fpt2i(pop_num());
+                    // MSG_DBG(DL_DBG, "set cursor to x:%d y:%d", c_x, c_y);
+                    wmove(main_window, c_y, c_x);
+                    (*ret_value) = i2fpt(winch(main_window) & A_CHARTEXT);
+                } break;
                     // without ret
                 case func_PUTC: {
                     int ch = fpt2i(pop_num());
@@ -344,7 +370,7 @@ err_code_t call_funcs(uint8_t func_type, uint8_t func_id, fpt *ret_value) {
                 case func_CURS: {
                     int c_y = fpt2i(pop_num());
                     int c_x = fpt2i(pop_num());
-                    MSG_DBG(DL_DBG, "set cursor to x:%d y:%d", c_x, c_y);
+                    // MSG_DBG(DL_DBG, "set cursor to x:%d y:%d", c_x, c_y);
                     wmove(main_window, c_y, c_x);
                 } break;
                 default:
@@ -485,11 +511,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 3. vars[var_offset]  =  value
                 */
                 READ_VAR_OFFS(var_offs);
-                for (int i = BITS_TO_BYTES(FPT_BITS) - 1; i >= 0; i--) {
-                    sp++;  // stack up
-                    mem_heap[var_offs + i] = mem_heap[sp];
-                    // MSG_DBG(DL_TRC, "POP_VAR:%d", mem_heap[sp]);
-                }
+                pop_var(var_offs);
             } break;
             case vmo_POP_bARRAY_BY_IDX: {
                 /*
@@ -540,14 +562,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 2. PUSH vars[var_offset](gen_num)
                 */
                 READ_VAR_OFFS(var_offs);
-                int val = 0;
-                for (int i = 0; i < BITS_TO_BYTES(FPT_BITS); i++) {
-                    mem_heap[sp] = mem_heap[var_offs + i];
-                    val |= mem_heap[sp] << (8 * i);
-                    // MSG_INF("PUSH_VAR:%d  %d", val, mem_heap[sp]);
-                    sp--;  // stack down
-                }
-                MSG_INF("value:%d", val >> 8);
+                push_var(var_offs);
             } break;
             case vmo_PUSH_BYTE: {
                 /*
@@ -650,9 +665,14 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 }
                 // ret = ec_call_unknown_func;
             } break;
+            case vmo_STORE_RETVAL:
+                pop_var(vars_base - BITS_TO_BYTES(FPT_BITS));  // store return value (to special place in heap) from stack
+                break;
             case vmo_RET:
                 // ip = ret_addr;
                 //  ip = pop_code_addr(BITS_TO_BYTES(FPT_BITS));
+                hp = vars_base - BITS_TO_BYTES(FPT_BITS);
+                push_var(hp);                    // push return value from special place in heap
                 ip = pop_code_addr_from_heap();  // return address
                 vars_base = pop_var_pnt_from_heap();
                 cmd_size = 0;
@@ -673,6 +693,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 // ret_addr = ip + cmd_size;
                 push_var_pnt_to_heap(vars_base);
                 push_code_addr_to_heap(ip + cmd_size);  // return address
+                hp += BITS_TO_BYTES(FPT_BITS);          // reserve for return value
                 ip = func_offs;
                 vars_base = hp;
                 cmd_size = 0;

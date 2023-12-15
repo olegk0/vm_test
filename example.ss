@@ -1,3 +1,4 @@
+#SNAKE GAME
 const snake_max_size 100
 const d_up 1
 const d_down 2
@@ -9,8 +10,9 @@ byte snake_y[snake_max_size]
 var snake_size
 var snake_dir
 
-func print_snake(tt) {
 
+func print_snake(tt) {
+	var t
 	var new_x=snake_x[0]
 	var new_y=snake_y[0]
 	if snake_dir == d_left { #left
@@ -22,10 +24,19 @@ func print_snake(tt) {
 	}else if snake_dir == d_right { #right
 		new_x=new_x+1
 	}
-	curs(new_x,new_y)
-	putc('X')
+	#curs(new_x,new_y)
+	t=scr_sym(new_x,new_y)
+	if t != ' '{
+		if t=='@'{
+			snake_size=snake_size+1
+		}else{
+			ret_val(1)
+			goto f_end
+		}
+	}
+	putc('Q')
 	
-	var t=snake_size-1
+	t=snake_size-1
 	curs(snake_x[t],snake_y[t])
 	putc(' ')
 	while(t>0){
@@ -34,18 +45,22 @@ func print_snake(tt) {
 		
 		t=t-1
 		curs(snake_x[t],snake_y[t])
-		putc('#')
+		putc('o')
 	}
 	snake_x[0]=new_x
 	snake_y[0]=new_y
-	#return 0
+	ret_val (0)
+f_end:
 }
 
 	var scr_width = scr_w()
 	var scr_height = scr_h()
 	
+	var key
+	var f_skip=0
+	
 	snake_x[0]=scr_width/2
-	snake_y[0]=scr_height/2
+	snake_y[0]=scr_height/2 + 2
 	snake_x[1]=snake_x[0]-1
 	snake_y[1]=snake_y[0]
 	snake_size=2
@@ -54,12 +69,20 @@ func print_snake(tt) {
 	cls()
 #brkpnt
 
+	curs(scr_width/2, scr_height/2)
 	puts("Use awsd keys, b - break")
 
-	var key
 
 	while(1){
-		sleep_ms(1000)
+		sleep_ms(500-snake_size)
+		f_skip=f_skip+1
+		if(f_skip>5){
+			f_skip=0
+			curs(rand(scr_width),rand(scr_height))
+			putc('@')
+			curs(rand(scr_width),rand(scr_height))
+			putc('#')
+		}
 		key = inkey(0)
 		if key == 'b' {
 			break
@@ -71,11 +94,15 @@ func print_snake(tt) {
 			snake_dir=d_down
 		}else if key == 'd' { #right
 			snake_dir=d_right
-		}else if key == 'i' { #inc
-			snake_size=snake_size+1
 		}
+		
+		key=print_snake(0)
 #print_ln("snake_dir:",snake_dir)
-		print_snake(0)
+		if key {
+			curs(scr_width/2, 5)
+			puts("Game Over!!!")
+			break
+		}
 	}
 
 

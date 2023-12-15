@@ -22,11 +22,12 @@ const struct commands table_cmd[] = {
     //{"BEEP", cmd_id_BEEP, {'(', pcs_expression, ',', pcs_expression, ')', 0}},
     //{"OUT", cmd_id_OUT, {'(', pcs_expression, ',', pcs_expression, ')', 0}},
     //{"CLS", cmd_id_CLS, {'(', ')', 0}},
-    {"IF", cmd_id_IF, {pcs_expression, '{', 0}},  //
+    {"RET_VAL", cmd_id_RETURN, {pcs_expression, 0}},  //
+    {"IF", cmd_id_IF, {pcs_expression, '{', 0}},      //
     {"GOTO", cmd_id_GOTO, {pcs_token, 0}},
     {"WHILE", cmd_id_WHILE, {pcs_expression, '{', 0}},
     {"BREAK", cmd_id_BREAK, {0}},
-    {"RETURN", cmd_id_RETURN, {pcs_expression, 0}},
+    //{"RETURN", cmd_id_RETURN, {pcs_expression, 0}},
     {"BYTE", cmd_id_BYTE, {pcs_variable, 0}},
     {"VAR", cmd_id_VAR, {pcs_variable, '=' | pcs_MOD_optional, pcs_expression | pcs_MOD_optional, 0}},
     {"STOP", cmd_id_STOP, {0}},

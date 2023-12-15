@@ -12,7 +12,7 @@ static const char *parse_errorrs_str[] = {ERRORS_LIST};
 #undef CONV_TYPE
 
 parse_error_t PrintError(parse_result_t *result, parse_error_t error) {
-    fprintf(stderr, "\nError: line:%d, pos:%d, next to (%s) %s(%d)", result->line_str.line_num, result->line_str.line_pnt_ro,
+    fprintf(stderr, "\nError: line:%d, pos:%d, near the (%s) %s(%d)", result->line_str.line_num, result->line_str.line_pnt_ro,
             result->token.data, GetParseErrorStr(error), error);
 
     return error;
@@ -140,10 +140,14 @@ parse_error_t parse_array(parse_result_t *result, const char *token_str, const_a
 
 parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info_t *ctx_var_info) {
     parse_error_t pe = pe_no_error;
-    ctx_var_info->array_compile_time_idx = -1;
     MSG_DBG(DL_DBG1, "var:>%s<   mode:%d   cur_sym:%c", result->token.data, mode, CUR_SYM());
+    if (mode < vsm_DECLARE_end && result->declare_scope == 0) {
+        MSG_ERR("Variables must be declared at the beginning of the program/function");
+        return pe_syntax_invalid;
+    }
+
     int array_size = -1;
-    // char is_array = 0;
+    ctx_var_info->array_compile_time_idx = -1;
     char token_str_bak[TOKEN_MAX_LEN] = {0};
     if (CUR_SYM() == '[') {  // array
         if (mode == vsm_DECLARE_VAR) {
@@ -407,6 +411,7 @@ begin:
 
             VmOp_Debug(result, "cmd", result->token.data);
             MSG_DBG(DL_TRC, "cur_cmd:%d", result->cur_cmd);
+            char declare_var = 0;
             switch (result->cur_cmd) {
                 case cmd_id_BRKPNT:
                     VmOp_BreakPoint(result);
@@ -465,13 +470,15 @@ begin:
                         if (VECTOR_SIZE(result->block_vect) == 0) {  // top level
                             if (!double_pop) {
                                 if (result->func_info) {
-                                    MSG_DBG(DL_DBG, "End proc:%s  have_ret:%d", result->func_info->name, result->func_info->have_ret);
-                                    if (!result->func_info->have_ret) {
-                                        // VmOp_PopRet(result);
-                                        //  VmOp_ArgNum(result, FPT_ZERO); move to VmOp_Return
-                                    }
+                                    MSG_DBG(DL_DBG, "End proc:%s", result->func_info->name);
+                                    // if (!result->func_info->have_ret) {
+                                    //  VmOp_PopRet(result);
+                                    //   VmOp_ArgNum(result, FPT_ZERO); move to VmOp_Return
+                                    //}
                                     pe = VmOp_Return(result, result->func_info);
                                     EndSubContext(result);
+                                    result->declare_scope = 1;
+                                    declare_var = 1;
                                     // break;
                                 }
                                 break;
@@ -509,9 +516,20 @@ begin:
                         }
                     }
                     break;
+                case cmd_id_PROC:
+                    result->declare_scope = 1;
+                    //   break;
+                case cmd_id_VAR:
+                case cmd_id_CONST:
+                case cmd_id_BYTE:
+                    declare_var = 1;
+                    break;
                 default: {
                     MSG_DBG(DL_WRN, "TODO check cmd:%s", result->token.data);
                 }
+            }
+            if (declare_var == 0) {
+                result->declare_scope = 0;
             }
         } break;
         case pcs_multi_type: {  // string or expression or number or var
@@ -728,7 +746,8 @@ begin:
                             if (result->calc_comptime) {
                                 VmOp_ArgNum(result, calc_val);
                             }
-                            result->func_info->have_ret = 1;
+                            // result->func_info->have_return = 1;
+                            VmOp_Return_Value(result);
                         } else {
                             MSG_ERR("Unexpected return");
                             return pe_syntax_invalid;

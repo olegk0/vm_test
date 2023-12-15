@@ -93,7 +93,7 @@ typedef struct {
     int vm_code_offset;
     char name[TOKEN_MAX_LEN];
     // char main_func;
-    char have_ret;
+    // char have_return;
     ctx_var_info_t return_var;
 } func_info_t;
 VECTOR(func_info_t, func_vect_t);
@@ -195,6 +195,7 @@ typedef struct {
     bytes_vect_t obj_main_vect;
     bytes_vect_t obj_subs_vect;
     char subs_body;
+    char declare_scope;
 } parse_result_t;
 
 #ifdef __cplusplus

@@ -266,15 +266,21 @@ parse_error_t VmOp_Return(parse_result_t *result, func_info_t *func_info) {
     MSG_DBG(DL_TRC, "");
     parse_error_t pe = pe_no_error;
 
-    if (result->func_info->have_ret == 0) {  // ret var in stack
+    /*if (result->func_info->have_return == 0) {  // ret var in stack
         out_op(result, vmo_PUSH_NUM, 0);
         out_num(result, 0);
         put_code_num(result, 0, BITS_TO_BYTES(FPT_BITS));
         put_lst_sym(result, '\n');
-    }
+    }*/
     out_op(result, vmo_RET, 0);
     put_lst_sym(result, '\n');
     return pe;
+}
+
+void VmOp_Return_Value(parse_result_t *result) {
+    MSG_DBG(DL_TRC, "");
+    out_op(result, vmo_STORE_RETVAL, 0);
+    put_lst_sym(result, '\n');
 }
 
 void VmOp_ArgNum(parse_result_t *result, fpt value) {

@@ -55,7 +55,8 @@ typedef enum {
                     CONV_TYPE(CALL_INT_FUNC, 1 + 1),                            /**/                \
                     CONV_TYPE(CALL_PRG_FUNC, BITS_TO_BYTES(PRG_ADDR_BITS) + 1), /**/                \
                     CONV_TYPE(CALL_LIB_FUNC, 1 + 1),                            /**/                \
-                    CONV_TYPE(RET, 1),                                          /*[SP+1]->t, [SP]->[SP+1], POP, t->CodePointer*/
+                    CONV_TYPE(STORE_RETVAL, 1),                                 /**/                \
+                    CONV_TYPE(RET, 1),                                          /**/
 
 #define CONV_TYPE(cmd, size) vmo_##cmd
 typedef enum { VM_CMD_LIST
