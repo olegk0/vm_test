@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <curses.h>
@@ -68,19 +69,32 @@ void init_screen() {
 
 int main(int argc, char **argv) {
     if (argc < 2) {
-        printf("no file\n");
+        fprintf(stderr, "Usage: %s [-s] prog_file\n\t s - show machine state\n", argv[0]);
         return 1;
     }
+    char show_debug = 0;
+    int opt;
+    while ((opt = getopt(argc, argv, "s")) != -1) {
+        switch (opt) {
+            case 's':
+                show_debug = 1;
+                break;
+            default:
+                fprintf(stderr, "Invalid ops");
+                exit(EXIT_FAILURE);
+        }
+    }
+    opt = optind;
 
-    FILE *filePointer = fopen(argv[1], "r");
+    FILE *filePointer = fopen(argv[opt], "r");
     if (filePointer == NULL) {
-        printf("wrong file:%s\n", argv[1]);
+        printf("wrong file:%s\n", argv[opt]);
         return 1;
     }
 
 #ifdef WRITE_LOG
     char *file_name;
-    (file_name = strrchr(argv[1], '/')) ? file_name++ : (file_name = argv[1]);
+    (file_name = strrchr(argv[opt], '/')) ? file_name++ : (file_name = argv[opt]);
     char *file_ext = strrchr(file_name, '.');
     if (file_ext) {
         *file_ext = 0;
@@ -118,7 +132,7 @@ int main(int argc, char **argv) {
                 wprintw(log_window, "\tSubroutines size: %d bytes\n", vm_header.entry_point);
                 wprintw(log_window, "\tConst block size: %d bytes\n", vm_header.const_block_size);
                 wprintw(log_window, "\t___________\n\t%d bytes\n", vm_header.prg_size + vm_header.const_block_size);
-                err_code_t ret = Run(code_block, const_block, &vm_header, 1);
+                err_code_t ret = Run(code_block, const_block, &vm_header, show_debug);
                 wprintw(log_window, "\nret: %d\n", ret);
                 wrefresh(main_window);
                 wrefresh(stack_window);
@@ -135,7 +149,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-    fprintf(stderr, "Error read file %s\n", argv[1]);
+    fprintf(stderr, "Error read file %s\n", argv[opt]);
     fclose(filePointer);
 #ifdef WRITE_LOG
     fclose(outLogP);

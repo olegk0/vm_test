@@ -69,18 +69,34 @@ f_end:
 	cls()
 #brkpnt
 
-	curs(scr_width/2, scr_height/2)
+	curs(scr_width/3, scr_height/2)
 	puts("Use awsd keys, b - break")
 
+	key=scr_width-2
+	while(key>0){
+		curs(key, 0)
+		putc('#')
+		curs(key, scr_height-1)
+		putc('#')
+		key=key-1
+	}
+	key=scr_height-2
+	while(key>0){
+		curs(0, key)
+		putc('#')
+		curs(scr_width-1, key)
+		putc('#')
+		key=key-1
+	}
 
 	while(1){
 		sleep_ms(500-snake_size)
 		f_skip=f_skip+1
 		if(f_skip>5){
 			f_skip=0
-			curs(rand(scr_width),rand(scr_height))
+			curs(rand(scr_width-2)+1,rand(scr_height-2)+1)
 			putc('@')
-			curs(rand(scr_width),rand(scr_height))
+			curs(rand(scr_width-2)+1,rand(scr_height-2)+1)
 			putc('#')
 		}
 		key = inkey(0)
