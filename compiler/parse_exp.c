@@ -96,9 +96,10 @@ test for
 parse_type_t parse_exp_token(parse_result_t *result) {
     parse_error_t pe = GetToken(result);
     if (pe == pe_no_error) {
-        // printf("token_begin: %d  token_len:%d\n", *token_begin, token_len);
+        // MSG_DBG(DL_DBG, "token: %s  token_len:%d\n", result->token.data, result->token.size);
+        MSG_DBG(DL_DBG1, "next_sym >%c<  at  line_pnt:%d", CUR_SYM(), result->line_str.line_pnt_ro);
         if (result->token.size > 0) {
-            MSG_DBG(DL_DBG1, "next_sym >%c<  at  line_pnt:%d", CUR_SYM(), result->line_str.line_pnt_ro);
+            // MSG_DBG(DL_DBG1, "next_sym >%c<  at  line_pnt:%d", CUR_SYM(), result->line_str.line_pnt_ro);
             if (CUR_SYM() == '(') {  // this is probably the func
                 return pcs_function;
             }
@@ -358,7 +359,7 @@ parse_error_t expLevel_6(parse_result_t *result, expr_info_t *expr_cur) {
                     if (CUR_SYM() == '\'') {
                         SKIP_SYM();
                         expr_cur->value = i2fpt(symb);
-                        strncpy(expr_cur->name, "char", TOKEN_MAX_LEN);
+                        strncpy(expr_cur->name, "char", TOKEN_MAX_LEN);  // DEBUG
                         expr_cur->type = pcs_number;
                         if (expr_cur->calc_comptime == 0) {
                             VmOp_ArgNum(result, expr_cur->value);

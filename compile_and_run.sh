@@ -18,4 +18,4 @@ reset
 make
 popd
 
-vm/vm -s  example.sb
+vm/vm  example.sb

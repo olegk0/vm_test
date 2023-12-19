@@ -49,7 +49,7 @@
     }
 
 //////////////////
-parse_error_t RegisterLabel(parse_result_t *result, const char *token_str, char create_object, label_info_t **label_info) {
+parse_error_t RegisterLabel(parse_result_t *result, const char *token_str, bool create_object, label_info_t **label_info) {
     char buf[32];
     if (token_str == NULL) {
         token_str = buf;
@@ -159,7 +159,7 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
     } else {                   // Not Found
         if (mem_size > 255) {  // There is a size limit for now
             MSG_ERR("At the moment the physical size of the array is limited to 255 bytes.");
-            return pe_array_index_overrange;
+            return pe_syntax_invalid;
         }
         NOT_FOUND_OBJECT(var);
         (*var_info)->type = ttype;
@@ -200,7 +200,7 @@ parse_error_t UnregisterLastBlockVars(parse_result_t *result) {
     return pe;
 }
 
-parse_error_t RegisterSub(parse_result_t *result, const char *token_str, char new_object, func_info_t **func_info) {
+parse_error_t RegisterSub(parse_result_t *result, const char *token_str, bool new_object, func_info_t **func_info) {
     FIND_OBJECT(func);
 
     if (found_obj) { /*Found*/
@@ -223,8 +223,8 @@ parse_error_t RegisterSub(parse_result_t *result, const char *token_str, char ne
     return pe_no_error;
 }
 
-parse_error_t RegisterConstArray(parse_result_t *result, const char *token_str, uint8_t *data, uint8_t size, char new_object, const_array_info_t **const_array_info) {
-    MSG_DBG(DL_TRC, "token_str: %s  new_object:%d  size:%d", token_str, new_object, size);
+parse_error_t RegisterConstArray(parse_result_t *result, const char *token_str, void *data, uint8_t array_size, var_type_t type, bool new_object, const_array_info_t **const_array_info) {
+    MSG_DBG(DL_TRC, "token_str: %s  new_object:%d  size:%d", token_str, new_object, array_size);
     char buf[32];
     if (token_str == NULL) {
         if (!new_object) {
@@ -240,17 +240,46 @@ parse_error_t RegisterConstArray(parse_result_t *result, const char *token_str, 
         FOUND_OBJECT(const_array);
     } else { /*Not Found */
         NOT_FOUND_OBJECT(const_array);
-        (*const_array_info)->size = size;
-        memcpy((*const_array_info)->data, data, size);
-        (*const_array_info)->data[size] = 0;
+        if (type == vt_array_of_byte) {
+            for (int i = 0; i < array_size; i++) {
+                (*const_array_info)->data[i] = i2fpt(((uint8_t *)data)[i]);
+                // printf(": %c  %d %d\n", ((uint8_t *)data)[i], (*const_array_info)->data[i], fpt2i((*const_array_info)->data[i]));
+            }
+        } else {
+            type = vt_array_of_byte;
+            for (int i = 0; i < array_size; i++) {
+                (*const_array_info)->data[i] = ((fpt *)data)[i];
+                if (((fpt *)data)[i] < 0 || ((fpt *)data)[i] > i2fpt(255) || fpt_fracpart(((fpt *)data)[i])) {
+                    type = vt_array_of_generic;
+                }
+            }
+        }
+        switch (type) {
+            case vt_array_of_byte:
+                (*const_array_info)->mem_size = array_size + 1;  // ARRAY_INDEX_BITS / 8;
+                break;
+            case vt_array_of_generic:
+                (*const_array_info)->mem_size = array_size * BITS_TO_BYTES(FPT_BITS) + 1;
+                break;
+            default:
+                return pe_syntax_invalid;
+        }
+        if ((*const_array_info)->mem_size > 255) {  // There is a size limit for now
+            MSG_ERR("At the moment the physical size of the const is limited to 255 bytes.");
+            return pe_syntax_invalid;
+        }
+
+        (*const_array_info)->type = type;
+        (*const_array_info)->elm_count = array_size;
+        //(*const_array_info)->data[size] = 0;
         (*const_array_info)->mem_offs = result->const_memory;
-        result->const_memory += size + 1;
+        result->const_memory += (*const_array_info)->mem_size;
         MSG_DBG(DL_DBG, "Register ConstArray:%s at line:%d", token_str, result->line_str.line_num);
     }
     return pe_no_error;
 }
 
-parse_error_t RegisterConstGenVar(parse_result_t *result, const char *token_str, fpt data, char new_object, const_gen_info_t **const_gen_info) {
+parse_error_t RegisterConstGenVar(parse_result_t *result, const char *token_str, fpt data, bool new_object, const_gen_info_t **const_gen_info) {
     MSG_DBG(DL_TRC, "token_str: %s  new_object:%d", token_str, new_object);
     char buf[32];
     if (token_str == NULL) {
@@ -267,8 +296,6 @@ parse_error_t RegisterConstGenVar(parse_result_t *result, const char *token_str,
         FOUND_OBJECT(const_gen);
     } else { /*Not Found */
         NOT_FOUND_OBJECT(const_gen);
-        //(*const_gen_info)->mem_offs = result->const_memory;
-        // result->const_memory += BITS_TO_BYTES(FPT_BITS);
         (*const_gen_info)->data = data;
         MSG_DBG(DL_DBG, "Register ConstGenVar:%s at line:%d", token_str, result->line_str.line_num);
     }

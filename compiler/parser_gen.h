@@ -16,7 +16,9 @@ parse_error_t GetToken(parse_result_t *result);
 
 const char *GetParseErrorStr(parse_error_t error);
 
-parse_error_t Check_as_array(parse_result_t *result, char *token_str);
+// parse_error_t Parse_string(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info);
+// parse_error_t Parse_array(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info);
+parse_error_t Check_as_array(parse_result_t *result, char *token_str, bool look_in_constants, const_array_info_t *const_array_info);
 
 parse_error_t ParseStep(parse_result_t *result, uint8_t step, char optional_step);
 

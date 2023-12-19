@@ -9,6 +9,15 @@ static void put_sym(uint8_t sym) {
     fputc(sym, outLstP);
 }
 
+void to_num(uint8_t *dest_buf, int value, char bytes) {
+    while (bytes) {
+        *dest_buf = value & 0xff;
+        value >>= 8;
+        bytes--;
+        dest_buf++;
+    }
+}
+
 void fix_code_num(parse_result_t *result, char subs_body, int code_offset, int val, char bytes) {
     uint8_t *cpnt;
     if (subs_body) {
@@ -17,13 +26,7 @@ void fix_code_num(parse_result_t *result, char subs_body, int code_offset, int v
         cpnt = &result->obj_main_vect.data[code_offset];
     }
     val = val - code_offset - BITS_TO_BYTES(PRG_ADDR_BITS);
-    while (bytes) {
-        *cpnt = val & 0xff;
-        // result->vm_code_offset++;
-        val >>= 8;
-        bytes--;
-        cpnt++;
-    }
+    to_num(cpnt, val, bytes);
 }
 
 int main(int argc, char **argv) {
@@ -104,6 +107,7 @@ int main(int argc, char **argv) {
         printf("\tSubroutines size: %d bytes\n", vm_header.entry_point);
         printf("\tConst block size: %d bytes\n", vm_header.const_block_size);
         printf("\t___________\n\t%d bytes\n", vm_header.prg_size + vm_header.const_block_size);
+        printf("\tHeader size: %d bytes\n", (int)sizeof(vm_header));
         //  fclose(outLstP);
 
         snprintf(namebuf, sizeof(namebuf), "%s.sb", file_name);
@@ -112,10 +116,22 @@ int main(int argc, char **argv) {
             printf("error create file:%s\n", namebuf);
         } else {
             fwrite(&vm_header, 1, sizeof(vm_header), outExeP);
+            uint8_t nbuf[BITS_TO_BYTES(FPT_BITS) + 1];
             for (int i = 0; i < VECTOR_SIZE(ppr.const_arrays_vect); i++) {
                 // #if ARRAY_INDEX_BITS != 8
-                fwrite(&VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).size, 1, 1, outExeP);
-                fwrite(VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).data, 1, VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).size, outExeP);
+                // printf("%d: type:%d elm_count:%d mem_size:%d \n", i, VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).type, VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).elm_count, VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).mem_size);
+                fwrite(&VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).mem_size, 1, 1, outExeP);
+                if (VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).type == vt_array_of_byte) {
+                    for (int p = 0; p < VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).elm_count; p++) {
+                        nbuf[0] = fpt2i(VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).data[p]);
+                        fwrite(nbuf, 1, 1, outExeP);
+                    }
+                } else {
+                    for (int p = 0; p < VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).elm_count; p++) {
+                        to_num(nbuf, VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).data[p], BITS_TO_BYTES(FPT_BITS));
+                        fwrite(nbuf, BITS_TO_BYTES(FPT_BITS), 1, outExeP);
+                    }
+                }
             }
 
             if (VECTOR_SIZE(ppr.obj_subs_vect) > 0) {

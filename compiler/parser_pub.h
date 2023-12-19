@@ -9,6 +9,12 @@ extern "C" {
 
 #define FPT2STR
 
+enum {
+    FALSE,
+    TRUE
+};
+typedef unsigned char bool;
+
 #include <stdio.h>
 #include <stdint.h>
 #include "../shared/vector.h"
@@ -54,7 +60,7 @@ typedef enum {
 } var_type_t;
 
 typedef struct {
-    char subs_body;
+    bool subs_body;
     int in_block;
     var_type_t type;
     int mem_offs;
@@ -73,13 +79,16 @@ VECTOR(const_gen_info_t, const_gen_vect_t);
 
 typedef struct {
     char name[TOKEN_MAX_LEN];
-    uint8_t data[255];
-    uint8_t size;
+    fpt data[260];
+    int mem_size;
+    int elm_count;  // array max size 255
     int mem_offs;
+    var_type_t type;
 } const_array_info_t;
 VECTOR(const_array_info_t, const_array_vect_t);
 
 typedef struct {
+    bool is_pointer;
     int array_compile_time_idx;
     var_info_t *var_info;
 } ctx_var_info_t;
@@ -101,7 +110,7 @@ VECTOR(func_info_t, func_vect_t);
 typedef struct {
     int line_num;
     int code_offs;
-    char subs_body;
+    bool subs_body;
     int jmp_code_offs_arr[LINKS_BY_LABEL_MAX];
     int jmp_code_offs_cnt;
     int id;
@@ -142,7 +151,7 @@ typedef struct {
     char data[TOKEN_MAX_LEN];
     int size;
     uint8_t parsed_cmd;
-    char token_valid;
+    bool token_valid;
 } token_str_t;
 
 typedef struct {
@@ -151,7 +160,7 @@ typedef struct {
 } params_str_t;
 
 typedef struct {
-    char enable_code_gen;
+    bool enable_code_gen;
     // char enable_code_gen_back;
     line_str_t line_str;
     // bytes_vect_t line_pnts_vect;
@@ -171,7 +180,7 @@ typedef struct {
     // runtime state
     int block_id;
     // int cur_block;
-    char early_opened_block;
+    bool early_opened_block;
     block_vect_t block_vect;
 
     func_info_t *func_info;
@@ -185,7 +194,7 @@ typedef struct {
     ctx_var_info_t ctx_var_info;
     // Expression vars
     int brackets_cnt;
-    char calc_comptime;
+    bool calc_comptime;
     // int stack_size;
     int heap_memory_max;
     int heap_memory_max_back;
@@ -194,8 +203,8 @@ typedef struct {
     int heap_pnt_back;
     bytes_vect_t obj_main_vect;
     bytes_vect_t obj_subs_vect;
-    char subs_body;
-    char declare_scope;
+    bool subs_body;
+    bool declare_scope;
 } parse_result_t;
 
 #ifdef __cplusplus

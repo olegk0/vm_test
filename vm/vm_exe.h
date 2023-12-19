@@ -11,6 +11,7 @@
 
 typedef enum {
     ec_ok,
+    ec_end,
     ec_break_point,
     ec_inval_code,
     ec_call_unknown_func,

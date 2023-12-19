@@ -66,9 +66,13 @@ void dump_pnts(int entry_point) {
 
 void dump_code(uint8_t *code_block, int entry_point) {
     // wclear(code_window);
-    wprintw(code_window, "%.4X:", ip - entry_point);
+    int l_ip = ip - entry_point;
+    if (l_ip < 0) {
+        l_ip = ip;
+    }
+    wprintw(code_window, "%.4X:", l_ip);
 #ifdef WRITE_LOG
-    fprintf(outLogP, "%.4X:", ip - entry_point);
+    fprintf(outLogP, "%.4X:", l_ip);
 #endif
     for (int i = 0; i < 8; i++) {
         wprintw(code_window, " %.2X", code_block[i + ip]);
@@ -265,12 +269,13 @@ void print_gen_num(fpt value) {
     wprintw(main_window, "%s", str);
 }
 
-uint8_t *get_var_pnt(int *size) {
-    uint8_t *pnt;
+void *get_var_pnt(int *size, vm_var_type_t *pnt_type) {
+    void *pnt = NULL;
     sp++;
-    uint8_t pnt_type = mem_heap[sp];
+    *pnt_type = mem_heap[sp];
     MSG_DBG(DL_TRC, "pnt_type:%d", pnt_type);
-    switch (pnt_type) {
+    switch (*pnt_type) {
+        case vvt_const_generic_pnt:
         case vvt_const_array_pnt: {
             int addr = pop_var_pnt();
             MSG_DBG(DL_TRC, "addr:0x%X", addr);
@@ -284,6 +289,8 @@ uint8_t *get_var_pnt(int *size) {
             pnt = mem_heap + sp + 1;
             sp += *size;
             break;
+        default:
+            *size = 0;
     }
     return pnt;
 }
@@ -339,7 +346,8 @@ err_code_t call_funcs(uint8_t func_type, uint8_t func_id, fpt *ret_value) {
                 } break;
                 case func_PUTS: {
                     int size;
-                    uint8_t *pnt = get_var_pnt(&size);
+                    vm_var_type_t pnt_type;
+                    uint8_t *pnt = get_var_pnt(&size, &pnt_type);
                     print_str((char *)pnt, size);
                 } break;
                 case func_PUTN:
@@ -404,7 +412,8 @@ void print_from_stack(print_params_t *print_param) {
     switch (print_param->part_type) {
         case print_ss_const: {
             int size;
-            uint8_t *pnt = get_var_pnt(&size);
+            vm_var_type_t pnt_type;
+            uint8_t *pnt = get_var_pnt(&size, &pnt_type);
             print_str((char *)pnt, size);
         } break;
         case print_ss_expr:
@@ -448,7 +457,8 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
         }
         switch (cmd) {
             case vmo_END:
-                return ec_ok;
+                ret = ec_end;
+                break;
             case vmo_BREAK:
                 line_num = CODE_OFFS();
                 MSG_INF("Break point at line:%d", line_num);
@@ -587,6 +597,54 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                     push_num(i2fpt(val));
                 }
             } break;
+            case vmo_COPY_TO_bARRAY: {
+                /*
+                1. GET dest_array_offset
+                2. POP src_array_pnt(pnt with type)
+                3. Copy
+                */
+                READ_VAR_OFFS(dest_array_offset);
+                int src_array_size;
+                vm_var_type_t pnt_type;
+                void *src_array_pnt = get_var_pnt(&src_array_size, &pnt_type);
+                int dest_array_size = mem_heap[dest_array_offset];
+                dest_array_offset++;
+                if (pnt_type == vvt_const_generic_pnt) {
+                    fpt *array_pnt = (fpt *)src_array_pnt;
+                    for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
+                        mem_heap[dest_array_offset + i] = fpt2i(array_pnt[i]);
+                    }
+                } else {
+                    uint8_t *array_pnt = (uint8_t *)src_array_pnt;
+                    for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
+                        mem_heap[dest_array_offset + i] = array_pnt[i];
+                    }
+                }
+            } break;
+            case vmo_COPY_TO_gARRAY: {
+                /*
+                1. GET dest_array_offset
+                2. POP src_array_pnt(pnt with type)
+                3. Copy
+                */
+                READ_VAR_OFFS(dest_array_offset);
+                int src_array_size;
+                vm_var_type_t pnt_type;
+                void *src_array_pnt = get_var_pnt(&src_array_size, &pnt_type);
+                int dest_array_size = mem_heap[dest_array_offset];
+                fpt *dst_array_pnt = (fpt *)&mem_heap[dest_array_offset + 1];
+                if (pnt_type == vvt_const_generic_pnt) {
+                    fpt *src_array_pnt = (fpt *)src_array_pnt;
+                    for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
+                        dst_array_pnt[i] = src_array_pnt[i];
+                    }
+                } else {
+                    uint8_t *array_pnt = (uint8_t *)src_array_pnt;
+                    for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
+                        dst_array_pnt[i] = i2fpt(array_pnt[i]);
+                    }
+                }
+            } break;
             case vmo_JMP: {
                 /* internal procedures
                 1. GET offs(VARS_ADDR_BITS)
@@ -626,7 +684,8 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                         ...
                         */
                         int size;
-                        uint8_t *pnt = get_var_pnt(&size);
+                        vm_var_type_t pnt_type;
+                        uint8_t *pnt = get_var_pnt(&size, &pnt_type);
                         MSG_DBG(DL_TRC, "PRINT size:%d  cont:%X %X %X", size, pnt[0], pnt[1], pnt[2]);
                         print_params_t print_params[size * 2];
                         int pt = size - 1;
@@ -800,7 +859,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 ret = ec_inval_code;
         }
         MSG_DBG(DL_TRC, "=====");
-        if (print_stat) {
+        if (print_stat || ret) {
             // dump_pnts(vm_header->entry_point);
             dump_vars();
             dump_stack();

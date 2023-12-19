@@ -19,6 +19,7 @@ int get_func_info_pnt(parse_result_t *result) {
 
 parse_error_t parse_func_params(parse_result_t *result, int *params_cnt, func_param_type_t func_param_type) {
     parse_error_t pe;
+    const_array_info_t const_array_info;
     (*params_cnt) = 0;
     while (CUR_SYM()) {
         switch (CUR_SYM()) {
@@ -36,7 +37,7 @@ parse_error_t parse_func_params(parse_result_t *result, int *params_cnt, func_pa
                 pe = ExpParse(result);
                 break;
             case ft_array:
-                pe = Check_as_array(result, NULL);
+                pe = Check_as_array(result, NULL, TRUE, &const_array_info);
                 break;
             // case ft_byte:
             //     break;

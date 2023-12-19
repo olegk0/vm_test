@@ -116,11 +116,11 @@ int main(int argc, char **argv) {
     vm_header_t vm_header;
 
     if (fread(&vm_header, 1, sizeof(vm_header_t), filePointer) == sizeof(vm_header_t)) {
-        // printf("\nHeap(vars) memory min size: %d bytes\n", vm_header.heap_min_size);
-        // printf("\tMain programm size: %d bytes\n", vm_header.prg_size - vm_header.entry_point);
-        // printf("\tSubroutines size: %d bytes\n", vm_header.entry_point);
-        // printf("\tConst block size: %d bytes\n", vm_header.const_block_size);
-        // printf("\t___________\n\t%d bytes\n", vm_header.prg_size + vm_header.const_block_size);
+        printf("\nHeap(vars) memory min size: %d bytes\n", vm_header.heap_min_size);
+        printf("\tMain programm size: %d bytes\n", vm_header.prg_size - vm_header.entry_point);
+        printf("\tSubroutines size: %d bytes\n", vm_header.entry_point);
+        printf("\tConst block size: %d bytes\n", vm_header.const_block_size);
+        printf("\t___________\n\t%d bytes\n", vm_header.prg_size + vm_header.const_block_size);
 
         uint8_t const_block[vm_header.const_block_size];
         if (fread(const_block, 1, vm_header.const_block_size, filePointer) == vm_header.const_block_size) {
@@ -146,10 +146,16 @@ int main(int argc, char **argv) {
                 getch();
                 endwin();
                 return ret;
+            } else {
+                fprintf(stderr, "Error read programm block\n");
             }
+        } else {
+            fprintf(stderr, "Error read const block\n");
         }
+    } else {
+        fprintf(stderr, "Error read header block\n");
     }
-    fprintf(stderr, "Error read file %s\n", argv[opt]);
+
     fclose(filePointer);
 #ifdef WRITE_LOG
     fclose(outLogP);

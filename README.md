@@ -19,7 +19,7 @@ Here is an attempt to write your own virtual machine.
 	>
 	<
 	>=
-	<=    
+	<=
     
 ### Logical Operators
 	&&
@@ -33,7 +33,7 @@ Here is an attempt to write your own virtual machine.
 	
 ### Functions
 	FUNC - definition
-    RETURN
+	RET_VAL - set return value
  
 ### Other keywords
 	IF

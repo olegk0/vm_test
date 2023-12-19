@@ -75,7 +75,7 @@ const char *GetParseErrorStr(parse_error_t error) {
     return parse_errorrs_str[error];
 }
 
-parse_error_t parse_string(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info) {
+parse_error_t Parse_string(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info) {
     if (GET_CUR_SKIP_SPACES()) {
         MSG_DBG(DL_TRC, "next_sym >%c<", CUR_SYM());
         if (CUR_SYM() == '"') {  // string ?
@@ -90,7 +90,7 @@ parse_error_t parse_string(parse_result_t *result, const char *token_str, const_
                     MSG_DBG(DL_DBG, "string: >%.*s<", size, str);
                     // result->line_str.line_pnt_ro++;  //
                     SKIP_SYM();
-                    return RegisterConstArray(result, token_str, (uint8_t *)str, size, 1, const_array_info);
+                    return RegisterConstArray(result, token_str, str, size, vt_array_of_byte, TRUE, const_array_info);
                 }
                 size++;
                 if (size > 254) {
@@ -102,12 +102,12 @@ parse_error_t parse_string(parse_result_t *result, const char *token_str, const_
     return pe_expression_invalid;
 }
 
-parse_error_t parse_array(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info) {
+parse_error_t Parse_array(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info) {
     parse_error_t pe;
     if (GET_CUR_SKIP_SPACES() == '{') {  // array
         SKIP_SYM();
         MSG_DBG(DL_TRC, "next_sym >%c<", CUR_SYM());
-        uint8_t data[260];
+        fpt data[260];
         uint8_t size = 0;
         char c;
         while ((c = GET_CUR_SKIP_SPACES())) {
@@ -115,7 +115,7 @@ parse_error_t parse_array(parse_result_t *result, const char *token_str, const_a
             switch (c) {
                 case '}': {
                     SKIP_SYM();
-                    pe = RegisterConstArray(result, token_str, data, size, 1, const_array_info);
+                    pe = RegisterConstArray(result, token_str, data, size, vt_array_of_generic, TRUE, const_array_info);
                     return pe;
                 } break;
                 case ',':
@@ -127,7 +127,7 @@ parse_error_t parse_array(parse_result_t *result, const char *token_str, const_a
                     if (pe) {
                         return pe;
                     }
-                    data[size] = fpt2i(expr_cur.value);
+                    data[size] = expr_cur.value;
                     size++;
                     if (size > 254) {
                         return pe_array_or_string_too_long;
@@ -148,11 +148,15 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
 
     int array_size = -1;
     ctx_var_info->array_compile_time_idx = -1;
+    ctx_var_info->is_pointer = FALSE;
     char token_str_bak[TOKEN_MAX_LEN] = {0};
+    bool no_idx = TRUE;
+    // char is_array = 0;
     if (CUR_SYM() == '[') {  // array
         if (mode == vsm_DECLARE_VAR) {
             mode = vsm_DECLARE_VAR_ARRAY;
         }
+        no_idx = FALSE;
         // is_array = 1;
         strncpy(token_str_bak, result->token.data, TOKEN_MAX_LEN);
         SKIP_SYM();  //'['
@@ -214,6 +218,15 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
 
     if (pe == pe_no_error) {
         MSG_DBG(DL_DBG, "var type:%d", ctx_var_info->var_info->type);
+        if (ctx_var_info->var_info->type & vt_arrays) {
+            if (no_idx) {
+                ctx_var_info->is_pointer = TRUE;
+            }
+
+            //     if (is_array == 0) {
+            //         VmOp_ArgNum(result, FPT_ZERO);
+            //     }
+        }
     }
     return pe;
 }
@@ -312,31 +325,29 @@ void const_action(parse_result_t *result, const_array_info_t *const_array_info) 
     }
 }
 
-parse_error_t Check_as_array(parse_result_t *result, char *token_str) {
+parse_error_t Check_as_array(parse_result_t *result, char *token_str, bool look_in_constants, const_array_info_t *const_array_info) {
     MSG_DBG(DL_DBG1, "token_str: %s", token_str);
     parse_error_t pe = pe_no_error;
     // 1. check string
     // char str[250];
     // params_type
-    const_array_info_t *const_array_info;
-    pe = parse_string(result, token_str, &const_array_info);
+    pe = Parse_string(result, token_str, &const_array_info);
     if (pe == pe_no_error) {  // const
         if (const_array_info) {
             const_action(result, const_array_info);
         }
         MSG_DBG(DL_TRC, "string Ok  CUR_SYM():%d", CUR_SYM());
     } else {  // 2. check array
-        const_array_info_t *const_array_info;
-        pe = parse_array(result, token_str, &const_array_info);
+        pe = Parse_array(result, token_str, &const_array_info);
         if (pe == pe_no_error) {
             const_action(result, const_array_info);
         } else {
-            if (token_str == NULL) {  // 3. check expression
+            if (look_in_constants && token_str == NULL) {  // look in the list of constants
                 LINE_PNT_STORE();
                 pe = GetToken(result);
                 if (pe == pe_no_error) {
                     // MSG_DBG(DL_TRC, "token_str1:%s", result->token.data);
-                    pe = RegisterConstArray(result, result->token.data, NULL, 0, 0, &const_array_info);
+                    pe = RegisterConstArray(result, result->token.data, NULL, 0, vt_none, FALSE, &const_array_info);
                     if (pe == pe_no_error) {
                         const_action(result, const_array_info);
                         // LINE_PNT_POP();
@@ -539,7 +550,8 @@ begin:
                 token_str = result->token.data;
                 strncpy(result->token_back, token_str, TOKEN_MAX_LEN);
             }
-            pe = Check_as_array(result, token_str);
+            const_array_info_t const_array_info;
+            pe = Check_as_array(result, token_str, TRUE, &const_array_info);
             if (pe) {
                 pe = ParseStep(result, pcs_expression, optional_step);
             }
@@ -685,28 +697,41 @@ begin:
         case pcs_expression: {
             MSG_DBG(DL_DBG1, "CASE pcs_expression");
             // return pe_no_error;
-            MSG_DBG(DL_DBG1, "===EXP1===  %d", result->cur_cmd);
-
-            fpt calc_val;
-            LINE_PNT_STORE();
-            pe = ExpParseCompileTime(result, &calc_val);
+            // char array_copy = FALSE;
+            result->calc_comptime = 0;
+            fpt calc_val = 0;
+            const_array_info_t const_array_info;
+            pe = Check_as_array(result, NULL, FALSE, &const_array_info);
             if (pe == pe_no_error) {
-                // LINE_PNT_POP();
-                MSG_DBG(DL_DBG1, "___EXP1___");
-                if (result->cur_cmd == cmd_id_CONST) {
-                    const_gen_info_t *const_gen_info;
-                    pe = RegisterConstGenVar(result, result->token_back, calc_val, 1, &const_gen_info);
+                if (result->ctx_var_info.is_pointer) {
+                    // array_copy = TRUE;
+                } else {
+                    MSG_ERR("You can't copy an array to an array element");
+                    pe = pe_syntax_invalid;
                     break;
                 }
             } else {
-                if (result->cur_cmd == cmd_id_CONST) {
+                MSG_DBG(DL_DBG1, "===EXP1===  %d", result->cur_cmd);
+                LINE_PNT_STORE();
+                pe = ExpParseCompileTime(result, &calc_val);
+                if (pe == pe_no_error) {
                     // LINE_PNT_POP();
-                    break;
+                    MSG_DBG(DL_DBG1, "___EXP1___");
+                    if (result->cur_cmd == cmd_id_CONST) {
+                        const_gen_info_t *const_gen_info;
+                        pe = RegisterConstGenVar(result, result->token_back, calc_val, 1, &const_gen_info);
+                        break;
+                    }
+                } else {
+                    if (result->cur_cmd == cmd_id_CONST) {
+                        // LINE_PNT_POP();
+                        break;
+                    }
+                    MSG_DBG(DL_DBG1, "===EXP2===");
+                    LINE_PNT_RESTORE();
+                    pe = ExpParse(result);
+                    MSG_DBG(DL_DBG1, "___EXP2___");
                 }
-                MSG_DBG(DL_DBG1, "===EXP2===");
-                LINE_PNT_RESTORE();
-                pe = ExpParse(result);
-                MSG_DBG(DL_DBG1, "___EXP2___");
             }
             if (pe == pe_no_error) {
                 result->params_str.params_type[result->params_str.params_cnt] = print_ss_expr;
@@ -716,6 +741,7 @@ begin:
                     case cmd_ext_id_LET:
                         // assign a variable
                         if (result->ctx_var_info.var_info) {
+                            MSG_DBG(DL_DBG1, "calc_comptime:%d    is_pointer:%d", result->calc_comptime, result->ctx_var_info.is_pointer);
                             if (result->calc_comptime) {
                                 VmOp_ArgNum(result, calc_val);
                             }

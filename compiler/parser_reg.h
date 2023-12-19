@@ -8,12 +8,12 @@ extern "C" {
 #include "parser_pub.h"
 #include "parser_priv.h"
 
-parse_error_t RegisterLabel(parse_result_t *result, const char *token_str, char new_object, label_info_t **label_info);
+parse_error_t RegisterLabel(parse_result_t *result, const char *token_str, bool new_object, label_info_t **label_info);
 parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int array_size, var_set_mode_t mode, var_info_t **var_info);
 parse_error_t UnregisterLastBlockVars(parse_result_t *result);
-parse_error_t RegisterSub(parse_result_t *result, const char *token_str, char new_object, func_info_t **func_info);
-parse_error_t RegisterConstArray(parse_result_t *result, const char *token_str, uint8_t *data, uint8_t size, char new_object, const_array_info_t **const_array_info);
-parse_error_t RegisterConstGenVar(parse_result_t *result, const char *token_str, fpt data, char new_object, const_gen_info_t **const_gen_info);
+parse_error_t RegisterSub(parse_result_t *result, const char *token_str, bool new_object, func_info_t **func_info);
+parse_error_t RegisterConstArray(parse_result_t *result, const char *token_str, void *data, uint8_t size, var_type_t type, bool new_object, const_array_info_t **const_array_info);
+parse_error_t RegisterConstGenVar(parse_result_t *result, const char *token_str, fpt data, bool new_object, const_gen_info_t **const_gen_info);
 void EndSubContext(parse_result_t *result);
 int GetCodeOffset(parse_result_t *result);
 

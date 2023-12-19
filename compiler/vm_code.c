@@ -176,30 +176,39 @@ void VmOp_PopFake(parse_result_t *result) {
 parse_error_t VmOp_PopVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) {
     MSG_DBG(DL_TRC, "");
     int mem_offs = ctx_var_info->var_info->mem_offs;
+    vm_ops_list_t op_code;
     switch (ctx_var_info->var_info->type) {
         case vt_generic:
-            out_op(result, vmo_POP_VAR, ctx_var_info->var_info->subs_body);
+            op_code = vmo_POP_VAR;
             break;
         case vt_array_of_byte:
-            if (ctx_var_info->array_compile_time_idx >= 0) {
-                if (ctx_var_info->array_compile_time_idx >= ctx_var_info->var_info->elm_count) {
-                    return pe_array_index_overrange;
-                }
-                mem_offs += ctx_var_info->array_compile_time_idx + 1;  // skip size byte
-                out_op(result, vmo_POP_BYTE, ctx_var_info->var_info->subs_body);
+            if (result->ctx_var_info.is_pointer) {
+                op_code = vmo_COPY_TO_bARRAY;
             } else {
-                out_op(result, vmo_POP_bARRAY_BY_IDX, ctx_var_info->var_info->subs_body);
+                if (ctx_var_info->array_compile_time_idx >= 0) {
+                    if (ctx_var_info->array_compile_time_idx >= ctx_var_info->var_info->elm_count) {
+                        return pe_array_index_overrange;
+                    }
+                    mem_offs += ctx_var_info->array_compile_time_idx + 1;  // skip size byte
+                    op_code = vmo_POP_BYTE;
+                } else {
+                    op_code = vmo_POP_bARRAY_BY_IDX;
+                }
             }
             break;
         case vt_array_of_generic:
-            if (ctx_var_info->array_compile_time_idx >= 0) {
-                if (ctx_var_info->array_compile_time_idx >= ctx_var_info->var_info->elm_count) {
-                    return pe_array_index_overrange;
-                }
-                mem_offs += ctx_var_info->array_compile_time_idx * BITS_TO_BYTES(FPT_BITS) + 1;  // skip size byte
-                out_op(result, vmo_POP_VAR, ctx_var_info->var_info->subs_body);
+            if (result->ctx_var_info.is_pointer) {
+                op_code = vmo_COPY_TO_gARRAY;
             } else {
-                out_op(result, vmo_POP_gARRAY_BY_IDX, ctx_var_info->var_info->subs_body);
+                if (ctx_var_info->array_compile_time_idx >= 0) {
+                    if (ctx_var_info->array_compile_time_idx >= ctx_var_info->var_info->elm_count) {
+                        return pe_array_index_overrange;
+                    }
+                    mem_offs += ctx_var_info->array_compile_time_idx * BITS_TO_BYTES(FPT_BITS) + 1;  // skip size byte
+                    op_code = vmo_POP_VAR;
+                } else {
+                    op_code = vmo_POP_gARRAY_BY_IDX;
+                }
             }
             break;
         default:
@@ -207,11 +216,39 @@ parse_error_t VmOp_PopVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) 
             return pe_var_error_parse;
     }
 
+    out_op(result, op_code, ctx_var_info->var_info->subs_body);
     out_str(result, "offs:");
     out_num(result, mem_offs);
     put_code_num(result, mem_offs, BITS_TO_BYTES(VARS_ADDR_BITS));
     out_str(result, "(");
     out_str(result, ctx_var_info->var_info->name);
+    put_lst_sym(result, ')');
+    // out_num(result, vvt_var_generic);
+
+    put_lst_sym(result, '\n');
+    return pe_no_error;
+}
+
+parse_error_t VmOp_ArrayCopy(parse_result_t *result, ctx_var_info_t *to_ctx_var_info) {
+    MSG_DBG(DL_TRC, "");
+    int mem_offs = to_ctx_var_info->var_info->mem_offs;
+    switch (to_ctx_var_info->var_info->type) {
+        case vt_array_of_byte:
+            out_op(result, vmo_COPY_TO_bARRAY, to_ctx_var_info->var_info->subs_body);
+            break;
+        case vt_array_of_generic:
+            out_op(result, vmo_COPY_TO_gARRAY, to_ctx_var_info->var_info->subs_body);
+            break;
+        default:
+            MSG_DBG(DL_DBG, "Wrong var type:%d", to_ctx_var_info->var_info->type);
+            return pe_var_error_parse;
+    }
+
+    out_str(result, "offs:");
+    out_num(result, mem_offs);
+    put_code_num(result, mem_offs, BITS_TO_BYTES(VARS_ADDR_BITS));
+    out_str(result, "(");
+    out_str(result, to_ctx_var_info->var_info->name);
     put_lst_sym(result, ')');
     // out_num(result, vvt_var_generic);
 
@@ -318,8 +355,19 @@ parse_error_t VmOp_ArgConstArray(parse_result_t *result, const_array_info_t *con
     out_num(result, const_array_info->mem_offs);
     put_code_num(result, const_array_info->mem_offs, BITS_TO_BYTES(VARS_ADDR_BITS));
     out_str(result, "type:");
-    out_num(result, vvt_const_array_pnt);
-    put_code_num(result, vvt_const_array_pnt, 1);
+    vm_var_type_t type;
+    switch (const_array_info->type) {
+        case vt_array_of_byte:
+            type = vvt_const_array_pnt;
+            break;
+        case vt_array_of_generic:
+            type = vvt_const_generic_pnt;
+            break;
+        default:
+            return pe_syntax_invalid;
+    }
+    out_num(result, type);
+    put_code_num(result, type, 1);
     out_str(result, "(");
     out_str(result, const_array_info->name);
     put_lst_sym(result, ')');
@@ -343,42 +391,57 @@ parse_error_t VmOp_ArgConstInline(parse_result_t *result, unsigned int value) {
 parse_error_t VmOp_ArgVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) {
     MSG_DBG(DL_TRC, "");
     int mem_offs = ctx_var_info->var_info->mem_offs;
+    vm_ops_list_t op_code;
+    vm_var_type_t type = 0;
     switch (ctx_var_info->var_info->type) {
         case vt_generic:
-            out_op(result, vmo_PUSH_VAR, ctx_var_info->var_info->subs_body);
+            op_code = vmo_PUSH_VAR;
             break;
         case vt_array_of_byte:
+            type = vvt_var_byte_array_pnt;
             if (ctx_var_info->array_compile_time_idx >= 0) {
                 if (ctx_var_info->array_compile_time_idx >= ctx_var_info->var_info->elm_count) {
                     return pe_array_index_overrange;
                 }
                 mem_offs += ctx_var_info->array_compile_time_idx + 1;  // skip size byte
-                out_op(result, vmo_PUSH_BYTE, ctx_var_info->var_info->subs_body);
+                op_code = vmo_PUSH_BYTE;
             } else {
-                out_op(result, vmo_PUSH_bARRAY_BY_IDX, ctx_var_info->var_info->subs_body);
+                op_code = vmo_PUSH_bARRAY_BY_IDX;
             }
             break;
         case vt_array_of_generic:
+            type = vvt_var_generic_array_pnt;
             if (ctx_var_info->array_compile_time_idx >= 0) {
                 if (ctx_var_info->array_compile_time_idx >= ctx_var_info->var_info->elm_count) {
                     return pe_array_index_overrange;
                 }
                 mem_offs += ctx_var_info->array_compile_time_idx * BITS_TO_BYTES(FPT_BITS) + 1;  // skip size byte
-                out_op(result, vmo_PUSH_VAR, ctx_var_info->var_info->subs_body);
+                op_code = vmo_PUSH_VAR;
             } else {
-                out_op(result, vmo_PUSH_gARRAY_BY_IDX, ctx_var_info->var_info->subs_body);
+                op_code = vmo_PUSH_gARRAY_BY_IDX;
             }
             break;
         default:
             MSG_DBG(DL_DBG, "Wrong var type:%d", ctx_var_info->var_info->type);
             return pe_var_error_parse;
     }
+    if (ctx_var_info->is_pointer) {
+        op_code = vmo_PUSH_PNT;
+    } else {
+        type = 0;
+    }
+    out_op(result, op_code, ctx_var_info->var_info->subs_body);
     out_str(result, "offs:");
     out_num(result, mem_offs);
     put_code_num(result, mem_offs, BITS_TO_BYTES(VARS_ADDR_BITS));
     out_str(result, "(");
     out_str(result, ctx_var_info->var_info->name);
     put_lst_sym(result, ')');
+    if (type) {
+        out_str(result, " type:");
+        out_num(result, type);
+        put_code_num(result, type, 1);
+    }
     put_lst_sym(result, '\n');
     return pe_no_error;
 }
@@ -523,9 +586,9 @@ parse_error_t VmOp_Spc_Cmds(parse_result_t *result) {
                 }
                 p = (params_cnt + 1) / 2;
                 MSG_DBG(DL_TRC, "p:%d", p);
-                params_type[p] = 0;
+                // params_type[p] = 0;
                 const_array_info_t *const_array_info;
-                pe = RegisterConstArray(result, NULL, params_type, p, 1, &const_array_info);
+                pe = RegisterConstArray(result, NULL, params_type, p, TRUE, vt_array_of_byte, &const_array_info);
                 if (pe) return pe;
                 VmOp_ArgConstArray(result, const_array_info);
             }

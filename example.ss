@@ -15,6 +15,7 @@ func print_snake(tt) {
 	var t
 	var new_x=snake_x[0]
 	var new_y=snake_y[0]
+#brkpnt
 	if snake_dir == d_left { #left
 		new_x=new_x-1
 	}else if snake_dir == d_up { #up
@@ -59,19 +60,23 @@ f_end:
 	var key
 	var f_skip=0
 	
-	snake_x[0]=scr_width/2
-	snake_y[0]=scr_height/2 + 2
-	snake_x[1]=snake_x[0]-1
-	snake_y[1]=snake_y[0]
+	#snake_x[0]=scr_width/2
+	#snake_y[0]=scr_height/2 + 2
+	#snake_x[1]=snake_x[0]-1
+	#snake_y[1]=snake_y[0]
+	snake_x={10.2,9}
+	snake_y={5,5}
+
 	snake_size=2
-	snake_dir=rand(1)+1
+	snake_dir=d_right
 
 	cls()
 #brkpnt
 
 	curs(scr_width/3, scr_height/2)
-	puts("Use awsd keys, b - break")
 
+	puts("Use awsd keys, b - break")
+#stop
 	key=scr_width-2
 	while(key>0){
 		curs(key, 0)
@@ -88,15 +93,15 @@ f_end:
 		putc('#')
 		key=key-1
 	}
-
+brkpnt
 	while(1){
 		sleep_ms(500-snake_size)
 		f_skip=f_skip+1
 		if(f_skip>5){
 			f_skip=0
-			curs(rand(scr_width-2)+1,rand(scr_height-2)+1)
+			curs(rand(scr_width-2)+1,rand(scr_height-3)+1)
 			putc('@')
-			curs(rand(scr_width-2)+1,rand(scr_height-2)+1)
+			curs(rand(scr_width-2)+1,rand(scr_height-3)+1)
 			putc('#')
 		}
 		key = inkey(0)
@@ -113,7 +118,7 @@ f_end:
 		}
 		
 		key=print_snake(0)
-#print_ln("snake_dir:",snake_dir)
+
 		if key {
 			curs(scr_width/2, 5)
 			puts("Game Over!!!")
