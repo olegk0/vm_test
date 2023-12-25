@@ -35,17 +35,20 @@ parse_error_t ParseLine(parse_result_t *result, int line_num, char *line, int li
     result->line_str.line_num = line_num;
     result->line_str.line_pnt_ro = 0;
     result->line_str.line_len = line_len;
-    result->early_opened_block = 0;
+    result->early_opened_block = FALSE;
     result->cmd_templ_pnt = NULL;
     result->cur_cmd = cmd_id_NOP;
     // result->past_cmd = cmd_ext_id_NOP;
     result->params_lvl = 0;
-    result->enable_code_gen = 1;
+    result->optional_mod = 0;
+    result->group_mod = 0;
+    result->enable_code_gen = TRUE;
     // result->enable_code_gen_back = 1;
     //    result->var_info = NULL;
     //  result->func_info = NULL;
     result->ctx_var_info.array_compile_time_idx = -1;
     result->ctx_var_info.var_info = NULL;
+    result->params_str.params_cnt = 0;
 
     if (GET_CUR_SKIP_SPACES() <= ' ') {
         return pe_no_error;
@@ -72,11 +75,11 @@ parse_error_t ParseLine(parse_result_t *result, int line_num, char *line, int li
 
     VmOp_DebugNewLine(result);
 
-    pe = ParseStep(result, pcs_command, 0);
+    pe = ParseStep(result, pcs_command);
     if (pe) {
         PRINT_ERROR(pe);
     } else {
-        VmOp_Spc_Cmds(result);
+        pe = VmOp_Spc_Cmds(result);
     }
     return pe;
 }

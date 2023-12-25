@@ -1,7 +1,7 @@
 #ifndef VM_EXE_H_
 #define VM_EXE_H_
 
-// #define DEBUG 1
+#define DEBUG 1
 #define DEBUG_LVL 2
 // #define WRITE_LOG
 

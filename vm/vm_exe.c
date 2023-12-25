@@ -103,7 +103,7 @@ void push_var_pnt(int addr) {
     sp--;
 }
 
-int pop_var_pnt() {
+int pop_var_addr() {
     int addr;
     sp++;
     addr = mem_heap[sp];
@@ -238,56 +238,100 @@ void push_num(fpt value) {
     push_num(value);               \
     MSG_DBG(DL_TRC, #opt ":%d", fpt2i(value));
 
-void print_str(char *pnt, int size) {
-    char ss = 0;
-    for (int i = 0; i < size; i++) {
-        char c = pnt[i];
-        if (c == '\\') {
-            ss = 1;
-            continue;
-        }
-        if (ss) {
-            ss = 0;
-            switch (c) {
-                case 'n':
-                    c = '\n';
-                    break;
-                case 't':
-                    c = '\t';
-                    break;
-                default:
-                    c = ' ';
-            }
-        }
-        waddch(main_window, c);
-    }
-}
-
 void print_gen_num(fpt value) {
     char str[32];
     fpt_str(value, str, sizeof(str) - 1);
     wprintw(main_window, "%s", str);
 }
 
-void *get_var_pnt(int *size, vm_var_type_t *pnt_type) {
-    void *pnt = NULL;
+void print_str(uint8_t *pnt, vm_var_type_t pnt_type, int size) {
+    switch (pnt_type) {
+        case vvt_var_generic_array_pnt:
+        case vvt_const_generic_array_pnt: {
+            waddch(main_window, '{');
+            fpt value;
+            int p = 0;
+            for (int i = 0; i < size; i++) {
+                value = 0;
+                for (int n = 0; n < BITS_TO_BYTES(FPT_BITS); n++) {
+                    value |= pnt[p] << (n * 8);
+                    p++;
+                }
+                print_gen_num(value);
+                waddch(main_window, ',');
+            }
+            waddch(main_window, '}');
+        } break;
+        case vvt_var_char_array_pnt:
+        case vvt_const_string_pnt: {
+            char ss = 0;
+            for (int i = 0; i < size; i++) {
+                char c = pnt[i];
+                if (c == '\\') {
+                    ss = 1;
+                    continue;
+                }
+                if (ss) {
+                    ss = 0;
+                    switch (c) {
+                        case 'n':
+                            c = '\n';
+                            break;
+                        case 't':
+                            c = '\t';
+                            break;
+                        default:
+                            c = ' ';
+                    }
+                }
+                waddch(main_window, c);
+            }
+        } break;
+        // case vvt_var_byte_array_pnt:
+        // case vvt_const_byte_array_pnt:
+        default: {  // byte array
+            waddch(main_window, '{');
+            for (int i = 0; i < size; i++) {
+                wprintw(main_window, "%d", pnt[i]);
+                waddch(main_window, ',');
+            }
+            waddch(main_window, '}');
+        }
+    }
+}
+
+uint8_t *pop_var_pnt(int *size, vm_var_type_t *pnt_type) {
+    uint8_t *pnt = NULL;
     sp++;
-    *pnt_type = mem_heap[sp];
-    MSG_DBG(DL_TRC, "pnt_type:%d", pnt_type);
+    *pnt_type = mem_heap[sp] & 0xf0;
+    mem_heap[sp] = mem_heap[sp] & 0xf;
+    int addr = mem_heap[sp] << VARS_ADDR_BITS;
+    MSG_DBG(DL_DBG1, "pnt_type:%d", *pnt_type);
     switch (*pnt_type) {
-        case vvt_const_generic_pnt:
-        case vvt_const_array_pnt: {
-            int addr = pop_var_pnt();
-            MSG_DBG(DL_TRC, "addr:0x%X", addr);
+        case vvt_const_string_pnt:
+        case vvt_const_generic_array_pnt:
+        case vvt_const_byte_array_pnt: {
+            addr |= pop_var_addr();
+            MSG_DBG(DL_DBG1, "const addr:0x%X", addr);
             /*const_block[vm_header->const_block_size];*/
             *size = const_block[addr];
             pnt = const_block + addr + 1;
         } break;
+        case vvt_var_generic_array_pnt:
+        case vvt_var_byte_array_pnt:
+        case vvt_var_char_array_pnt: {
+            addr |= pop_var_addr();
+            MSG_DBG(DL_DBG1, "var addr:0x%X", addr);
+            /*const_block[vm_header->const_block_size];*/
+            *size = mem_heap[addr];
+            pnt = mem_heap + addr + 1;
+        } break;
         case vvt_inline:
             /*const_block[vm_header->const_block_size];*/
             *size = BITS_TO_BYTES(VARS_ADDR_BITS);
-            pnt = mem_heap + sp + 1;
+            pnt = mem_heap + sp;
             sp += *size;
+            (*size)++;
             break;
         default:
             *size = 0;
@@ -321,10 +365,13 @@ err_code_t call_funcs(uint8_t func_type, uint8_t func_id, fpt *ret_value) {
                     //  int c = getch();
                     (*ret_value) = i2fpt(getch());
                 } break;
-                case func_LEN: {
-                    int addr = pop_var_pnt();
+                case func_SIZE: {
+                    int size;
+                    vm_var_type_t pnt_type;
+                    pop_var_pnt(&size, &pnt_type);
                     // MSG_DBG(DL_TRC, "addr:0x%X", addr);
-                    (*ret_value) = i2fpt(const_block[addr]);
+                    //(*ret_value) = i2fpt(const_block[addr]);
+                    (*ret_value) = i2fpt(size);
                 } break;
                 case func_SCR_W:
                     (*ret_value) = i2fpt(getmaxx(main_window));
@@ -347,8 +394,8 @@ err_code_t call_funcs(uint8_t func_type, uint8_t func_id, fpt *ret_value) {
                 case func_PUTS: {
                     int size;
                     vm_var_type_t pnt_type;
-                    uint8_t *pnt = get_var_pnt(&size, &pnt_type);
-                    print_str((char *)pnt, size);
+                    uint8_t *pnt = pop_var_pnt(&size, &pnt_type);
+                    print_str(pnt, pnt_type, size);
                 } break;
                 case func_PUTN:
                     print_gen_num(pop_num());
@@ -410,13 +457,15 @@ typedef struct {
 void print_from_stack(print_params_t *print_param) {
     MSG_DBG(DL_TRC, "value_type:%d", print_param->part_type);
     switch (print_param->part_type) {
-        case print_ss_const: {
+        case print_ss_pointer: {
             int size;
             vm_var_type_t pnt_type;
-            uint8_t *pnt = get_var_pnt(&size, &pnt_type);
-            print_str((char *)pnt, size);
+            uint8_t *pnt = pop_var_pnt(&size, &pnt_type);
+            MSG_DBG(DL_DBG, "pnt_type:%d  size:%d", pnt_type, size);
+            print_str(pnt, pnt_type, size);
         } break;
-        case print_ss_expr:
+        case print_ss_number:
+            MSG_DBG(DL_DBG, "print_ss_expr");
             print_gen_num(pop_num());
             break;
         default:
@@ -606,18 +655,22 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 READ_VAR_OFFS(dest_array_offset);
                 int src_array_size;
                 vm_var_type_t pnt_type;
-                void *src_array_pnt = get_var_pnt(&src_array_size, &pnt_type);
+                uint8_t *src_array_pnt = pop_var_pnt(&src_array_size, &pnt_type);
                 int dest_array_size = mem_heap[dest_array_offset];
                 dest_array_offset++;
-                if (pnt_type == vvt_const_generic_pnt) {
-                    fpt *array_pnt = (fpt *)src_array_pnt;
-                    for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
-                        mem_heap[dest_array_offset + i] = fpt2i(array_pnt[i]);
-                    }
-                } else {
-                    uint8_t *array_pnt = (uint8_t *)src_array_pnt;
-                    for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
-                        mem_heap[dest_array_offset + i] = array_pnt[i];
+                switch (pnt_type) {
+                    case vvt_var_generic_array_pnt:
+                    case vvt_const_generic_array_pnt: {
+                        int g_p = BITS_TO_BYTES(FPT_WBITS) - 2;
+                        for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
+                            mem_heap[dest_array_offset + i] = src_array_pnt[g_p];
+                            g_p += BITS_TO_BYTES(FPT_BITS);
+                        }
+                    } break;
+                    default: {
+                        for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
+                            mem_heap[dest_array_offset + i] = src_array_pnt[i];
+                        }
                     }
                 }
             } break;
@@ -630,18 +683,35 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 READ_VAR_OFFS(dest_array_offset);
                 int src_array_size;
                 vm_var_type_t pnt_type;
-                void *src_array_pnt = get_var_pnt(&src_array_size, &pnt_type);
-                int dest_array_size = mem_heap[dest_array_offset];
-                fpt *dst_array_pnt = (fpt *)&mem_heap[dest_array_offset + 1];
-                if (pnt_type == vvt_const_generic_pnt) {
-                    fpt *src_array_pnt = (fpt *)src_array_pnt;
-                    for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
-                        dst_array_pnt[i] = src_array_pnt[i];
-                    }
-                } else {
-                    uint8_t *array_pnt = (uint8_t *)src_array_pnt;
-                    for (int i = 0; i < dest_array_size && i < src_array_size; i++) {
-                        dst_array_pnt[i] = i2fpt(array_pnt[i]);
+                uint8_t *src_array_pnt = pop_var_pnt(&src_array_size, &pnt_type);
+                int dest_array_size_bytes = mem_heap[dest_array_offset] * BITS_TO_BYTES(FPT_BITS);
+                dest_array_offset++;
+                switch (pnt_type) {
+                    case vvt_var_generic_array_pnt:
+                    case vvt_const_generic_array_pnt: {
+                        // MSG_DBG(DL_DBG, "dst_array_pnt:%p  src_array_pnt:%p", dst_array_pnt, src_array_pnt);
+                        int src_array_size_bytes = src_array_size * BITS_TO_BYTES(FPT_BITS);
+                        for (int i = 0; i < dest_array_size_bytes && i < src_array_size_bytes; i++) {
+                            mem_heap[dest_array_offset + i] = src_array_pnt[i];
+                        }
+                    } break;
+                    default: {  // from byte array
+                        int src_idx = 0;
+                        int i = 1;
+                        for (int p = 0; p < dest_array_size_bytes && src_idx < src_array_size; p++) {
+                            switch (i) {
+                                case BITS_TO_BYTES(FPT_WBITS) - 1:
+                                    mem_heap[dest_array_offset + p] = src_array_pnt[src_idx];
+                                    src_idx++;
+                                    break;
+                                case BITS_TO_BYTES(FPT_BITS):
+                                    i = 0;
+                                default:
+                                    mem_heap[dest_array_offset + p] = 0;
+                            }
+
+                            i++;
+                        }
                     }
                 }
             } break;
@@ -685,8 +755,8 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                         */
                         int size;
                         vm_var_type_t pnt_type;
-                        uint8_t *pnt = get_var_pnt(&size, &pnt_type);
-                        MSG_DBG(DL_TRC, "PRINT size:%d  cont:%X %X %X", size, pnt[0], pnt[1], pnt[2]);
+                        uint8_t *pnt = pop_var_pnt(&size, &pnt_type);
+                        MSG_DBG(DL_DBG1, "PRINT size:%d  cont:%X %X %X", size, pnt[0], pnt[1], pnt[2]);
                         print_params_t print_params[size * 2];
                         int pt = size - 1;
                         int stack_offs = 0;
@@ -704,11 +774,12 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                                     print_params[i].stack_size = BITS_TO_BYTES(FPT_BITS);
                                 }
                                 print_params[i].stack_offset = stack_offs;
-                                MSG_DBG(DL_TRC, "i:%d  part_type:%d stack_size:%d  stack_offset:%d", i, print_params[i].part_type, print_params[i].stack_size, print_params[i].stack_offset);
+                                MSG_DBG(DL_DBG1, "i:%d  part_type:%d stack_size:%d  stack_offset:%d", i, print_params[i].part_type, print_params[i].stack_size, print_params[i].stack_offset);
                                 stack_offs += print_params[i].stack_size;
                             }
                         }
-                        dump_stack();
+                        // dump_stack();
+                        // return ec_call_unknown_func;
                         int sp_back = sp;
                         for (int i = 0; i < size * 2; i++) {
                             sp = sp_back + print_params[i].stack_offset;

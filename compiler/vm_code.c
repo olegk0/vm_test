@@ -181,6 +181,7 @@ parse_error_t VmOp_PopVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) 
         case vt_generic:
             op_code = vmo_POP_VAR;
             break;
+        case vt_array_of_char:
         case vt_array_of_byte:
             if (result->ctx_var_info.is_pointer) {
                 op_code = vmo_COPY_TO_bARRAY;
@@ -229,7 +230,7 @@ parse_error_t VmOp_PopVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) 
     return pe_no_error;
 }
 
-parse_error_t VmOp_ArrayCopy(parse_result_t *result, ctx_var_info_t *to_ctx_var_info) {
+/*parse_error_t VmOp_ArrayCopy(parse_result_t *result, ctx_var_info_t *to_ctx_var_info) {
     MSG_DBG(DL_TRC, "");
     int mem_offs = to_ctx_var_info->var_info->mem_offs;
     switch (to_ctx_var_info->var_info->type) {
@@ -254,7 +255,7 @@ parse_error_t VmOp_ArrayCopy(parse_result_t *result, ctx_var_info_t *to_ctx_var_
 
     put_lst_sym(result, '\n');
     return pe_no_error;
-}
+}*/
 
 parse_error_t VmOp_Jmp(parse_result_t *result, label_info_t *label_info, char use_condition) {
     MSG_DBG(DL_TRC, "JMP to label:%d  use_condition:%d", label_info->id, use_condition);
@@ -322,6 +323,7 @@ void VmOp_Return_Value(parse_result_t *result) {
 
 void VmOp_ArgNum(parse_result_t *result, fpt value) {
     MSG_DBG(DL_TRC, "");
+    DefinePartArgType(result, print_ss_number);
     // parse_error_t pe = pe_no_error;
     out_op(result, vmo_PUSH_NUM, 0);
     out_num(result, fpt2i(value));
@@ -350,22 +352,31 @@ parse_error_t VmOp_ArgArrIndex(parse_result_t *result, int value) {
 
 parse_error_t VmOp_ArgConstArray(parse_result_t *result, const_array_info_t *const_array_info) {
     MSG_DBG(DL_TRC, "");
+    bool addPartArg = TRUE;
+    vm_var_type_t type;
+    switch (const_array_info->type) {
+        case vt_array_of_char:
+            type = vvt_const_string_pnt;
+            break;
+        case vt_array_of_print_args:
+            addPartArg = FALSE;
+        case vt_array_of_byte:
+            type = vvt_const_byte_array_pnt;
+            break;
+        case vt_array_of_generic:
+            type = vvt_const_generic_array_pnt;
+            break;
+        default:
+            return pe_syntax_invalid;
+    }
+    if (addPartArg) {
+        DefinePartArgType(result, print_ss_pointer);
+    }
     out_op(result, vmo_PUSH_PNT, 0);
     out_str(result, "offs:");
     out_num(result, const_array_info->mem_offs);
     put_code_num(result, const_array_info->mem_offs, BITS_TO_BYTES(VARS_ADDR_BITS));
     out_str(result, "type:");
-    vm_var_type_t type;
-    switch (const_array_info->type) {
-        case vt_array_of_byte:
-            type = vvt_const_array_pnt;
-            break;
-        case vt_array_of_generic:
-            type = vvt_const_generic_pnt;
-            break;
-        default:
-            return pe_syntax_invalid;
-    }
     out_num(result, type);
     put_code_num(result, type, 1);
     out_str(result, "(");
@@ -377,13 +388,15 @@ parse_error_t VmOp_ArgConstArray(parse_result_t *result, const_array_info_t *con
 
 parse_error_t VmOp_ArgConstInline(parse_result_t *result, unsigned int value) {
     MSG_DBG(DL_TRC, "");
+    // DefinePartArgType(result, print_ss_pointer);
     out_op(result, vmo_PUSH_PNT, 0);
     out_str(result, "inline:");
+    value = value | (vvt_inline << VARS_ADDR_BITS);
     out_num(result, value);
-    put_code_num(result, value, BITS_TO_BYTES(VARS_ADDR_BITS));
+    put_code_num(result, value, BITS_TO_BYTES(VARS_ADDR_BITS) + 1);
     out_str(result, "type:");
     out_num(result, vvt_inline);
-    put_code_num(result, vvt_inline, 1);
+    // put_code_num(result, vvt_inline, 1);
     put_lst_sym(result, '\n');
     return pe_no_error;
 }
@@ -397,8 +410,13 @@ parse_error_t VmOp_ArgVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) 
         case vt_generic:
             op_code = vmo_PUSH_VAR;
             break;
+        case vt_array_of_char:
         case vt_array_of_byte:
-            type = vvt_var_byte_array_pnt;
+            if (ctx_var_info->var_info->type == vt_array_of_char) {
+                type = vvt_var_char_array_pnt;
+            } else {
+                type = vvt_var_byte_array_pnt;
+            }
             if (ctx_var_info->array_compile_time_idx >= 0) {
                 if (ctx_var_info->array_compile_time_idx >= ctx_var_info->var_info->elm_count) {
                     return pe_array_index_overrange;
@@ -427,7 +445,9 @@ parse_error_t VmOp_ArgVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) 
     }
     if (ctx_var_info->is_pointer) {
         op_code = vmo_PUSH_PNT;
+        DefinePartArgType(result, print_ss_pointer);
     } else {
+        DefinePartArgType(result, print_ss_number);
         type = 0;
     }
     out_op(result, op_code, ctx_var_info->var_info->subs_body);
@@ -463,22 +483,36 @@ parse_error_t VmOp_LoadByte(parse_result_t *result, var_info_t *var_info, uint8_
 
 parse_error_t VmOp_VarHeap(parse_result_t *result, var_info_t *var_info, char alloc) {
     MSG_DBG(DL_TRC, "alloc:%d", alloc);
+    vm_ops_list_t op_code;
     if (alloc) {
-        out_op(result, vmo_ALLOC, var_info->subs_body);
+        if (var_info->mem_size > 255) {
+            op_code = vmo_ALLOC_LONG;
+        } else {
+            op_code = vmo_ALLOC;
+        }
         var_info->mem_offs = result->heap_pnt;
         result->heap_pnt += var_info->mem_size;
         if (result->heap_pnt > result->heap_memory_max) {
             result->heap_memory_max = result->heap_pnt;
         }
     } else {
-        out_op(result, vmo_FREE, var_info->subs_body);
+        if (var_info->mem_size > 255) {
+            op_code = vmo_FREE_LONG;
+        } else {
+            op_code = vmo_FREE;
+        }
         var_info->mem_offs = result->heap_pnt;
         result->heap_pnt -= var_info->mem_size;
         if (result->heap_pnt < 0) {
             return pe_stack_corrupted;
         }
     }
-    put_code_num(result, var_info->mem_size, 1);
+    out_op(result, op_code, var_info->subs_body);
+    if (var_info->mem_size > 255) {
+        put_code_num(result, var_info->mem_size, 2);
+    } else {
+        put_code_num(result, var_info->mem_size, 1);
+    }
     out_str(result, "offs:");
     out_num(result, var_info->mem_offs);
     out_str(result, "size:");
@@ -492,6 +526,7 @@ parse_error_t VmOp_VarHeap(parse_result_t *result, var_info_t *var_info, char al
         switch (var_info->type) {
             case vt_generic:
                 break;
+            case vt_array_of_char:
             case vt_array_of_byte:
             case vt_array_of_generic:
                 VmOp_LoadByte(result, var_info, var_info->elm_count);  // add array size
@@ -559,19 +594,19 @@ parse_error_t VmOp_Spc_Cmds(parse_result_t *result) {
                 }
                 printf("\n");
             }
-            if (params_cnt <= BITS_TO_BYTES(VARS_ADDR_BITS) * 2) {
+            if (params_cnt <= (BITS_TO_BYTES(VARS_ADDR_BITS) * 2) + 1) {
                 unsigned int value = 0;
                 for (int i = 0; i < params_cnt; i++) {
                     value <<= 4;
                     value |= result->params_str.params_type[i];
                 }
-                if (params_cnt & 1) {
+                /*if (params_cnt & 1) {
                     value <<= 4;
-                }
+                }*/
                 MSG_DBG(DL_TRC, "value:0x%X", value);
                 VmOp_ArgConstInline(result, value);
             } else {
-                uint8_t params_type[FUNC_MAX_PARAMS];
+                /*uint8_t params_type[FUNC_MAX_PARAMS + 5];
                 int p = 0;
                 for (int i = 0; i < params_cnt; i++) {
                     if (i & 1) {
@@ -585,22 +620,13 @@ parse_error_t VmOp_Spc_Cmds(parse_result_t *result) {
                     params_type[p] <<= 4;
                 }
                 p = (params_cnt + 1) / 2;
-                MSG_DBG(DL_TRC, "p:%d", p);
-                // params_type[p] = 0;
                 const_array_info_t *const_array_info;
-                pe = RegisterConstArray(result, NULL, params_type, p, TRUE, vt_array_of_byte, &const_array_info);
+                pe = RegisterConstArray(result, NULL, params_type, p, TRUE, vt_array_of_print_args, &const_array_info);
                 if (pe) return pe;
-                VmOp_ArgConstArray(result, const_array_info);
+                pe = VmOp_ArgConstArray(result, const_array_info);*/
+                pe = pe_parameters_max_number_exceeded;
             }
             break;
-        /*case cmd_id_CLS:
-            break;
-        case cmd_id_SET_CURS:
-            break;
-        case cmd_id_BEEP:
-            break;
-        case cmd_id_OUT:
-            break;*/
         default:
             return pe_no_error;
     }

@@ -108,7 +108,7 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
     char new_object = 0;
     var_type_t ttype = vt_generic;
     int mem_size = 0;
-    int elm_count = 0;
+    int elm_count = 1;
     switch (mode) {
         case vsm_GET_VAR:  // get generic or array element
             break;
@@ -120,8 +120,13 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
             elm_count = array_size;
             new_object = 1;
             break;
+        case vsm_DECLARE_CHAR_ARRAY:
         case vsm_DECLARE_BYTE_ARRAY:
-            ttype = vt_array_of_byte;
+            if (mode == vsm_DECLARE_CHAR_ARRAY) {
+                ttype = vt_array_of_char;
+            } else {
+                ttype = vt_array_of_byte;
+            }
             mem_size = array_size + 1;  // ARRAY_INDEX_BITS / 8;
             elm_count = array_size;
             new_object = 1;
@@ -147,10 +152,11 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
             return pe_object_exist;
         } else {
             *var_info = found_obj;
-            if (!(found_obj->type & ttype)) {  // TODO
+            /*if (!(found_obj->type & ttype)) {  // TODO
                 // MSG_ERR("Var: %s already declared", token_str);
+                MSG_DBG(DL_DBG, "found_obj->type: %d vs %d", found_obj->type, ttype);
                 return pe_var_incompatible;
-            }
+            }*/
             if (array_size > 0 && array_size >= (*var_info)->elm_count) {
                 return pe_array_index_overrange;
             }
@@ -167,7 +173,9 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
         (*var_info)->mem_size = mem_size;
         (*var_info)->in_block = VECTOR_SIZE(result->block_vect);
         (*var_info)->subs_body = result->subs_body;
-        ret = VmOp_VarHeap(result, (*var_info), 1);
+        if (elm_count > 0) {
+            ret = VmOp_VarHeap(result, (*var_info), 1);
+        }
         /*(*var_info)->mem_offs = result->vars_memory;
         result->vars_memory += (*var_info)->size;
         if (result->vars_memory > result->vars_memory_max) {
@@ -175,6 +183,35 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
         }*/
         MSG_DBG(DL_DBG, "Register var:%s, type:%s, mem_size:%d, subs_body:%d", token_str, array_size < 0 ? "generic" : "array", mem_size, (*var_info)->subs_body);
     }
+
+    return ret;
+}
+
+parse_error_t FixArraySize(parse_result_t *result, int array_size, var_info_t *var_info) {
+    int mem_size = 0;
+    switch (var_info->type) {
+        case vt_array_of_generic:
+            mem_size = array_size * BITS_TO_BYTES(FPT_BITS) + 1;
+            break;
+        case vt_array_of_char:
+        case vt_array_of_byte:
+            mem_size = array_size + 1;  // ARRAY_INDEX_BITS / 8;
+            break;
+        default:
+            return pe_var_incompatible;
+    }
+
+    parse_error_t ret = pe_no_error;
+
+    if (mem_size > 255) {  // There is a size limit for now
+        MSG_ERR("At the moment the physical size of the array is limited to 255 bytes.");
+        return pe_syntax_invalid;
+    }
+
+    var_info->elm_count = array_size;
+    var_info->mem_size = mem_size;
+    ret = VmOp_VarHeap(result, var_info, 1);
+    MSG_DBG(DL_DBG, "Fix array:%s, size:%d, type:%d, mem_size:%d", var_info->name, array_size, var_info->type, mem_size);
 
     return ret;
 }
@@ -224,7 +261,7 @@ parse_error_t RegisterSub(parse_result_t *result, const char *token_str, bool ne
 }
 
 parse_error_t RegisterConstArray(parse_result_t *result, const char *token_str, void *data, uint8_t array_size, var_type_t type, bool new_object, const_array_info_t **const_array_info) {
-    MSG_DBG(DL_TRC, "token_str: %s  new_object:%d  size:%d", token_str, new_object, array_size);
+    MSG_DBG(DL_TRC, "token_str: %s  new_object:%d  size:%d  type:%d", token_str, new_object, array_size, type);
     char buf[32];
     if (token_str == NULL) {
         if (!new_object) {
@@ -240,33 +277,35 @@ parse_error_t RegisterConstArray(parse_result_t *result, const char *token_str, 
         FOUND_OBJECT(const_array);
     } else { /*Not Found */
         NOT_FOUND_OBJECT(const_array);
-        if (type == vt_array_of_byte) {
-            for (int i = 0; i < array_size; i++) {
-                (*const_array_info)->data[i] = i2fpt(((uint8_t *)data)[i]);
-                // printf(": %c  %d %d\n", ((uint8_t *)data)[i], (*const_array_info)->data[i], fpt2i((*const_array_info)->data[i]));
-            }
-        } else {
-            type = vt_array_of_byte;
-            for (int i = 0; i < array_size; i++) {
-                (*const_array_info)->data[i] = ((fpt *)data)[i];
-                if (((fpt *)data)[i] < 0 || ((fpt *)data)[i] > i2fpt(255) || fpt_fracpart(((fpt *)data)[i])) {
-                    type = vt_array_of_generic;
-                }
-            }
+        if (array_size > 255) {  // There is a size limit for now
+            MSG_ERR("The number of constant elements is limited to 255.");
+            return pe_syntax_invalid;
         }
         switch (type) {
             case vt_array_of_byte:
-                (*const_array_info)->mem_size = array_size + 1;  // ARRAY_INDEX_BITS / 8;
+            case vt_array_of_char:
+            case vt_array_of_print_args:
+                for (int i = 0; i < array_size; i++) {
+                    (*const_array_info)->data[i] = i2fpt(((uint8_t *)data)[i]);
+                    // printf(": %c  %d %d\n", ((uint8_t *)data)[i], (*const_array_info)->data[i], fpt2i((*const_array_info)->data[i]));
+                }
                 break;
             case vt_array_of_generic:
-                (*const_array_info)->mem_size = array_size * BITS_TO_BYTES(FPT_BITS) + 1;
+                type = vt_array_of_byte;
+                for (int i = 0; i < array_size; i++) {
+                    (*const_array_info)->data[i] = ((fpt *)data)[i];
+                    if (((fpt *)data)[i] < 0 || ((fpt *)data)[i] > i2fpt(255) || fpt_fracpart(((fpt *)data)[i])) {
+                        type = vt_array_of_generic;
+                    }
+                }
                 break;
             default:
                 return pe_syntax_invalid;
         }
-        if ((*const_array_info)->mem_size > 255) {  // There is a size limit for now
-            MSG_ERR("At the moment the physical size of the const is limited to 255 bytes.");
-            return pe_syntax_invalid;
+        if (type == vt_array_of_generic) {
+            (*const_array_info)->mem_size = array_size * BITS_TO_BYTES(FPT_BITS) + 1;
+        } else {
+            (*const_array_info)->mem_size = array_size + 1;
         }
 
         (*const_array_info)->type = type;
@@ -358,7 +397,7 @@ void Print_fpt(fpt A) {
 }
 
 parse_error_t ParseNum(parse_result_t *result, expr_info_t *expr_cur) {
-    if (!VAR_IN_EQ(GET_CUR_SKIP_SPACES(), '0', '9')) {
+    if (!VAR_IN_EQ(GET_CUR_SKIP_SPACES(), '0', '9') && CUR_SYM() != '-') {
         return pe_number_error_parse;
     }
     expr_cur->value = 0;
@@ -367,14 +406,19 @@ parse_error_t ParseNum(parse_result_t *result, expr_info_t *expr_cur) {
 #endif
     int expo = 0;
     int val = 0;
-    char is_fract = 0;
+    bool is_fract = FALSE;
+    bool inv = FALSE;
+    if (CUR_SYM() == '-') {
+        inv = TRUE;
+        SKIP_SYM();
+    }
     while (CUR_SYM()) {
         if (VAR_IN_EQ(CUR_SYM(), '0', '9')) {
             val *= 10;
             val += CUR_SYM() - '0';
             expo++;
         } else if (CUR_SYM() == '.') {
-            is_fract = 1;
+            is_fract = TRUE;
             expo = 0;
             // MSG_DBG(DL_DBG1, " NUM (int part):%d", val);
             expr_cur->value = i2fpt(val);
@@ -390,10 +434,14 @@ parse_error_t ParseNum(parse_result_t *result, expr_info_t *expr_cur) {
 #ifdef DEBUG
     expr_cur->name[p] = 0;
 #endif
-    if (is_fract > 0) {
+    if (is_fract) {
         expr_cur->value += fpt_div(i2fpt(val), i2fpt(_pow(10, expo)));
     } else {
         expr_cur->value = i2fpt(val);
+    }
+
+    if (inv) {
+        expr_cur->value = fpt_xmul(expr_cur->value, FPT_MINUS_ONE);
     }
     Print_fpt(expr_cur->value);
 
@@ -424,4 +472,12 @@ int GetCodeOffset(parse_result_t *result) {
         return VECTOR_SIZE(result->obj_subs_vect);
     }
     return VECTOR_SIZE(result->obj_main_vect);
+}
+
+void DefinePartArgType(parse_result_t *result, print_part_type_t part_type) {
+    if (result->enable_code_gen) {
+        VmOp_Debug1(result, "Part", part_type);
+        result->params_str.params_type[result->params_str.params_cnt] = part_type;
+        result->params_str.params_cnt++;
+    }
 }

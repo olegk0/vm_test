@@ -10,6 +10,7 @@ extern "C" {
 
 parse_error_t RegisterLabel(parse_result_t *result, const char *token_str, bool new_object, label_info_t **label_info);
 parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int array_size, var_set_mode_t mode, var_info_t **var_info);
+parse_error_t FixArraySize(parse_result_t *result, int array_size, var_info_t *var_info);
 parse_error_t UnregisterLastBlockVars(parse_result_t *result);
 parse_error_t RegisterSub(parse_result_t *result, const char *token_str, bool new_object, func_info_t **func_info);
 parse_error_t RegisterConstArray(parse_result_t *result, const char *token_str, void *data, uint8_t size, var_type_t type, bool new_object, const_array_info_t **const_array_info);
@@ -49,6 +50,8 @@ char GetCurSymSkipSpaces(parse_result_t *result);
 void Print_fpt(fpt A);
 parse_error_t ParseNum(parse_result_t *result, expr_info_t *expr_cur);
 void AutoName(parse_result_t *result, char *str, int size_max, char *suf);
+
+void DefinePartArgType(parse_result_t *result, print_part_type_t part_type);
 
 #ifdef __cplusplus
 }

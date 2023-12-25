@@ -7,13 +7,13 @@ extern "C" {
 #endif
 
 typedef enum {
-    vvt_inline,
-    vvt_var_generic_array_pnt,
-    vvt_var_byte_array_pnt,
-    // vvt_const_generic_pnt,
-    vvt_const_generic_pnt,
-    vvt_const_array_pnt,
-    //  vvt_const_string_pnt,
+    vvt_inline = 0,
+    vvt_var_generic_array_pnt = 1 << 4,
+    vvt_var_byte_array_pnt = 2 << 4,
+    vvt_var_char_array_pnt = 3 << 4,
+    vvt_const_generic_array_pnt = 4 << 4,
+    vvt_const_byte_array_pnt = 5 << 4,
+    vvt_const_string_pnt = 6 << 4,
 
 } vm_var_type_t;
 
@@ -38,7 +38,9 @@ typedef enum {
                     CONV_TYPE(EQ, 1),                                                                            \
                     CONV_TYPE(NE, 1),                                                                            \
                     CONV_TYPE(ALLOC, 2),                                        /**/                             \
+                    CONV_TYPE(ALLOC_LONG, 3),                                   /**/                             \
                     CONV_TYPE(FREE, 2),                                         /**/                             \
+                    CONV_TYPE(FREE_LONG, 3),                                    /**/                             \
                     CONV_TYPE(JMP, BITS_TO_BYTES(PRG_ADDR_BITS) + 1),           /**/                             \
                     CONV_TYPE(JMP_POP_CMPZ, BITS_TO_BYTES(PRG_ADDR_BITS) + 1),  /**/                             \
                     CONV_TYPE(PUSH_BYTE, BITS_TO_BYTES(VARS_ADDR_BITS) + 1),    /*Push(offs) byte */             \

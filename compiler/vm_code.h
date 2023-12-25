@@ -7,9 +7,9 @@
 
 parse_error_t VmOp_Math(parse_result_t *result, vm_ops_list_t op, expr_info_t *l_expr, expr_info_t *r_expr);
 parse_error_t VmOp_PopVar(parse_result_t *result, ctx_var_info_t *ctx_var_info);
-parse_error_t VmOp_ArrayCopy(parse_result_t *result, ctx_var_info_t *to_ctx_var_info);
-// void VmOp_PopRet(parse_result_t *result);
-// void VmOp_PushRet(parse_result_t *result);
+// parse_error_t VmOp_ArrayCopy(parse_result_t *result, ctx_var_info_t *to_ctx_var_info);
+//  void VmOp_PopRet(parse_result_t *result);
+//  void VmOp_PushRet(parse_result_t *result);
 void VmOp_PopFake(parse_result_t *result);
 parse_error_t VmOp_Jmp(parse_result_t *result, label_info_t *label_info, char use_condition);
 parse_error_t VmOp_Return(parse_result_t *result, func_info_t *func_info);

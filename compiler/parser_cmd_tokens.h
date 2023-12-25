@@ -28,17 +28,18 @@ const struct commands table_cmd[] = {
     {"WHILE", cmd_id_WHILE, {pcs_expression, '{', 0}},
     {"BREAK", cmd_id_BREAK, {0}},
     //{"RETURN", cmd_id_RETURN, {pcs_expression, 0}},
-    {"BYTE", cmd_id_BYTE, {pcs_variable, 0}},
-    {"VAR", cmd_id_VAR, {pcs_variable, '=' | pcs_MOD_optional, pcs_expression | pcs_MOD_optional, 0}},
+    {"BYTE", cmd_id_BYTE, {pcs_variable, pcs_IND_optional, '=' | pcs_MOD_group, pcs_expression | pcs_MOD_group, 0}},
+    {"CHAR", cmd_id_CHAR, {pcs_variable, pcs_IND_optional, '=' | pcs_MOD_group, pcs_expression | pcs_MOD_group, 0}},
+    {"VAR", cmd_id_VAR, {pcs_variable, pcs_IND_optional, '=' | pcs_MOD_group, pcs_expression | pcs_MOD_group, 0}},
     {"STOP", cmd_id_STOP, {0}},
     {"BRKPNT", cmd_id_BRKPNT, {0}},
-    {"FUNC", cmd_id_PROC, {pcs_token, '(', pcs_variable | pcs_MOD_optional, pcs_repeated, ')', '{', 0}},
+    {"FUNC", cmd_id_PROC, {pcs_token, '(', pcs_IND_optional, pcs_variable, pcs_repeated, ')', '{', 0}},
     //{"LOAD", cmd_id_LOAD, {pcs_string, 0}},
     {"CONST", cmd_id_CONST, {pcs_token, pcs_multi_type, 0}},
     {"", 0, {0}}};
 
 const uint8_t curly_brace_begin_templ[TEMPL_SIZE_MAX] = {0};
-const uint8_t curly_brace_end_templ[TEMPL_SIZE_MAX] = {pcs_else | pcs_MOD_optional, 0};
+const uint8_t curly_brace_end_templ[TEMPL_SIZE_MAX] = {pcs_IND_optional, pcs_else, 0};
 
 // #define CMD_NOP_P 0
 #define TABLE_CMD_EXT(cmd_ext_id) table_cmd_ext[cmd_ext_id - cmd_ext_pre_begin - 1]

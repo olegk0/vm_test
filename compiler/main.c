@@ -120,16 +120,17 @@ int main(int argc, char **argv) {
             for (int i = 0; i < VECTOR_SIZE(ppr.const_arrays_vect); i++) {
                 // #if ARRAY_INDEX_BITS != 8
                 // printf("%d: type:%d elm_count:%d mem_size:%d \n", i, VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).type, VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).elm_count, VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).mem_size);
-                fwrite(&VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).mem_size, 1, 1, outExeP);
-                if (VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).type == vt_array_of_byte) {
-                    for (int p = 0; p < VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).elm_count; p++) {
-                        nbuf[0] = fpt2i(VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).data[p]);
-                        fwrite(nbuf, 1, 1, outExeP);
-                    }
-                } else {
+                // fwrite(&VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).mem_size, 1, 1, outExeP);
+                fwrite(&VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).elm_count, 1, 1, outExeP);
+                if (VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).type == vt_array_of_generic) {
                     for (int p = 0; p < VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).elm_count; p++) {
                         to_num(nbuf, VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).data[p], BITS_TO_BYTES(FPT_BITS));
                         fwrite(nbuf, BITS_TO_BYTES(FPT_BITS), 1, outExeP);
+                    }
+                } else {
+                    for (int p = 0; p < VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).elm_count; p++) {
+                        nbuf[0] = fpt2i(VECTOR_FROM_FIRST(ppr.const_arrays_vect, i).data[p]);
+                        fwrite(nbuf, 1, 1, outExeP);
                     }
                 }
             }

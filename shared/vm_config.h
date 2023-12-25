@@ -42,9 +42,9 @@ enum {
 typedef enum {
     print_ss_none,
     print_ss_var,
-    print_ss_expr,
+    print_ss_number,
     print_ss_POINTERS = 8,
-    print_ss_const = print_ss_POINTERS,
+    print_ss_pointer = print_ss_POINTERS,
     print_ss_MAX = 0xf,  // max
 } print_part_type_t;
 

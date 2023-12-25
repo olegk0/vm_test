@@ -19,10 +19,12 @@ int get_func_info_pnt(parse_result_t *result) {
 
 parse_error_t parse_func_params(parse_result_t *result, int *params_cnt, func_param_type_t func_param_type) {
     parse_error_t pe;
-    const_array_info_t const_array_info;
+    const_array_info_t *const_array_info;
     (*params_cnt) = 0;
-    while (CUR_SYM()) {
+    while (1) {
         switch (CUR_SYM()) {
+            case 0:
+                return pe_syntax_invalid;
             case ',':
                 SKIP_SYM();
                 break;
@@ -36,14 +38,26 @@ parse_error_t parse_func_params(parse_result_t *result, int *params_cnt, func_pa
             case ft_generic:
                 pe = ExpParse(result);
                 break;
-            case ft_array:
+            case ft_pointer:
                 pe = Check_as_array(result, NULL, TRUE, &const_array_info);
+                if (pe) {  // lookup among vars arrays
+                    result->line_str.line_pnt_ro += result->token.size;
+                    ctx_var_info_t ctx_var_info;
+                    pe = RegisterVar(result, result->token.data, 0, vsm_GET_ARRAY, &ctx_var_info.var_info);
+                    if (pe == pe_no_error) {
+                        ctx_var_info.array_auto_size = FALSE;
+                        ctx_var_info.array_compile_time_idx = -1;
+                        ctx_var_info.is_pointer = TRUE;
+                        pe = VmOp_ArgVar(result, &ctx_var_info);
+                    }
+                }
                 break;
             // case ft_byte:
             //     break;
             default:
                 pe = pe_syntax_invalid;
         }
+        MSG_DBG(DL_DBG1, "token:%s   cur_sym:%c", result->token.data, CUR_SYM());
         if (pe) {
             return pe;
         }

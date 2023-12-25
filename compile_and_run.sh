@@ -6,7 +6,7 @@
 #make
 #popd
 
-compiler/compss example.ss
+compiler/compss tests.ss
 ret=$?
 echo $ret
 [ $ret -eq 0 ] || exit
@@ -18,4 +18,5 @@ reset
 make
 popd
 
-vm/vm  example.sb
+vm/vm -s tests.sb
+#gdb --args vm/vm -s tests.sb

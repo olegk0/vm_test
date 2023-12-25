@@ -1,0 +1,34 @@
+DBG {0x1} #2 NewLine, code offs: 3 
+DBG #2 cmd CONST , code offs: 3 
+DBG {0x1} #4 NewLine, code offs: 6 
+DBG #4 cmd CHAR , code offs: 6 
+DBG #4 Part 8 , code offs: 6 
+PUSH_PNT {0x1B} offs: 0 type: 96 ( #4_arr26 )
+ALLOC {0x12} offs: 0 size: 12 ( TEXT0 )
+LOAD_BYTE {0x23} offs: 0 (TEXT0 ), byte: 11 
+COPY_TO_bARRAY {0x24} offs: 0 ( TEXT0 )
+DBG {0x1} #5 NewLine, code offs: 22 
+DBG #5 cmd BYTE , code offs: 22 
+ALLOC {0x12} offs: 12 size: 11 ( BYTE_ARR1 )
+LOAD_BYTE {0x23} offs: 12 (BYTE_ARR1 ), byte: 10 
+DBG {0x1} #6 NewLine, code offs: 31 
+DBG #6 cmd BYTE , code offs: 31 
+DBG #6 Part 8 , code offs: 31 
+PUSH_PNT {0x1B} offs: 12 type: 80 ( #6_arr24 )
+ALLOC {0x12} offs: 23 size: 4 ( BYTE_ARR2 )
+LOAD_BYTE {0x23} offs: 23 (BYTE_ARR2 ), byte: 3 
+COPY_TO_bARRAY {0x24} offs: 23 ( BYTE_ARR2 )
+DBG {0x1} #7 NewLine, code offs: 47 
+DBG #7 cmd VAR , code offs: 47 
+ALLOC {0x12} offs: 27 size: 21 ( VAR_ARR1 )
+LOAD_BYTE {0x23} offs: 27 (VAR_ARR1 ), byte: 5 
+DBG {0x1} #9 NewLine, code offs: 56 
+DBG #9 cmd VAR , code offs: 56 
+DBG #9 Part 8 , code offs: 56 
+PUSH_PNT {0x1B} offs: 16 type: 64 ( #9_arr29 )
+ALLOC {0x12} offs: 48 size: 13 ( VAR_ARR2 )
+LOAD_BYTE {0x23} offs: 48 (VAR_ARR2 ), byte: 3 
+COPY_TO_gARRAY {0x25} offs: 48 ( VAR_ARR2 )
+DBG {0x1} #10 NewLine, code offs: 72 
+DBG #10 cmd STOP , code offs: 72 
+END {0x3} 

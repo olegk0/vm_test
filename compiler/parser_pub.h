@@ -20,27 +20,28 @@ typedef unsigned char bool;
 #include "../shared/vector.h"
 #include "../shared/vm_config.h"
 
-#define ERRORS_LIST CONV_TYPE(no_error, "Ok"),                                               \
-                    CONV_TYPE(stop, "STOP command"),                                         \
-                    CONV_TYPE(token_max_len_exceeded, "maximum token length exceeded"),      \
-                    CONV_TYPE(token_start_with_num, "token start with num"),                 \
-                    CONV_TYPE(token_error_parse, "error parse token"),                       \
-                    CONV_TYPE(object_max_count_exceeded, "objects max count exceeded"),      \
-                    CONV_TYPE(object_exist, "object exist"),                                 \
-                    CONV_TYPE(object_unknown, "object is unknown"),                          \
-                    CONV_TYPE(command_invalid, "invalid command"),                           \
-                    CONV_TYPE(expression_invalid, "invalid expression"),                     \
-                    CONV_TYPE(syntax_invalid, "invalid syntax"),                             \
-                    CONV_TYPE(error_eval_exp, "error evaluate expression at compile time"),  \
-                    CONV_TYPE(stack_corrupted, "stack corrupted"),                           \
-                    CONV_TYPE(label_invalid, "label invalid"),                               \
-                    CONV_TYPE(var_error_parse, "var error parse"),                           \
-                    CONV_TYPE(array_or_string_too_long, "array or string is too long"),      \
-                    CONV_TYPE(number_error_parse, "number error parse"),                     \
-                    CONV_TYPE(var_redeclare, "var redeclaration with different parameters"), \
-                    CONV_TYPE(var_incompatible, "variable incompatible type"),               \
-                    CONV_TYPE(array_index_overrange, "array index overrange"),               \
-                    CONV_TYPE(parameters_mismatch, "parameters mismatch"),                   \
+#define ERRORS_LIST CONV_TYPE(no_error, "Ok"),                                                          \
+                    CONV_TYPE(stop, "STOP command"),                                                    \
+                    CONV_TYPE(token_max_len_exceeded, "maximum token length exceeded"),                 \
+                    CONV_TYPE(token_start_with_num, "token start with num"),                            \
+                    CONV_TYPE(token_error_parse, "error parse token"),                                  \
+                    CONV_TYPE(object_max_number_exceeded, "maximum number of objects exceeded"),        \
+                    CONV_TYPE(object_exist, "object exist"),                                            \
+                    CONV_TYPE(object_unknown, "object is unknown"),                                     \
+                    CONV_TYPE(command_invalid, "invalid command"),                                      \
+                    CONV_TYPE(expression_invalid, "invalid expression"),                                \
+                    CONV_TYPE(syntax_invalid, "invalid syntax"),                                        \
+                    CONV_TYPE(error_eval_exp, "error evaluate expression at compile time"),             \
+                    CONV_TYPE(stack_corrupted, "stack corrupted"),                                      \
+                    CONV_TYPE(label_invalid, "label invalid"),                                          \
+                    CONV_TYPE(var_error_parse, "var error parse"),                                      \
+                    CONV_TYPE(array_or_string_too_long, "array or string is too long"),                 \
+                    CONV_TYPE(number_error_parse, "number error parse"),                                \
+                    CONV_TYPE(var_redeclare, "var redeclaration with different parameters"),            \
+                    CONV_TYPE(var_incompatible, "variable incompatible type"),                          \
+                    CONV_TYPE(array_index_overrange, "array index overrange"),                          \
+                    CONV_TYPE(parameters_mismatch, "parameters mismatch"),                              \
+                    CONV_TYPE(parameters_max_number_exceeded, "maximum number of parameters exceeded"), \
                     CONV_TYPE(array_index_invalid, "invalid array index"),
 
 #define CONV_TYPE(err, str) pe_##err
@@ -55,7 +56,9 @@ typedef enum {
     vt_none = 0,
     vt_generic,  // fixed point variable
     vt_arrays = 0x80,
+    vt_array_of_char,
     vt_array_of_byte,
+    vt_array_of_print_args,
     vt_array_of_generic,
 } var_type_t;
 
@@ -89,6 +92,7 @@ VECTOR(const_array_info_t, const_array_vect_t);
 
 typedef struct {
     bool is_pointer;
+    bool array_auto_size;
     int array_compile_time_idx;
     var_info_t *var_info;
 } ctx_var_info_t;
@@ -156,7 +160,7 @@ typedef struct {
 
 typedef struct {
     int params_cnt;
-    uint8_t params_type[FUNC_MAX_PARAMS];
+    print_part_type_t params_type[FUNC_MAX_PARAMS];
 } params_str_t;
 
 typedef struct {
@@ -205,6 +209,8 @@ typedef struct {
     bytes_vect_t obj_subs_vect;
     bool subs_body;
     bool declare_scope;
+    bool optional_mod;
+    uint8_t group_mod;
 } parse_result_t;
 
 #ifdef __cplusplus

@@ -18,69 +18,85 @@ static const char *math_ops_str[] = {VM_CMD_LIST};
 
 #endif
 
-typedef parse_error_t (*exp_pars_t)(parse_result_t *, expr_info_t *);
-parse_error_t register_expr(vm_ops_list_t ops, expr_info_t *l_expr, exp_pars_t exp_pars, parse_result_t *result) {
+parse_error_t expLevel_0(parse_result_t *result, expr_info_t *expr_cur);
+parse_error_t expLevel_1(parse_result_t *result, expr_info_t *expr_cur);
+parse_error_t expLevel_2(parse_result_t *result, expr_info_t *expr_cur);
+parse_error_t expLevel_3(parse_result_t *result, expr_info_t *expr_cur);
+parse_error_t expLevel_4(parse_result_t *result, expr_info_t *expr_cur);
+parse_error_t expLevel_last(parse_result_t *result, expr_info_t *expr_cur);
+parse_error_t expPartParse(parse_result_t *result, expr_info_t *expr_cur);
+
+parse_error_t register_expr(parse_result_t *result, vm_ops_list_t ops, expr_info_t *l_expr) {
     expr_info_t r_expr;
 
     r_expr.calc_comptime = l_expr->calc_comptime;
 
-    parse_error_t pe = exp_pars(result, &r_expr);
+    parse_error_t pe = expPartParse(result, &r_expr);
     if (pe == pe_no_error) {
-        if (l_expr->type == pcs_number && r_expr.type == pcs_number) {
-            switch (ops) {
-                case vmo_MUL:
-                    l_expr->value = fpt_mul(l_expr->value, r_expr.value);
-                    break;
-                case vmo_DIV:
-                    l_expr->value = fpt_div(l_expr->value, r_expr.value);
-                    break;
-                case vmo_PLUS:
-                    l_expr->value = fpt_add(l_expr->value, r_expr.value);
-                    break;
-                case vmo_MINUS:
-                    l_expr->value = fpt_sub(l_expr->value, r_expr.value);
-                    break;
-                case vmo_LE:
-                    l_expr->value = l_expr->value <= r_expr.value;
-                    break;
-                case vmo_GE:
-                    l_expr->value = l_expr->value >= r_expr.value;
-                    break;
-                case vmo_LT:
-                    l_expr->value = l_expr->value < r_expr.value;
-                    break;
-                case vmo_GT:
-                    l_expr->value = l_expr->value > r_expr.value;
-                    break;
-                case vmo_EQ:
-                    l_expr->value = l_expr->value == r_expr.value;
-                    break;
-                case vmo_NE:
-                    l_expr->value = l_expr->value != r_expr.value;
-                    break;
-                case vmo_AND:
-                    l_expr->value = l_expr->value && r_expr.value;
-                    break;
-                case vmo_OR:
-                    l_expr->value = l_expr->value || r_expr.value;
-                    break;
-                    //
-                case vmo_NOT:
-                    l_expr->value = !r_expr.value;
-                    break;
-                case vmo_INV:
-                    l_expr->value = fpt_mul(r_expr.value, FPT_MINUS_ONE);
-                    break;
-                default:
-            }
-        } else {
-            pe = VmOp_Math(result, ops, l_expr, &r_expr);
+        if (ops) {
+            if (l_expr->type == pcs_number && r_expr.type == pcs_number) {
+                switch (ops) {
+                    case vmo_MUL:
+                        l_expr->value = fpt_mul(l_expr->value, r_expr.value);
+                        break;
+                    case vmo_DIV:
+                        l_expr->value = fpt_div(l_expr->value, r_expr.value);
+                        break;
+                    case vmo_PLUS:
+                        l_expr->value = fpt_add(l_expr->value, r_expr.value);
+                        break;
+                    case vmo_MINUS:
+                        l_expr->value = fpt_sub(l_expr->value, r_expr.value);
+                        break;
+                    case vmo_LE:
+                        l_expr->value = l_expr->value <= r_expr.value;
+                        break;
+                    case vmo_GE:
+                        l_expr->value = l_expr->value >= r_expr.value;
+                        break;
+                    case vmo_LT:
+                        l_expr->value = l_expr->value < r_expr.value;
+                        break;
+                    case vmo_GT:
+                        l_expr->value = l_expr->value > r_expr.value;
+                        break;
+                    case vmo_EQ:
+                        l_expr->value = l_expr->value == r_expr.value;
+                        break;
+                    case vmo_NE:
+                        l_expr->value = l_expr->value != r_expr.value;
+                        break;
+                    case vmo_AND:
+                        l_expr->value = l_expr->value && r_expr.value;
+                        break;
+                    case vmo_OR:
+                        l_expr->value = l_expr->value || r_expr.value;
+                        break;
+                        //
+                    case vmo_NOT:
+                        l_expr->value = !r_expr.value;
+                        break;
+                    case vmo_INV:
+                        l_expr->value = fpt_mul(r_expr.value, FPT_MINUS_ONE);
+                        break;
+                    default:
+                }
+            } else {
+                pe = VmOp_Math(result, ops, l_expr, &r_expr);
 #ifdef DEBUG
-            MSG_DBG(DL_DBG, "Register EXP: %s (%s(%d):%d, %s(%d):%d) ", math_ops_str[ops], l_expr->name, l_expr->type, fpt2i(l_expr->value), r_expr.name, r_expr.type, fpt2i(r_expr.value));
-            strcpy(l_expr->name, "LAST_VAL");
+                MSG_DBG(DL_DBG, "Register EXP: %s (%s(%d):%d, %s(%d):%d) ", math_ops_str[ops], l_expr->name, l_expr->type, fpt2i(l_expr->value), r_expr.name, r_expr.type, fpt2i(r_expr.value));
+                strcpy(l_expr->name, "LAST_VAL");
 #endif
 
-            l_expr->type = pcs_var_last;
+                l_expr->type = pcs_var_last;
+            }
+        } else {
+            memcpy(l_expr, &r_expr, sizeof(r_expr));
+        }
+        if (pe == pe_no_error) {
+            if (GET_CUR_SKIP_SPACES() != 0) {
+                pe = expLevel_last(result, l_expr);
+            }
         }
     }
     return pe;
@@ -116,14 +132,6 @@ parse_type_t parse_exp_token(parse_result_t *result) {
     return pcs_expression;
 }
 
-parse_error_t expLevel_0(parse_result_t *result, expr_info_t *expr_cur);
-parse_error_t expLevel_1(parse_result_t *result, expr_info_t *expr_cur);
-parse_error_t expLevel_2(parse_result_t *result, expr_info_t *expr_cur);
-parse_error_t expLevel_3(parse_result_t *result, expr_info_t *expr_cur);
-parse_error_t expLevel_4(parse_result_t *result, expr_info_t *expr_cur);
-parse_error_t expLevel_5(parse_result_t *result, expr_info_t *expr_cur);
-parse_error_t expLevel_6(parse_result_t *result, expr_info_t *expr_cur);
-
 /* recursive descent parser for arithmetic/logical expressions */
 parse_error_t ExpParse(parse_result_t *result) {
     MSG_DBG(DL_DBG1, "");
@@ -133,12 +141,11 @@ parse_error_t ExpParse(parse_result_t *result) {
     result->brackets_cnt = 0;
     expr_cur.calc_comptime = 0;
     MSG_DBG(DL_TRC, ">line_pnt:%d", result->line_str.line_pnt_ro);
-    parse_error_t pe = expLevel_0(result, &expr_cur);
+    parse_error_t pe = register_expr(result, 0, &expr_cur);
     if (pe == pe_no_error) {
         if (expr_cur.type == pcs_number) {
             // MSG_DBG(DL_DBG, " VAL:");
             Print_fpt(expr_cur.value);
-            // pe = VmOp_ArgNum(result, expr_cur.value);
         }
     }
     result->calc_comptime = 0;
@@ -154,7 +161,7 @@ parse_error_t ExpParseCompileTime(parse_result_t *result, fpt *val) {
     expr_cur.value = 0;
     result->brackets_cnt = 0;
     expr_cur.calc_comptime = 1;
-    parse_error_t pe = expLevel_0(result, &expr_cur);
+    parse_error_t pe = register_expr(result, 0, &expr_cur);
     if (pe == pe_no_error) {
         if (expr_cur.type != pcs_number) {
             MSG_DBG(DL_DBG, "Unable to evaluate expression at compile time");
@@ -172,20 +179,18 @@ parse_error_t ExpParseCompileTime(parse_result_t *result, fpt *val) {
 
 parse_error_t expLevel_0(parse_result_t *result, expr_info_t *expr_cur) {
     MSG_DBG(DL_TRC, ">line_pnt:%d", result->line_str.line_pnt_ro);
-    parse_error_t pe = expLevel_1(result, expr_cur);
-    uint8_t sym = GET_CUR_SKIP_SPACES();
+    parse_error_t pe = pe_no_error;
+    uint8_t sym = CUR_SYM();
     MSG_DBG(DL_TRC, "=line_pnt:%d  >%c<(%d)", result->line_str.line_pnt_ro, sym, sym);
-    if (pe == pe_no_error) {
+    SKIP_SYM();
+    if (sym == '=' && CUR_SYM() == '=') {  // ==
         SKIP_SYM();
-        if (sym == '=' && CUR_SYM() == '=') {  // ==
-            SKIP_SYM();
-            pe = register_expr(vmo_EQ, expr_cur, expLevel_0, result);
-        } else if (sym == '!' && CUR_SYM() == '=') {  // !=
-            SKIP_SYM();
-            pe = register_expr(vmo_NE, expr_cur, expLevel_0, result);
-        } else {
-            SYM_ROLLBACK();
-        }
+        pe = register_expr(result, vmo_EQ, expr_cur);
+    } else if (sym == '!' && CUR_SYM() == '=') {  // !=
+        SKIP_SYM();
+        pe = register_expr(result, vmo_NE, expr_cur);
+    } else {
+        SYM_ROLLBACK();
     }
     MSG_DBG(DL_TRC, "<pe:%d  line_pnt:%d   >%c<(%d)", pe, result->line_str.line_pnt_ro, CUR_SYM(), CUR_SYM());
     return pe;
@@ -193,20 +198,19 @@ parse_error_t expLevel_0(parse_result_t *result, expr_info_t *expr_cur) {
 
 parse_error_t expLevel_1(parse_result_t *result, expr_info_t *expr_cur) {
     MSG_DBG(DL_TRC, ">line_pnt:%d", result->line_str.line_pnt_ro);
-    parse_error_t pe = expLevel_2(result, expr_cur);
-    uint8_t sym = GET_CUR_SKIP_SPACES();
+    parse_error_t pe = pe_no_error;
+    uint8_t sym = CUR_SYM();
     MSG_DBG(DL_TRC, "=line_pnt:%d  >%c<(%d)", result->line_str.line_pnt_ro, sym, sym);
-    if (pe == pe_no_error) {
+    SKIP_SYM();
+    if (sym == '&' && CUR_SYM() == '&') {  // &&
         SKIP_SYM();
-        if (sym == '&' && CUR_SYM() == '&') {  // &&
-            SKIP_SYM();
-            pe = register_expr(vmo_AND, expr_cur, expLevel_1, result);
-        } else if (sym == '|' && CUR_SYM() == '|') {  // ||
-            SKIP_SYM();
-            pe = register_expr(vmo_OR, expr_cur, expLevel_1, result);
-        } else {
-            SYM_ROLLBACK();
-        }
+        pe = register_expr(result, vmo_AND, expr_cur);
+    } else if (sym == '|' && CUR_SYM() == '|') {  // ||
+        SKIP_SYM();
+        pe = register_expr(result, vmo_OR, expr_cur);
+    } else {
+        SYM_ROLLBACK();
+        pe = expLevel_0(result, expr_cur);
     }
     MSG_DBG(DL_TRC, "<pe:%d  line_pnt:%d   >%c<(%d)", pe, result->line_str.line_pnt_ro, CUR_SYM(), CUR_SYM());
     return pe;
@@ -214,21 +218,20 @@ parse_error_t expLevel_1(parse_result_t *result, expr_info_t *expr_cur) {
 
 parse_error_t expLevel_2(parse_result_t *result, expr_info_t *expr_cur) {
     MSG_DBG(DL_TRC, ">line_pnt:%d", result->line_str.line_pnt_ro);
-    parse_error_t pe = expLevel_3(result, expr_cur);
-    uint8_t sym = GET_CUR_SKIP_SPACES();
+    parse_error_t pe = pe_no_error;
+    uint8_t sym = CUR_SYM();
     MSG_DBG(DL_TRC, "=line_pnt:%d  >%c<(%d)", result->line_str.line_pnt_ro, sym, sym);
-    if (pe == pe_no_error) {
-        switch (sym) {
-            case '<':
-                SKIP_SYM();
-                pe = register_expr(vmo_LT, expr_cur, expLevel_2, result);
-                break;
-            case '>':
-                SKIP_SYM();
-                pe = register_expr(vmo_GT, expr_cur, expLevel_2, result);
-                break;
-            default:
-        }
+    switch (sym) {
+        case '<':
+            SKIP_SYM();
+            pe = register_expr(result, vmo_LT, expr_cur);
+            break;
+        case '>':
+            SKIP_SYM();
+            pe = register_expr(result, vmo_GT, expr_cur);
+            break;
+        default:
+            pe = expLevel_1(result, expr_cur);
     }
     MSG_DBG(DL_TRC, "<pe:%d  line_pnt:%d   >%c<(%d)", pe, result->line_str.line_pnt_ro, CUR_SYM(), CUR_SYM());
     return pe;
@@ -236,20 +239,19 @@ parse_error_t expLevel_2(parse_result_t *result, expr_info_t *expr_cur) {
 
 parse_error_t expLevel_3(parse_result_t *result, expr_info_t *expr_cur) {
     MSG_DBG(DL_TRC, ">line_pnt:%d", result->line_str.line_pnt_ro);
-    parse_error_t pe = expLevel_4(result, expr_cur);
-    uint8_t sym = GET_CUR_SKIP_SPACES();
+    parse_error_t pe = pe_no_error;
+    uint8_t sym = CUR_SYM();
     MSG_DBG(DL_TRC, "=line_pnt:%d  >%c<(%d)", result->line_str.line_pnt_ro, sym, sym);
-    if (pe == pe_no_error) {
+    SKIP_SYM();
+    if (sym == '<' && CUR_SYM() == '=') {  // <=
         SKIP_SYM();
-        if (sym == '<' && CUR_SYM() == '=') {  // <=
-            SKIP_SYM();
-            pe = register_expr(vmo_LE, expr_cur, expLevel_3, result);
-        } else if (sym == '>' && CUR_SYM() == '=') {  // >=
-            SKIP_SYM();
-            pe = register_expr(vmo_GE, expr_cur, expLevel_3, result);
-        } else {
-            SYM_ROLLBACK();
-        }
+        pe = register_expr(result, vmo_LE, expr_cur);
+    } else if (sym == '>' && CUR_SYM() == '=') {  // >=
+        SKIP_SYM();
+        pe = register_expr(result, vmo_GE, expr_cur);
+    } else {
+        SYM_ROLLBACK();
+        pe = expLevel_2(result, expr_cur);
     }
 
     MSG_DBG(DL_TRC, "<pe:%d  line_pnt:%d   >%c<(%d)", pe, result->line_str.line_pnt_ro, CUR_SYM(), CUR_SYM());
@@ -258,161 +260,161 @@ parse_error_t expLevel_3(parse_result_t *result, expr_info_t *expr_cur) {
 
 parse_error_t expLevel_4(parse_result_t *result, expr_info_t *expr_cur) {
     MSG_DBG(DL_TRC, ">line_pnt:%d", result->line_str.line_pnt_ro);
-    parse_error_t pe = expLevel_5(result, expr_cur);
-    uint8_t sym = GET_CUR_SKIP_SPACES();
+    parse_error_t pe = pe_no_error;
+    uint8_t sym = CUR_SYM();
     MSG_DBG(DL_TRC, "=line_pnt:%d  >%c<(%d)", result->line_str.line_pnt_ro, sym, sym);
-    if (pe == pe_no_error) {
-        switch (sym) {
-            case '+':
-                SKIP_SYM();
-                pe = register_expr(vmo_PLUS, expr_cur, expLevel_4, result);
-                break;
-            case '-':
-                SKIP_SYM();
-                pe = register_expr(vmo_MINUS, expr_cur, expLevel_4, result);
-                break;
-            default:
-        }
+    switch (sym) {
+        case '+':
+            SKIP_SYM();
+            pe = register_expr(result, vmo_PLUS, expr_cur);
+            break;
+        case '-':
+            SKIP_SYM();
+            pe = register_expr(result, vmo_MINUS, expr_cur);
+            break;
+        default:
+            pe = expLevel_3(result, expr_cur);
     }
     MSG_DBG(DL_TRC, "<pe:%d  line_pnt:%d   >%c<(%d)", pe, result->line_str.line_pnt_ro, CUR_SYM(), CUR_SYM());
     return pe;
 }
 
-parse_error_t expLevel_5(parse_result_t *result, expr_info_t *expr_cur) {
+parse_error_t expLevel_last(parse_result_t *result, expr_info_t *expr_cur) {
     MSG_DBG(DL_TRC, ">line_pnt:%d", result->line_str.line_pnt_ro);
-    parse_error_t pe = expLevel_6(result, expr_cur);
-    uint8_t sym = GET_CUR_SKIP_SPACES();
+    parse_error_t pe = pe_no_error;
+    uint8_t sym = CUR_SYM();
     MSG_DBG(DL_TRC, "=line_pnt:%d  >%c<(%d)", result->line_str.line_pnt_ro, sym, sym);
-    if (pe == pe_no_error) {
-        switch (sym) {
-            case '*':
-                SKIP_SYM();
-                pe = register_expr(vmo_MUL, expr_cur, expLevel_5, result);
-                break;
-            case '/':
-                SKIP_SYM();
-                pe = register_expr(vmo_DIV, expr_cur, expLevel_5, result);
-                break;
-            default:
-        }
+    switch (sym) {
+        case '*':
+            SKIP_SYM();
+            pe = register_expr(result, vmo_MUL, expr_cur);
+            break;
+        case '/':
+            SKIP_SYM();
+            pe = register_expr(result, vmo_DIV, expr_cur);
+            break;
+        default:
+            pe = expLevel_4(result, expr_cur);
     }
     MSG_DBG(DL_TRC, "<pe:%d  line_pnt:%d   >%c<(%d)", pe, result->line_str.line_pnt_ro, CUR_SYM(), CUR_SYM());
     return pe;
 }
 
-parse_error_t expLevel_6(parse_result_t *result, expr_info_t *expr_cur) {
+parse_error_t expPartParse(parse_result_t *result, expr_info_t *expr_cur) {
     parse_error_t pe = pe_no_error;
 
     uint8_t sym = GET_CUR_SKIP_SPACES();
     MSG_DBG(DL_TRC, ">line_pnt:%d   >%c<(%d)", result->line_str.line_pnt_ro, sym, sym);
 
-    if (sym == 0) {
-    } else if (sym == '-') {
-        SKIP_SYM();
-        pe = register_expr(vmo_INV, expr_cur, expLevel_6, result);
-    } else if (sym == '!') {
-        SKIP_SYM();
-        pe = register_expr(vmo_NOT, expr_cur, expLevel_6, result);
-    } else {
-        parse_type_t exp_type = parse_exp_token(result);
-        MSG_DBG(DL_DBG1, "exp_type:%d  calc_comptime:%d  line_pnt:%d  cur_sym:%c token.size:%d", exp_type, expr_cur->calc_comptime, result->line_str.line_pnt_ro, CUR_SYM(), result->token.size);
-        expr_cur->type = exp_type;
+    switch (sym) {
+            //       case 0:
+        case ')':
+            return pe;
+        case '-':
+            SKIP_SYM();
+            pe = register_expr(result, vmo_INV, expr_cur);
+            break;
+        case '!':
+            SKIP_SYM();
+            pe = register_expr(result, vmo_NOT, expr_cur);
+            break;
+        default:
+            parse_type_t exp_type = parse_exp_token(result);
+            MSG_DBG(DL_DBG1, "exp_type:%d  calc_comptime:%d  line_pnt:%d  cur_sym:%c token.size:%d", exp_type, expr_cur->calc_comptime, result->line_str.line_pnt_ro, CUR_SYM(), result->token.size);
+            expr_cur->type = exp_type;
 #ifdef DEBUG
-        if (result->token.size) {
-            CopyNameFromToken(expr_cur->name);
-            expr_cur->name[result->token.size] = 0;
-        }
+            if (result->token.size) {
+                CopyNameFromToken(expr_cur->name);
+                expr_cur->name[result->token.size] = 0;
+            }
 #endif
-        switch (exp_type) {
-            case pcs_function: {
-                pe = ParseFunc(result, 1);
-            } break;
-            case pcs_number: {
-                ParseNum(result, expr_cur);
-                if (expr_cur->calc_comptime == 0) {
-                    VmOp_ArgNum(result, expr_cur->value);
-                }
-            } break;
-            case pcs_byte: {
-                SKIP_SYM();
-                char symb = 0;
-                if (CUR_SYM() == '\\') {
-                    SKIP_SYM();
-                    switch (CUR_SYM()) {
-                        case 'n':
-                            symb = '\n';
-                            break;
-                        case 't':
-                            symb = '\t';
-                            break;
-                        case '\\':
-                            symb = '\\';
-                            break;
-                        default:
-                            pe = pe_expression_invalid;
+            switch (exp_type) {
+                case pcs_function: {
+                    pe = ParseFunc(result, 1);
+                } break;
+                case pcs_number: {
+                    ParseNum(result, expr_cur);
+                    if (expr_cur->calc_comptime == 0) {
+                        VmOp_ArgNum(result, expr_cur->value);
                     }
-                } else {
-                    symb = CUR_SYM();
-                }
-                if (pe == pe_no_error) {
+                } break;
+                case pcs_byte: {
                     SKIP_SYM();
-                    if (CUR_SYM() == '\'') {
+                    char symb = 0;
+                    if (CUR_SYM() == '\\') {
                         SKIP_SYM();
-                        expr_cur->value = i2fpt(symb);
-                        strncpy(expr_cur->name, "char", TOKEN_MAX_LEN);  // DEBUG
-                        expr_cur->type = pcs_number;
-                        if (expr_cur->calc_comptime == 0) {
-                            VmOp_ArgNum(result, expr_cur->value);
+                        switch (CUR_SYM()) {
+                            case 'n':
+                                symb = '\n';
+                                break;
+                            case 't':
+                                symb = '\t';
+                                break;
+                            case '\\':
+                                symb = '\\';
+                                break;
+                            default:
+                                pe = pe_expression_invalid;
+                        }
+                    } else {
+                        symb = CUR_SYM();
+                    }
+                    if (pe == pe_no_error) {
+                        SKIP_SYM();
+                        if (CUR_SYM() == '\'') {
+                            SKIP_SYM();
+                            expr_cur->value = i2fpt(symb);
+                            strncpy(expr_cur->name, "char", TOKEN_MAX_LEN);  // DEBUG
+                            expr_cur->type = pcs_number;
+                            if (expr_cur->calc_comptime == 0) {
+                                VmOp_ArgNum(result, expr_cur->value);
+                            }
+                        } else {
+                            pe = pe_expression_invalid;
+                        }
+                    }
+                } break;
+                case pcs_variable: {
+                    // MSG_DBG(DL_TRC, "enable_code_gen:%d", result->enable_code_gen);
+                    pe = ParseVar(result, vsm_GET_VAR, &expr_cur->ctx_var_info);
+                    // MSG_DBG(DL_TRC, "enable_code_gen:%d", result->enable_code_gen);
+                    if (pe == pe_no_error) {
+                        pe = VmOp_ArgVar(result, &expr_cur->ctx_var_info);
+                    } else {
+                        const_gen_info_t *const_gen_info;
+                        pe = RegisterConstGenVar(result, result->token.data, 0, 0, &const_gen_info);
+                        if (pe == pe_no_error) {
+                            expr_cur->type = pcs_number;
+                            expr_cur->value = const_gen_info->data;
+                            strncpy(expr_cur->name, const_gen_info->name, TOKEN_MAX_LEN);
+                            if (expr_cur->calc_comptime == 0) {
+                                VmOp_ArgNum(result, expr_cur->value);
+                            }
+                        }
+                    }
+                } break;
+                default: {
+                    if (CUR_SYM() == '(') {
+                        SKIP_SYM();
+                        result->brackets_cnt++;
+                        MSG_DBG(DL_TRC, "Brace++ :%d", result->brackets_cnt);
+                        pe = register_expr(result, 0, expr_cur);
+                        if (GET_CUR_SKIP_SPACES() == ')') {
+                            SKIP_SYM();
+                            if (result->brackets_cnt > 0) {
+                                result->brackets_cnt--;
+                                MSG_DBG(DL_TRC, "Brace-- :%d", result->brackets_cnt);
+                            } else {
+                                pe = pe_expression_invalid;
+                            }
                         }
                     } else {
                         pe = pe_expression_invalid;
                     }
                 }
-            } break;
-            case pcs_variable: {
-                // MSG_DBG(DL_TRC, "enable_code_gen:%d", result->enable_code_gen);
-                pe = ParseVar(result, vsm_GET_VAR, &expr_cur->ctx_var_info);
-                // MSG_DBG(DL_TRC, "enable_code_gen:%d", result->enable_code_gen);
-                if (pe == pe_no_error) {
-                    pe = VmOp_ArgVar(result, &expr_cur->ctx_var_info);
-                } else {
-                    const_gen_info_t *const_gen_info;
-                    pe = RegisterConstGenVar(result, result->token.data, 0, 0, &const_gen_info);
-                    if (pe == pe_no_error) {
-                        expr_cur->type = pcs_number;
-                        expr_cur->value = const_gen_info->data;
-                        strncpy(expr_cur->name, const_gen_info->name, TOKEN_MAX_LEN);
-                        if (expr_cur->calc_comptime == 0) {
-                            VmOp_ArgNum(result, expr_cur->value);
-                        }
-                    }
-                }
-                goto end;
-            } break;
-            default: {
-                if (CUR_SYM() == '(') {
-                    SKIP_SYM();
-                    result->brackets_cnt++;
-                    MSG_DBG(DL_TRC, "Brace++ :%d", result->brackets_cnt);
-                    pe = expLevel_0(result, expr_cur);
-                    if (GET_CUR_SKIP_SPACES() == ')') {
-                        SKIP_SYM();
-                        if (result->brackets_cnt > 0) {
-                            result->brackets_cnt--;
-                            MSG_DBG(DL_TRC, "Brace-- :%d", result->brackets_cnt);
-                        } else {
-                            pe = pe_expression_invalid;
-                        }
-                    }
-                } else {
-                    pe = pe_expression_invalid;
-                }
-                // goto end;
             }
-        }
     }
 
-end:
     MSG_DBG(DL_TRC, "<pe:%d  line_pnt:%d   >%c<(%d)", pe, result->line_str.line_pnt_ro, CUR_SYM(), CUR_SYM());
     return pe;
 }

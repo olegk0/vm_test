@@ -45,14 +45,11 @@ typedef enum {
     pcs_var_last,    // var in stack
     pcs_var_declare,
     pcs_else,
-    // 0x20 - 0x7f reserved ASCII symbs
+
     pcs_space = 0x20,
-    pcs_MOD_optional = 0x80,
-    // 0xe0 - ext var type
-    // 0xf0 - cmd syntax extend
-    //   pcs_ext_THEN = 0xf0,
-    //   pcs_ext_TO,
-    //  pcs_ext_INTO,
+    // 0x20 - 0x7f reserved ASCII symbs
+    pcs_IND_optional = 0x7f,
+    pcs_MOD_group = 0x80,
 } parse_type_t;
 
 typedef enum {
@@ -63,6 +60,7 @@ typedef enum {
     // reserved words
     cmd_id_reserved = 100 - 1,
     cmd_id_BYTE,
+    cmd_id_CHAR,
     cmd_id_VAR,
     cmd_id_IF,
     cmd_id_WHILE,
@@ -81,7 +79,7 @@ typedef enum {
     cmd_id_end = 200,
 } cmd_id_list_t;
 
-#define EXT_OPER_LIST CONV_TYPE(ELSE, {pcs_command | pcs_MOD_optional, 0}),   \
+#define EXT_OPER_LIST CONV_TYPE(ELSE, {pcs_IND_optional, pcs_command, 0}),    \
                       CONV_TYPE(LET, {pcs_variable, '=', pcs_expression, 0}), \
                       CONV_TYPE(CALL, {pcs_token, 0}), /*all funcs have one templ*/
 
@@ -106,6 +104,7 @@ typedef struct {
 typedef enum {
     vsm_DECLARE_VAR,
     vsm_DECLARE_BYTE_ARRAY,
+    vsm_DECLARE_CHAR_ARRAY,
     vsm_DECLARE_VAR_ARRAY,
     vsm_DECLARE_end,
     vsm_GET_VAR,

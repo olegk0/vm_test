@@ -5,19 +5,17 @@ const d_down 2
 const d_left 3
 const d_right 4
 
-char text1[]="sample text"
 byte snake_x[snake_max_size]
 byte snake_y[snake_max_size]
 var snake_size
 var snake_dir
 
-var scr_width = scr_w()
-var scr_height = scr_h()
+	var scr_width = scr_w()
+	var scr_height = scr_h()
+	
+	var key
+	var f_skip=0
 
-	
-var key
-var f_skip=0
-	
 
 func print_snake(tt) {
 	var t
@@ -61,7 +59,6 @@ func print_snake(tt) {
 	ret_val (0)
 f_end:
 }
-
 
 	
 	#snake_x[0]=scr_width/2
