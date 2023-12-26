@@ -162,9 +162,9 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
             }
         }
         // return pe_no_error;
-    } else {                   // Not Found
-        if (mem_size > 255) {  // There is a size limit for now
-            MSG_ERR("At the moment the physical size of the array is limited to 255 bytes.");
+    } else {                    // Not Found
+        if (elm_count > 255) {  // There is a size limit for now
+            MSG_ERR("At the moment the  size of the array is limited to 255.");
             return pe_syntax_invalid;
         }
         NOT_FOUND_OBJECT(var);
@@ -284,7 +284,6 @@ parse_error_t RegisterConstArray(parse_result_t *result, const char *token_str, 
         switch (type) {
             case vt_array_of_byte:
             case vt_array_of_char:
-            case vt_array_of_print_args:
                 for (int i = 0; i < array_size; i++) {
                     (*const_array_info)->data[i] = i2fpt(((uint8_t *)data)[i]);
                     // printf(": %c  %d %d\n", ((uint8_t *)data)[i], (*const_array_info)->data[i], fpt2i((*const_array_info)->data[i]));
@@ -472,12 +471,4 @@ int GetCodeOffset(parse_result_t *result) {
         return VECTOR_SIZE(result->obj_subs_vect);
     }
     return VECTOR_SIZE(result->obj_main_vect);
-}
-
-void DefinePartArgType(parse_result_t *result, print_part_type_t part_type) {
-    if (result->enable_code_gen) {
-        VmOp_Debug1(result, "Part", part_type);
-        result->params_str.params_type[result->params_str.params_cnt] = part_type;
-        result->params_str.params_cnt++;
-    }
 }

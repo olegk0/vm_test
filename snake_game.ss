@@ -10,12 +10,6 @@ byte snake_y[snake_max_size]
 var snake_size
 var snake_dir
 
-	var scr_width = scr_w()
-	var scr_height = scr_h()
-	
-	var key
-	var f_skip=0
-
 
 func print_snake(tt) {
 	var t
@@ -37,8 +31,9 @@ func print_snake(tt) {
 		if t=='@'{
 			snake_size=snake_size+1
 		}else{
-			ret_val(1)
-			goto f_end
+		brkpnt
+			return(1)
+			
 		}
 	}
 	putc('Q')
@@ -56,10 +51,17 @@ func print_snake(tt) {
 	}
 	snake_x[0]=new_x
 	snake_y[0]=new_y
-	ret_val (0)
-f_end:
+
+	return (0)
 }
 
+	puts("begin")
+brkpnt
+	var scr_width = scr_w()	
+	var scr_height = scr_h()
+
+	var key
+	var f_skip=0
 	
 	#snake_x[0]=scr_width/2
 	#snake_y[0]=scr_height/2 + 2

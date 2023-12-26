@@ -58,7 +58,6 @@ typedef enum {
     vt_arrays = 0x80,
     vt_array_of_char,
     vt_array_of_byte,
-    vt_array_of_print_args,
     vt_array_of_generic,
 } var_type_t;
 
@@ -159,7 +158,7 @@ typedef struct {
 } token_str_t;
 
 typedef struct {
-    int params_cnt;
+    uint8_t params_cnt;
     print_part_type_t params_type[FUNC_MAX_PARAMS];
 } params_str_t;
 
@@ -192,12 +191,12 @@ typedef struct {
     params_str_t params_str;
     const uint8_t *cmd_templ_pnt;
     uint8_t cur_cmd;
-    // uint8_t past_cmd;
-    // int vm_code_offset;
+    uint8_t expr_flags;
+
     void (*put_sym)(uint8_t sym);
     ctx_var_info_t ctx_var_info;
     // Expression vars
-    int brackets_cnt;
+    // int brackets_cnt;
     bool calc_comptime;
     // int stack_size;
     int heap_memory_max;
@@ -208,7 +207,7 @@ typedef struct {
     bytes_vect_t obj_main_vect;
     bytes_vect_t obj_subs_vect;
     bool subs_body;
-    bool declare_scope;
+    // bool declare_scope;
     bool optional_mod;
     uint8_t group_mod;
 } parse_result_t;

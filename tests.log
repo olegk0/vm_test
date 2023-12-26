@@ -1,0 +1,3332 @@
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0000: 01 02 00 01 03 00 01 04
+Line:2 - [vm_exe.c:529(Run)]
+1: ip:0xEA ip_rel:0x0(0) sp:0x18F hp:0x0 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0003: 01 03 00 01 04 00 01 06
+Line:3 - [vm_exe.c:529(Run)]
+1: ip:0xED ip_rel:0x3(3) sp:0x18F hp:0x0 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0006: 01 04 00 01 06 00 01 0B
+Line:4 - [vm_exe.c:529(Run)]
+1: ip:0xF0 ip_rel:0x6(6) sp:0x18F hp:0x0 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0009: 01 06 00 01 0B 00 01 11
+Line:6 - [vm_exe.c:529(Run)]
+1: ip:0xF3 ip_rel:0x9(9) sp:0x18F hp:0x0 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+000C: 01 0B 00 01 11 00 01 19
+Line:11 - [vm_exe.c:529(Run)]
+1: ip:0xF6 ip_rel:0xC(12) sp:0x18F hp:0x0 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+000F: 01 11 00 01 19 00 01 22
+Line:17 - [vm_exe.c:529(Run)]
+1: ip:0xF9 ip_rel:0xF(15) sp:0x18F hp:0x0 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0012: 01 19 00 01 22 00 19 15
+Line:25 - [vm_exe.c:529(Run)]
+1: ip:0xFC ip_rel:0x12(18) sp:0x18F hp:0x0 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0015: 01 22 00 19 15 00 60 12
+Line:34 - [vm_exe.c:529(Run)]
+1: ip:0xFF ip_rel:0x15(21) sp:0x18F hp:0x0 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0018: 19 15 00 60 12 00 00 0B
+offs:21  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x102 ip_rel:0x18(24) sp:0x18C hp:0x0 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_bVAR(0x12)   cmd_size:4 - [vm_exe.c:513(Run)]
+001C: 12 00 00 0B 22 00 00 01
+1: offs:0x0 - [vm_exe.c:105(read_var_offset)]
+size:11 - [vm_exe.c:559(Run)]
+1: ip:0x106 ip_rel:0x1C(28) sp:0x18C hp:0xC vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+COPY_TO_bARRAY(0x22)   cmd_size:3 - [vm_exe.c:513(Run)]
+0020: 22 00 00 01 23 00 12 0C
+1: offs:0x0 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x10A ip_rel:0x20(32) sp:0x18F hp:0xC vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0023: 01 23 00 12 0C 00 0A 01
+Line:35 - [vm_exe.c:529(Run)]
+1: ip:0x10D ip_rel:0x23(35) sp:0x18F hp:0xC vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_bVAR(0x12)   cmd_size:4 - [vm_exe.c:513(Run)]
+0026: 12 0C 00 0A 01 24 00 19
+1: offs:0xC - [vm_exe.c:105(read_var_offset)]
+size:10 - [vm_exe.c:559(Run)]
+1: ip:0x110 ip_rel:0x26(38) sp:0x18F hp:0x17 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+002A: 01 24 00 19 21 00 50 12
+Line:36 - [vm_exe.c:529(Run)]
+1: ip:0x114 ip_rel:0x2A(42) sp:0x18F hp:0x17 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+002D: 19 21 00 50 12 17 00 03
+offs:33  type:80 - [vm_exe.c:637(Run)]
+1: ip:0x117 ip_rel:0x2D(45) sp:0x18C hp:0x17 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_bVAR(0x12)   cmd_size:4 - [vm_exe.c:513(Run)]
+0031: 12 17 00 03 22 17 00 01
+1: offs:0x17 - [vm_exe.c:105(read_var_offset)]
+size:3 - [vm_exe.c:559(Run)]
+1: ip:0x11B ip_rel:0x31(49) sp:0x18C hp:0x1B vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+COPY_TO_bARRAY(0x22)   cmd_size:3 - [vm_exe.c:513(Run)]
+0035: 22 17 00 01 25 00 13 1B
+1: offs:0x17 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x11F ip_rel:0x35(53) sp:0x18F hp:0x1B vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0038: 01 25 00 13 1B 00 05 01
+Line:37 - [vm_exe.c:529(Run)]
+1: ip:0x122 ip_rel:0x38(56) sp:0x18F hp:0x1B vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x13)   cmd_size:4 - [vm_exe.c:513(Run)]
+003B: 13 1B 00 05 01 26 00 19
+1: offs:0x1B - [vm_exe.c:105(read_var_offset)]
+size:5 - [vm_exe.c:559(Run)]
+1: ip:0x125 ip_rel:0x3B(59) sp:0x18F hp:0x30 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+003F: 01 26 00 19 25 00 40 13
+Line:38 - [vm_exe.c:529(Run)]
+1: ip:0x129 ip_rel:0x3F(63) sp:0x18F hp:0x30 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0042: 19 25 00 40 13 30 00 03
+offs:37  type:64 - [vm_exe.c:637(Run)]
+1: ip:0x12C ip_rel:0x42(66) sp:0x18C hp:0x30 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x13)   cmd_size:4 - [vm_exe.c:513(Run)]
+0046: 13 30 00 03 23 30 00 01
+1: offs:0x30 - [vm_exe.c:105(read_var_offset)]
+size:3 - [vm_exe.c:559(Run)]
+1: ip:0x130 ip_rel:0x46(70) sp:0x18C hp:0x3D vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+COPY_TO_gARRAY(0x23)   cmd_size:3 - [vm_exe.c:513(Run)]
+004A: 23 30 00 01 28 00 13 3D
+1: offs:0x30 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x134 ip_rel:0x4A(74) sp:0x18F hp:0x3D vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+004D: 01 28 00 13 3D 00 00 01
+Line:40 - [vm_exe.c:529(Run)]
+1: ip:0x137 ip_rel:0x4D(77) sp:0x18F hp:0x3D vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x13)   cmd_size:4 - [vm_exe.c:513(Run)]
+0050: 13 3D 00 00 01 29 00 13
+1: offs:0x3D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x13A ip_rel:0x50(80) sp:0x18F hp:0x41 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0054: 01 29 00 13 41 00 00 18
+Line:41 - [vm_exe.c:529(Run)]
+1: ip:0x13E ip_rel:0x54(84) sp:0x18F hp:0x41 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x13)   cmd_size:4 - [vm_exe.c:513(Run)]
+0057: 13 41 00 00 18 4C 02 00
+1: offs:0x41 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x141 ip_rel:0x57(87) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 4C 02 00 00 0F 1E 41
+1: ip:0x145 ip_rel:0x5B(91) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INV(0xF)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0F 1E 41 00 01 2B 00 19
+1: ip:0x14A ip_rel:0x60(96) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x1E)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 1E 41 00 01 2B 00 19 00
+1: offs:0x41 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x14B ip_rel:0x61(97) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0064: 01 2B 00 19 00 00 60 19
+Line:43 - [vm_exe.c:529(Run)]
+1: ip:0x14E ip_rel:0x64(100) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0067: 19 00 00 60 19 32 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x151 ip_rel:0x67(103) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+006B: 19 32 00 60 18 80 0C 00
+offs:50  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x155 ip_rel:0x6B(107) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+006F: 18 80 0C 00 00 19 82 08
+1: ip:0x159 ip_rel:0x6F(111) sp:0x185 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0074: 19 82 08 00 24 02 01 2C
+offs:2178  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x15E ip_rel:0x74(116) sp:0x182 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+0078: 24 02 01 2C 00 19 00 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x162 ip_rel:0x78(120) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+007A: 01 2C 00 19 00 00 60 19
+Line:44 - [vm_exe.c:529(Run)]
+1: ip:0x164 ip_rel:0x7A(122) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+007D: 19 00 00 60 19 3B 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x167 ip_rel:0x7D(125) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0081: 19 3B 00 60 19 00 00 60
+offs:59  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x16B ip_rel:0x81(129) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0085: 19 00 00 60 19 88 08 00
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x16F ip_rel:0x85(133) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0089: 19 88 08 00 24 02 01 2D
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x173 ip_rel:0x89(137) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+008D: 24 02 01 2D 00 19 00 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x177 ip_rel:0x8D(141) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+008F: 01 2D 00 19 00 00 60 19
+Line:45 - [vm_exe.c:529(Run)]
+1: ip:0x179 ip_rel:0x8F(143) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0092: 19 00 00 60 19 45 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x17C ip_rel:0x92(146) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0096: 19 45 00 60 19 06 00 50
+offs:69  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x180 ip_rel:0x96(150) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+009A: 19 06 00 50 19 88 08 00
+offs:6  type:80 - [vm_exe.c:637(Run)]
+1: ip:0x184 ip_rel:0x9A(154) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+009E: 19 88 08 00 24 02 01 30
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x188 ip_rel:0x9E(158) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+00A2: 24 02 01 30 00 19 00 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x18C ip_rel:0xA2(162) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00A4: 01 30 00 19 00 00 60 19
+Line:48 - [vm_exe.c:529(Run)]
+1: ip:0x18E ip_rel:0xA4(164) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00A7: 19 00 00 60 19 4E 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x191 ip_rel:0xA7(167) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00AB: 19 4E 00 60 19 00 00 30
+offs:78  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x195 ip_rel:0xAB(171) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00AF: 19 00 00 30 19 88 08 00
+offs:0  type:48 - [vm_exe.c:637(Run)]
+1: ip:0x199 ip_rel:0xAF(175) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00B3: 19 88 08 00 24 02 01 32
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x19D ip_rel:0xB3(179) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+00B7: 24 02 01 32 00 19 00 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x1A1 ip_rel:0xB7(183) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00B9: 01 32 00 19 00 00 60 19
+Line:50 - [vm_exe.c:529(Run)]
+1: ip:0x1A3 ip_rel:0xB9(185) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00BC: 19 00 00 60 19 55 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x1A6 ip_rel:0xBC(188) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00C0: 19 55 00 60 19 17 00 20
+offs:85  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x1AA ip_rel:0xC0(192) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00C4: 19 17 00 20 19 88 08 00
+offs:23  type:32 - [vm_exe.c:637(Run)]
+1: ip:0x1AE ip_rel:0xC4(196) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00C8: 19 88 08 00 24 02 01 33
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x1B2 ip_rel:0xC8(200) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+00CC: 24 02 01 33 00 19 00 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x1B6 ip_rel:0xCC(204) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00CE: 01 33 00 19 00 00 60 19
+Line:51 - [vm_exe.c:529(Run)]
+1: ip:0x1B8 ip_rel:0xCE(206) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00D1: 19 00 00 60 19 60 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x1BB ip_rel:0xD1(209) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00D5: 19 60 00 60 19 30 00 10
+offs:96  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x1BF ip_rel:0xD5(213) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00D9: 19 30 00 10 19 88 08 00
+offs:48  type:16 - [vm_exe.c:637(Run)]
+1: ip:0x1C3 ip_rel:0xD9(217) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00DD: 19 88 08 00 24 02 01 36
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x1C7 ip_rel:0xDD(221) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+00E1: 24 02 01 36 00 19 00 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x1CB ip_rel:0xE1(225) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00E3: 01 36 00 19 00 00 60 19
+Line:54 - [vm_exe.c:529(Run)]
+1: ip:0x1CD ip_rel:0xE3(227) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00E6: 19 00 00 60 19 6A 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x1D0 ip_rel:0xE6(230) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00EA: 19 6A 00 60 17 41 00 19
+offs:106  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x1D4 ip_rel:0xEA(234) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x17)   cmd_size:3 - [vm_exe.c:513(Run)]
+00EE: 17 41 00 19 82 08 00 24
+1: offs:0x41 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x1D8 ip_rel:0xEE(238) sp:0x185 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+00F1: 19 82 08 00 24 02 01 37
+offs:2178  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x1DB ip_rel:0xF1(241) sp:0x182 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+00F5: 24 02 01 37 00 18 00 0A
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x1DF ip_rel:0xF5(245) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00F7: 01 37 00 18 00 0A 00 00
+Line:55 - [vm_exe.c:529(Run)]
+1: ip:0x1E1 ip_rel:0xF7(247) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00FA: 18 00 0A 00 00 25 01 01
+1: ip:0x1E4 ip_rel:0xFA(250) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_FUNC(0x25)   cmd_size:2 - [vm_exe.c:513(Run)]
+00FF: 25 01 01 38 00 17 41 00
+func_id:1 - [vm_exe.c:863(Run)]
+1: ip:0x1E9 ip_rel:0xFF(255) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0101: 01 38 00 17 41 00 18 80
+Line:56 - [vm_exe.c:529(Run)]
+1: ip:0x1EB ip_rel:0x101(257) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x17)   cmd_size:3 - [vm_exe.c:513(Run)]
+0104: 17 41 00 18 80 0C 00 00
+1: offs:0x41 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x1EE ip_rel:0x104(260) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0107: 18 80 0C 00 00 06 18 00
+1: ip:0x1F1 ip_rel:0x107(263) sp:0x187 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PLUS(0x6)   cmd_size:1 - [vm_exe.c:513(Run)]
+010C: 06 18 00 02 00 00 05 18
+1: ip:0x1F6 ip_rel:0x10C(268) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+010D: 18 00 02 00 00 05 18 00
+1: ip:0x1F7 ip_rel:0x10D(269) sp:0x187 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DIV(0x5)   cmd_size:1 - [vm_exe.c:513(Run)]
+0112: 05 18 00 05 00 00 04 18
+1: ip:0x1FC ip_rel:0x112(274) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0113: 18 00 05 00 00 04 18 00
+1: ip:0x1FD ip_rel:0x113(275) sp:0x187 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+0118: 04 18 00 14 00 00 07 1E
+1: ip:0x202 ip_rel:0x118(280) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0119: 18 00 14 00 00 07 1E 3D
+1: ip:0x203 ip_rel:0x119(281) sp:0x187 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+011E: 07 1E 3D 00 01 39 00 18
+1: ip:0x208 ip_rel:0x11E(286) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x1E)   cmd_size:3 - [vm_exe.c:513(Run)]
+011F: 1E 3D 00 01 39 00 18 00
+1: offs:0x3D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x209 ip_rel:0x11F(287) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0122: 01 39 00 18 00 01 00 00
+Line:57 - [vm_exe.c:529(Run)]
+1: ip:0x20C ip_rel:0x122(290) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0125: 18 00 01 00 00 17 3D 00
+1: ip:0x20F ip_rel:0x125(293) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x17)   cmd_size:3 - [vm_exe.c:513(Run)]
+012A: 17 3D 00 18 80 05 00 00
+1: offs:0x3D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x214 ip_rel:0x12A(298) sp:0x187 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+012D: 18 80 05 00 00 26 0D 00
+1: ip:0x217 ip_rel:0x12D(301) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0132: 26 0D 00 1C 01 3A 00 18
+1: func_offs:13 - [vm_exe.c:846(Run)]
+1: ip:0xD ip_rel:0xFFFFFF23(-221) sp:0x183 hp:0x4D vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+000D: 93 00 00 00 93 04 00 00
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0xD ip_rel:0xFFFFFF23(-221) sp:0x183 hp:0x51 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0011: 93 04 00 00 93 08 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x11 ip_rel:0xFFFFFF27(-217) sp:0x183 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0015: 93 08 00 00 9E 08 00 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x15 ip_rel:0xFFFFFF2B(-213) sp:0x183 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0019: 9E 08 00 9E 04 00 9E 00
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x19 ip_rel:0xFFFFFF2F(-209) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+001C: 9E 04 00 9E 00 00 01 0C
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x1C ip_rel:0xFFFFFF32(-206) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+001F: 9E 00 00 01 0C 00 26 00
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x1F ip_rel:0xFFFFFF35(-203) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0022: 01 0C 00 26 00 00 1C 01
+Line:12 - [vm_exe.c:529(Run)]
+1: ip:0x22 ip_rel:0xFFFFFF38(-200) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0025: 26 00 00 1C 01 0D 00 97
+1: func_offs:0 - [vm_exe.c:846(Run)]
+1: ip:0x0 ip_rel:0xFFFFFF16(-234) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0000: 01 08 00 19 00 00 60 25
+Line:8 - [vm_exe.c:529(Run)]
+1: ip:0x0 ip_rel:0xFFFFFF16(-234) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0003: 19 00 00 60 25 02 01 09
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x3 ip_rel:0xFFFFFF19(-231) sp:0x18C hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_FUNC(0x25)   cmd_size:2 - [vm_exe.c:513(Run)]
+0007: 25 02 01 09 00 29 93 00
+func_id:2 - [vm_exe.c:863(Run)]
+1: ip:0x7 ip_rel:0xFFFFFF1D(-227) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0009: 01 09 00 29 93 00 00 00
+Line:9 - [vm_exe.c:529(Run)]
+1: ip:0x9 ip_rel:0xFFFFFF1F(-225) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RET(0x29)   cmd_size:1 - [vm_exe.c:513(Run)]
+000C: 29 93 00 00 00 93 04 00
+1: ip:0x28 ip_rel:0xFFFFFF3E(-194) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_TO_NOWHERE(0x1C)   cmd_size:1 - [vm_exe.c:513(Run)]
+0028: 1C 01 0D 00 97 00 00 19
+1: ip:0x28 ip_rel:0xFFFFFF3E(-194) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0029: 01 0D 00 97 00 00 19 0D
+Line:13 - [vm_exe.c:529(Run)]
+1: ip:0x29 ip_rel:0xFFFFFF3F(-193) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+002C: 97 00 00 19 0D 00 60 97
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x2C ip_rel:0xFFFFFF42(-190) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+002F: 19 0D 00 60 97 04 00 19
+offs:13  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x2F ip_rel:0xFFFFFF45(-187) sp:0x188 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0033: 97 04 00 19 10 00 60 97
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x33 ip_rel:0xFFFFFF49(-183) sp:0x184 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0036: 19 10 00 60 97 08 00 19
+offs:16  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x36 ip_rel:0xFFFFFF4C(-180) sp:0x181 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+003A: 97 08 00 19 82 82 02 24
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x3A ip_rel:0xFFFFFF50(-176) sp:0x17D hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+003D: 19 82 82 02 24 01 01 0F
+offs:33410  type:2 - [vm_exe.c:637(Run)]
+1: ip:0x3D ip_rel:0xFFFFFF53(-173) sp:0x17A hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+0041: 24 01 01 0F 00 29 93 00
+func_id:1 - [vm_exe.c:768(Run)]
+1: ip:0x41 ip_rel:0xFFFFFF57(-169) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0043: 01 0F 00 29 93 00 00 00
+Line:15 - [vm_exe.c:529(Run)]
+1: ip:0x43 ip_rel:0xFFFFFF59(-167) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RET(0x29)   cmd_size:1 - [vm_exe.c:513(Run)]
+0046: 29 93 00 00 00 93 04 00
+1: ip:0x21F ip_rel:0x135(309) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_TO_NOWHERE(0x1C)   cmd_size:1 - [vm_exe.c:513(Run)]
+0135: 1C 01 3A 00 18 00 3B 00
+1: ip:0x21F ip_rel:0x135(309) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0136: 01 3A 00 18 00 3B 00 00
+Line:58 - [vm_exe.c:529(Run)]
+1: ip:0x220 ip_rel:0x136(310) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0139: 18 00 3B 00 00 25 01 01
+1: ip:0x223 ip_rel:0x139(313) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_FUNC(0x25)   cmd_size:2 - [vm_exe.c:513(Run)]
+013E: 25 01 01 3B 00 18 00 02
+func_id:1 - [vm_exe.c:863(Run)]
+1: ip:0x228 ip_rel:0x13E(318) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0140: 01 3B 00 18 00 02 00 00
+Line:59 - [vm_exe.c:529(Run)]
+1: ip:0x22A ip_rel:0x140(320) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0143: 18 00 02 00 00 19 30 00
+1: ip:0x22D ip_rel:0x143(323) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0148: 19 30 00 10 25 83 18 00
+offs:48  type:16 - [vm_exe.c:637(Run)]
+1: ip:0x232 ip_rel:0x148(328) sp:0x188 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_FUNC(0x25)   cmd_size:2 - [vm_exe.c:513(Run)]
+014C: 25 83 18 00 03 00 00 26
+func_id:131 - [vm_exe.c:863(Run)]
+1: ip:0x236 ip_rel:0x14C(332) sp:0x187 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+014E: 18 00 03 00 00 26 0D 00
+1: ip:0x238 ip_rel:0x14E(334) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0153: 26 0D 00 1C 01 3C 00 18
+1: func_offs:13 - [vm_exe.c:846(Run)]
+1: ip:0xD ip_rel:0xFFFFFF23(-221) sp:0x183 hp:0x4D vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+000D: 93 00 00 00 93 04 00 00
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0xD ip_rel:0xFFFFFF23(-221) sp:0x183 hp:0x51 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0011: 93 04 00 00 93 08 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x11 ip_rel:0xFFFFFF27(-217) sp:0x183 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0015: 93 08 00 00 9E 08 00 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x15 ip_rel:0xFFFFFF2B(-213) sp:0x183 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0019: 9E 08 00 9E 04 00 9E 00
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x19 ip_rel:0xFFFFFF2F(-209) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+001C: 9E 04 00 9E 00 00 01 0C
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x1C ip_rel:0xFFFFFF32(-206) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+001F: 9E 00 00 01 0C 00 26 00
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x1F ip_rel:0xFFFFFF35(-203) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0022: 01 0C 00 26 00 00 1C 01
+Line:12 - [vm_exe.c:529(Run)]
+1: ip:0x22 ip_rel:0xFFFFFF38(-200) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0025: 26 00 00 1C 01 0D 00 97
+1: func_offs:0 - [vm_exe.c:846(Run)]
+1: ip:0x0 ip_rel:0xFFFFFF16(-234) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0000: 01 08 00 19 00 00 60 25
+Line:8 - [vm_exe.c:529(Run)]
+1: ip:0x0 ip_rel:0xFFFFFF16(-234) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0003: 19 00 00 60 25 02 01 09
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x3 ip_rel:0xFFFFFF19(-231) sp:0x18C hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_FUNC(0x25)   cmd_size:2 - [vm_exe.c:513(Run)]
+0007: 25 02 01 09 00 29 93 00
+func_id:2 - [vm_exe.c:863(Run)]
+1: ip:0x7 ip_rel:0xFFFFFF1D(-227) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0009: 01 09 00 29 93 00 00 00
+Line:9 - [vm_exe.c:529(Run)]
+1: ip:0x9 ip_rel:0xFFFFFF1F(-225) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RET(0x29)   cmd_size:1 - [vm_exe.c:513(Run)]
+000C: 29 93 00 00 00 93 04 00
+1: ip:0x28 ip_rel:0xFFFFFF3E(-194) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_TO_NOWHERE(0x1C)   cmd_size:1 - [vm_exe.c:513(Run)]
+0028: 1C 01 0D 00 97 00 00 19
+1: ip:0x28 ip_rel:0xFFFFFF3E(-194) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0029: 01 0D 00 97 00 00 19 0D
+Line:13 - [vm_exe.c:529(Run)]
+1: ip:0x29 ip_rel:0xFFFFFF3F(-193) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+002C: 97 00 00 19 0D 00 60 97
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x2C ip_rel:0xFFFFFF42(-190) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+002F: 19 0D 00 60 97 04 00 19
+offs:13  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x2F ip_rel:0xFFFFFF45(-187) sp:0x188 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0033: 97 04 00 19 10 00 60 97
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x33 ip_rel:0xFFFFFF49(-183) sp:0x184 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0036: 19 10 00 60 97 08 00 19
+offs:16  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x36 ip_rel:0xFFFFFF4C(-180) sp:0x181 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+003A: 97 08 00 19 82 82 02 24
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x3A ip_rel:0xFFFFFF50(-176) sp:0x17D hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+003D: 19 82 82 02 24 01 01 0F
+offs:33410  type:2 - [vm_exe.c:637(Run)]
+1: ip:0x3D ip_rel:0xFFFFFF53(-173) sp:0x17A hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+0041: 24 01 01 0F 00 29 93 00
+func_id:1 - [vm_exe.c:768(Run)]
+1: ip:0x41 ip_rel:0xFFFFFF57(-169) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0043: 01 0F 00 29 93 00 00 00
+Line:15 - [vm_exe.c:529(Run)]
+1: ip:0x43 ip_rel:0xFFFFFF59(-167) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RET(0x29)   cmd_size:1 - [vm_exe.c:513(Run)]
+0046: 29 93 00 00 00 93 04 00
+1: ip:0x240 ip_rel:0x156(342) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_TO_NOWHERE(0x1C)   cmd_size:1 - [vm_exe.c:513(Run)]
+0156: 1C 01 3C 00 18 00 0A 00
+1: ip:0x240 ip_rel:0x156(342) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0157: 01 3C 00 18 00 0A 00 00
+Line:60 - [vm_exe.c:529(Run)]
+1: ip:0x241 ip_rel:0x157(343) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+015A: 18 00 0A 00 00 25 01 01
+1: ip:0x244 ip_rel:0x15A(346) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_FUNC(0x25)   cmd_size:2 - [vm_exe.c:513(Run)]
+015F: 25 01 01 3D 00 18 00 03
+func_id:1 - [vm_exe.c:863(Run)]
+1: ip:0x249 ip_rel:0x15F(351) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0161: 01 3D 00 18 00 03 00 00
+Line:61 - [vm_exe.c:529(Run)]
+1: ip:0x24B ip_rel:0x161(353) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0164: 18 00 03 00 00 19 00 00
+1: ip:0x24E ip_rel:0x164(356) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0169: 19 00 00 30 25 83 18 00
+offs:0  type:48 - [vm_exe.c:637(Run)]
+1: ip:0x253 ip_rel:0x169(361) sp:0x188 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_FUNC(0x25)   cmd_size:2 - [vm_exe.c:513(Run)]
+016D: 25 83 18 00 0B 00 00 26
+func_id:131 - [vm_exe.c:863(Run)]
+1: ip:0x257 ip_rel:0x16D(365) sp:0x187 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+016F: 18 00 0B 00 00 26 0D 00
+1: ip:0x259 ip_rel:0x16F(367) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0174: 26 0D 00 1C 01 3E 00 18
+1: func_offs:13 - [vm_exe.c:846(Run)]
+1: ip:0xD ip_rel:0xFFFFFF23(-221) sp:0x183 hp:0x4D vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+000D: 93 00 00 00 93 04 00 00
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0xD ip_rel:0xFFFFFF23(-221) sp:0x183 hp:0x51 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0011: 93 04 00 00 93 08 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x11 ip_rel:0xFFFFFF27(-217) sp:0x183 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0015: 93 08 00 00 9E 08 00 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x15 ip_rel:0xFFFFFF2B(-213) sp:0x183 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0019: 9E 08 00 9E 04 00 9E 00
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x19 ip_rel:0xFFFFFF2F(-209) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+001C: 9E 04 00 9E 00 00 01 0C
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x1C ip_rel:0xFFFFFF32(-206) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+001F: 9E 00 00 01 0C 00 26 00
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x1F ip_rel:0xFFFFFF35(-203) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0022: 01 0C 00 26 00 00 1C 01
+Line:12 - [vm_exe.c:529(Run)]
+1: ip:0x22 ip_rel:0xFFFFFF38(-200) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0025: 26 00 00 1C 01 0D 00 97
+1: func_offs:0 - [vm_exe.c:846(Run)]
+1: ip:0x0 ip_rel:0xFFFFFF16(-234) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0000: 01 08 00 19 00 00 60 25
+Line:8 - [vm_exe.c:529(Run)]
+1: ip:0x0 ip_rel:0xFFFFFF16(-234) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0003: 19 00 00 60 25 02 01 09
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x3 ip_rel:0xFFFFFF19(-231) sp:0x18C hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_FUNC(0x25)   cmd_size:2 - [vm_exe.c:513(Run)]
+0007: 25 02 01 09 00 29 93 00
+func_id:2 - [vm_exe.c:863(Run)]
+1: ip:0x7 ip_rel:0xFFFFFF1D(-227) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0009: 01 09 00 29 93 00 00 00
+Line:9 - [vm_exe.c:529(Run)]
+1: ip:0x9 ip_rel:0xFFFFFF1F(-225) sp:0x18F hp:0x61 vars_base:0x61
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RET(0x29)   cmd_size:1 - [vm_exe.c:513(Run)]
+000C: 29 93 00 00 00 93 04 00
+1: ip:0x28 ip_rel:0xFFFFFF3E(-194) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_TO_NOWHERE(0x1C)   cmd_size:1 - [vm_exe.c:513(Run)]
+0028: 1C 01 0D 00 97 00 00 19
+1: ip:0x28 ip_rel:0xFFFFFF3E(-194) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0029: 01 0D 00 97 00 00 19 0D
+Line:13 - [vm_exe.c:529(Run)]
+1: ip:0x29 ip_rel:0xFFFFFF3F(-193) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+002C: 97 00 00 19 0D 00 60 97
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x2C ip_rel:0xFFFFFF42(-190) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+002F: 19 0D 00 60 97 04 00 19
+offs:13  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x2F ip_rel:0xFFFFFF45(-187) sp:0x188 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0033: 97 04 00 19 10 00 60 97
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x33 ip_rel:0xFFFFFF49(-183) sp:0x184 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0036: 19 10 00 60 97 08 00 19
+offs:16  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x36 ip_rel:0xFFFFFF4C(-180) sp:0x181 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+003A: 97 08 00 19 82 82 02 24
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x3A ip_rel:0xFFFFFF50(-176) sp:0x17D hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+003D: 19 82 82 02 24 01 01 0F
+offs:33410  type:2 - [vm_exe.c:637(Run)]
+1: ip:0x3D ip_rel:0xFFFFFF53(-173) sp:0x17A hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+0041: 24 01 01 0F 00 29 93 00
+func_id:1 - [vm_exe.c:768(Run)]
+1: ip:0x41 ip_rel:0xFFFFFF57(-169) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0043: 01 0F 00 29 93 00 00 00
+Line:15 - [vm_exe.c:529(Run)]
+1: ip:0x43 ip_rel:0xFFFFFF59(-167) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RET(0x29)   cmd_size:1 - [vm_exe.c:513(Run)]
+0046: 29 93 00 00 00 93 04 00
+1: ip:0x261 ip_rel:0x177(375) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_TO_NOWHERE(0x1C)   cmd_size:1 - [vm_exe.c:513(Run)]
+0177: 1C 01 3E 00 18 00 3B 00
+1: ip:0x261 ip_rel:0x177(375) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0178: 01 3E 00 18 00 3B 00 00
+Line:62 - [vm_exe.c:529(Run)]
+1: ip:0x262 ip_rel:0x178(376) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+017B: 18 00 3B 00 00 25 01 01
+1: ip:0x265 ip_rel:0x17B(379) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_FUNC(0x25)   cmd_size:2 - [vm_exe.c:513(Run)]
+0180: 25 01 01 3F 00 17 35 00
+func_id:1 - [vm_exe.c:863(Run)]
+1: ip:0x26A ip_rel:0x180(384) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0182: 01 3F 00 17 35 00 1E 3D
+Line:63 - [vm_exe.c:529(Run)]
+1: ip:0x26C ip_rel:0x182(386) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x17)   cmd_size:3 - [vm_exe.c:513(Run)]
+0185: 17 35 00 1E 3D 00 01 40
+1: offs:0x35 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x26F ip_rel:0x185(389) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x1E)   cmd_size:3 - [vm_exe.c:513(Run)]
+0188: 1E 3D 00 01 40 00 19 00
+1: offs:0x3D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x272 ip_rel:0x188(392) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+018B: 01 40 00 19 00 00 60 19
+Line:64 - [vm_exe.c:529(Run)]
+1: ip:0x275 ip_rel:0x18B(395) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+018E: 19 00 00 60 19 77 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x278 ip_rel:0x18E(398) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0192: 19 77 00 60 17 3D 00 19
+offs:119  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x27C ip_rel:0x192(402) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x17)   cmd_size:3 - [vm_exe.c:513(Run)]
+0196: 17 3D 00 19 82 08 00 24
+1: offs:0x3D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x280 ip_rel:0x196(406) sp:0x185 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0199: 19 82 08 00 24 02 01 42
+offs:2178  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x283 ip_rel:0x199(409) sp:0x182 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+019D: 24 02 01 42 00 19 06 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x287 ip_rel:0x19D(413) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+019F: 01 42 00 19 06 00 50 23
+Line:66 - [vm_exe.c:529(Run)]
+1: ip:0x289 ip_rel:0x19F(415) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01A2: 19 06 00 50 23 1B 00 01
+offs:6  type:80 - [vm_exe.c:637(Run)]
+1: ip:0x28C ip_rel:0x1A2(418) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+COPY_TO_gARRAY(0x23)   cmd_size:3 - [vm_exe.c:513(Run)]
+01A6: 23 1B 00 01 43 00 19 00
+1: offs:0x1B - [vm_exe.c:105(read_var_offset)]
+1: ip:0x290 ip_rel:0x1A6(422) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+01A9: 01 43 00 19 00 00 60 19
+Line:67 - [vm_exe.c:529(Run)]
+1: ip:0x293 ip_rel:0x1A9(425) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01AC: 19 00 00 60 19 84 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x296 ip_rel:0x1AC(428) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01B0: 19 84 00 60 19 1B 00 10
+offs:132  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x29A ip_rel:0x1B0(432) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01B4: 19 1B 00 10 19 88 08 00
+offs:27  type:16 - [vm_exe.c:637(Run)]
+1: ip:0x29E ip_rel:0x1B4(436) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01B8: 19 88 08 00 24 02 01 45
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x2A2 ip_rel:0x1B8(440) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+01BC: 24 02 01 45 00 19 30 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x2A6 ip_rel:0x1BC(444) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+01BE: 01 45 00 19 30 00 10 23
+Line:69 - [vm_exe.c:529(Run)]
+1: ip:0x2A8 ip_rel:0x1BE(446) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01C1: 19 30 00 10 23 1B 00 01
+offs:48  type:16 - [vm_exe.c:637(Run)]
+1: ip:0x2AB ip_rel:0x1C1(449) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+COPY_TO_gARRAY(0x23)   cmd_size:3 - [vm_exe.c:513(Run)]
+01C5: 23 1B 00 01 46 00 19 00
+1: offs:0x1B - [vm_exe.c:105(read_var_offset)]
+1: ip:0x2AF ip_rel:0x1C5(453) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+01C8: 01 46 00 19 00 00 60 19
+Line:70 - [vm_exe.c:529(Run)]
+1: ip:0x2B2 ip_rel:0x1C8(456) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01CB: 19 00 00 60 19 96 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x2B5 ip_rel:0x1CB(459) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01CF: 19 96 00 60 19 1B 00 10
+offs:150  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x2B9 ip_rel:0x1CF(463) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01D3: 19 1B 00 10 19 88 08 00
+offs:27  type:16 - [vm_exe.c:637(Run)]
+1: ip:0x2BD ip_rel:0x1D3(467) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01D7: 19 88 08 00 24 02 01 48
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x2C1 ip_rel:0x1D7(471) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+01DB: 24 02 01 48 00 19 30 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x2C5 ip_rel:0x1DB(475) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+01DD: 01 48 00 19 30 00 10 22
+Line:72 - [vm_exe.c:529(Run)]
+1: ip:0x2C7 ip_rel:0x1DD(477) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01E0: 19 30 00 10 22 0C 00 01
+offs:48  type:16 - [vm_exe.c:637(Run)]
+1: ip:0x2CA ip_rel:0x1E0(480) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+COPY_TO_bARRAY(0x22)   cmd_size:3 - [vm_exe.c:513(Run)]
+01E4: 22 0C 00 01 49 00 19 00
+1: offs:0xC - [vm_exe.c:105(read_var_offset)]
+1: ip:0x2CE ip_rel:0x1E4(484) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+01E7: 01 49 00 19 00 00 60 19
+Line:73 - [vm_exe.c:529(Run)]
+1: ip:0x2D1 ip_rel:0x1E7(487) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01EA: 19 00 00 60 19 A9 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x2D4 ip_rel:0x1EA(490) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01EE: 19 A9 00 60 19 0C 00 20
+offs:169  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x2D8 ip_rel:0x1EE(494) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01F2: 19 0C 00 20 19 88 08 00
+offs:12  type:32 - [vm_exe.c:637(Run)]
+1: ip:0x2DC ip_rel:0x1F2(498) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+01F6: 19 88 08 00 24 02 01 4B
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x2E0 ip_rel:0x1F6(502) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+01FA: 24 02 01 4B 00 18 00 64
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x2E4 ip_rel:0x1FA(506) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+01FC: 01 4B 00 18 00 64 00 00
+Line:75 - [vm_exe.c:529(Run)]
+1: ip:0x2E6 ip_rel:0x1FC(508) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+01FF: 18 00 64 00 00 1D 0D 00
+1: ip:0x2E9 ip_rel:0x1FF(511) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_BYTE(0x1D)   cmd_size:3 - [vm_exe.c:513(Run)]
+0204: 1D 0D 00 01 4C 00 19 00
+1: offs:0xD - [vm_exe.c:105(read_var_offset)]
+1: ip:0x2EE ip_rel:0x204(516) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0207: 01 4C 00 19 00 00 60 19
+Line:76 - [vm_exe.c:529(Run)]
+1: ip:0x2F1 ip_rel:0x207(519) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+020A: 19 00 00 60 19 BD 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x2F4 ip_rel:0x20A(522) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+020E: 19 BD 00 60 19 0C 00 20
+offs:189  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x2F8 ip_rel:0x20E(526) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0212: 19 0C 00 20 19 88 08 00
+offs:12  type:32 - [vm_exe.c:637(Run)]
+1: ip:0x2FC ip_rel:0x212(530) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0216: 19 88 08 00 24 02 01 4E
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x300 ip_rel:0x216(534) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+021A: 24 02 01 4E 00 19 0C 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x304 ip_rel:0x21A(538) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+021C: 01 4E 00 19 0C 00 20 23
+Line:78 - [vm_exe.c:529(Run)]
+1: ip:0x306 ip_rel:0x21C(540) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+021F: 19 0C 00 20 23 30 00 01
+offs:12  type:32 - [vm_exe.c:637(Run)]
+1: ip:0x309 ip_rel:0x21F(543) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+COPY_TO_gARRAY(0x23)   cmd_size:3 - [vm_exe.c:513(Run)]
+0223: 23 30 00 01 4F 00 19 00
+1: offs:0x30 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x30D ip_rel:0x223(547) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0226: 01 4F 00 19 00 00 60 19
+Line:79 - [vm_exe.c:529(Run)]
+1: ip:0x310 ip_rel:0x226(550) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0229: 19 00 00 60 19 CF 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x313 ip_rel:0x229(553) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+022D: 19 CF 00 60 19 30 00 10
+offs:207  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x317 ip_rel:0x22D(557) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0231: 19 30 00 10 19 88 08 00
+offs:48  type:16 - [vm_exe.c:637(Run)]
+1: ip:0x31B ip_rel:0x231(561) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0235: 19 88 08 00 24 02 01 51
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x31F ip_rel:0x235(565) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+0239: 24 02 01 51 00 18 99 39
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x323 ip_rel:0x239(569) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+023B: 01 51 00 18 99 39 30 00
+Line:81 - [vm_exe.c:529(Run)]
+1: ip:0x325 ip_rel:0x23B(571) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+023E: 18 99 39 30 00 0F 1E 35
+1: ip:0x328 ip_rel:0x23E(574) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INV(0xF)   cmd_size:1 - [vm_exe.c:513(Run)]
+0243: 0F 1E 35 00 01 52 00 19
+1: ip:0x32D ip_rel:0x243(579) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x1E)   cmd_size:3 - [vm_exe.c:513(Run)]
+0244: 1E 35 00 01 52 00 19 00
+1: offs:0x35 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x32E ip_rel:0x244(580) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0247: 01 52 00 19 00 00 60 19
+Line:82 - [vm_exe.c:529(Run)]
+1: ip:0x331 ip_rel:0x247(583) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+024A: 19 00 00 60 19 E3 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x334 ip_rel:0x24A(586) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+024E: 19 E3 00 60 19 30 00 10
+offs:227  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x338 ip_rel:0x24E(590) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0252: 19 30 00 10 19 88 08 00
+offs:48  type:16 - [vm_exe.c:637(Run)]
+1: ip:0x33C ip_rel:0x252(594) sp:0x186 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0256: 19 88 08 00 24 02 01 54
+offs:2184  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x340 ip_rel:0x256(598) sp:0x183 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+025A: 24 02 01 54 00 19 00 00
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x344 ip_rel:0x25A(602) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+025C: 01 54 00 19 00 00 60 19
+Line:84 - [vm_exe.c:529(Run)]
+1: ip:0x346 ip_rel:0x25C(604) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+025F: 19 00 00 60 19 FA 00 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x349 ip_rel:0x25F(607) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0263: 19 FA 00 60 18 00 02 00
+offs:250  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x34D ip_rel:0x263(611) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0267: 18 00 02 00 00 18 00 08
+1: ip:0x351 ip_rel:0x267(615) sp:0x185 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+026C: 18 00 08 00 00 26 47 00
+1: ip:0x356 ip_rel:0x26C(620) sp:0x181 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0271: 26 47 00 19 0D 01 60 19
+1: func_offs:71 - [vm_exe.c:846(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x181 hp:0x4D vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0047: 93 00 00 00 93 04 00 00
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x181 hp:0x51 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+004B: 93 04 00 00 9E 04 00 9E
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x4B ip_rel:0xFFFFFF61(-159) sp:0x181 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+004F: 9E 04 00 9E 00 00 01 12
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x4F ip_rel:0xFFFFFF65(-155) sp:0x185 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0052: 9E 00 00 01 12 00 97 04
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x52 ip_rel:0xFFFFFF68(-152) sp:0x189 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0055: 01 12 00 97 04 00 18 00
+Line:18 - [vm_exe.c:529(Run)]
+1: ip:0x55 ip_rel:0xFFFFFF6B(-149) sp:0x189 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0058: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x58 ip_rel:0xFFFFFF6E(-146) sp:0x185 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 00 00 00 00 0B 15 1D
+1: ip:0x5B ip_rel:0xFFFFFF71(-143) sp:0x181 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0B 15 1D 00 01 13 00 97
+1: ip:0x60 ip_rel:0xFFFFFF76(-138) sp:0x185 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 15 1D 00 01 13 00 97 00
+value:1  jmp2offs:29 - [vm_exe.c:757(Run)]
+1: ip:0x61 ip_rel:0xFFFFFF77(-137) sp:0x189 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0064: 01 13 00 97 00 00 97 00
+Line:19 - [vm_exe.c:529(Run)]
+1: ip:0x64 ip_rel:0xFFFFFF7A(-134) sp:0x189 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0067: 97 00 00 97 00 00 97 04
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x67 ip_rel:0xFFFFFF7D(-131) sp:0x185 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006A: 97 00 00 97 04 00 18 00
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6A ip_rel:0xFFFFFF80(-128) sp:0x181 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006D: 97 04 00 18 00 01 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6D ip_rel:0xFFFFFF83(-125) sp:0x17D hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0070: 18 00 01 00 00 07 26 47
+1: ip:0x70 ip_rel:0xFFFFFF86(-122) sp:0x179 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+0075: 07 26 47 00 04 28 01 14
+1: ip:0x75 ip_rel:0xFFFFFF8B(-117) sp:0x17D hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0076: 26 47 00 04 28 01 14 00
+1: func_offs:71 - [vm_exe.c:846(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x17D hp:0x5D vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0047: 93 00 00 00 93 04 00 00
+1: offs:0x5D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x17D hp:0x61 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+004B: 93 04 00 00 9E 04 00 9E
+1: offs:0x61 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x4B ip_rel:0xFFFFFF61(-159) sp:0x17D hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+004F: 9E 04 00 9E 00 00 01 12
+1: offs:0x61 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x4F ip_rel:0xFFFFFF65(-155) sp:0x181 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0052: 9E 00 00 01 12 00 97 04
+1: offs:0x5D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x52 ip_rel:0xFFFFFF68(-152) sp:0x185 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0055: 01 12 00 97 04 00 18 00
+Line:18 - [vm_exe.c:529(Run)]
+1: ip:0x55 ip_rel:0xFFFFFF6B(-149) sp:0x185 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0058: 97 04 00 18 00 00 00 00
+1: offs:0x61 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x58 ip_rel:0xFFFFFF6E(-146) sp:0x181 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 00 00 00 00 0B 15 1D
+1: ip:0x5B ip_rel:0xFFFFFF71(-143) sp:0x17D hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0B 15 1D 00 01 13 00 97
+1: ip:0x60 ip_rel:0xFFFFFF76(-138) sp:0x181 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 15 1D 00 01 13 00 97 00
+value:1  jmp2offs:29 - [vm_exe.c:757(Run)]
+1: ip:0x61 ip_rel:0xFFFFFF77(-137) sp:0x185 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0064: 01 13 00 97 00 00 97 00
+Line:19 - [vm_exe.c:529(Run)]
+1: ip:0x64 ip_rel:0xFFFFFF7A(-134) sp:0x185 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0067: 97 00 00 97 00 00 97 04
+1: offs:0x5D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x67 ip_rel:0xFFFFFF7D(-131) sp:0x181 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006A: 97 00 00 97 04 00 18 00
+1: offs:0x5D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6A ip_rel:0xFFFFFF80(-128) sp:0x17D hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006D: 97 04 00 18 00 01 00 00
+1: offs:0x61 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6D ip_rel:0xFFFFFF83(-125) sp:0x179 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0070: 18 00 01 00 00 07 26 47
+1: ip:0x70 ip_rel:0xFFFFFF86(-122) sp:0x175 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+0075: 07 26 47 00 04 28 01 14
+1: ip:0x75 ip_rel:0xFFFFFF8B(-117) sp:0x179 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0076: 26 47 00 04 28 01 14 00
+1: func_offs:71 - [vm_exe.c:846(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x179 hp:0x6D vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0047: 93 00 00 00 93 04 00 00
+1: offs:0x6D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x179 hp:0x71 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+004B: 93 04 00 00 9E 04 00 9E
+1: offs:0x71 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x4B ip_rel:0xFFFFFF61(-159) sp:0x179 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+004F: 9E 04 00 9E 00 00 01 12
+1: offs:0x71 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x4F ip_rel:0xFFFFFF65(-155) sp:0x17D hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0052: 9E 00 00 01 12 00 97 04
+1: offs:0x6D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x52 ip_rel:0xFFFFFF68(-152) sp:0x181 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0055: 01 12 00 97 04 00 18 00
+Line:18 - [vm_exe.c:529(Run)]
+1: ip:0x55 ip_rel:0xFFFFFF6B(-149) sp:0x181 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0058: 97 04 00 18 00 00 00 00
+1: offs:0x71 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x58 ip_rel:0xFFFFFF6E(-146) sp:0x17D hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 00 00 00 00 0B 15 1D
+1: ip:0x5B ip_rel:0xFFFFFF71(-143) sp:0x179 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0B 15 1D 00 01 13 00 97
+1: ip:0x60 ip_rel:0xFFFFFF76(-138) sp:0x17D hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 15 1D 00 01 13 00 97 00
+value:1  jmp2offs:29 - [vm_exe.c:757(Run)]
+1: ip:0x61 ip_rel:0xFFFFFF77(-137) sp:0x181 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0064: 01 13 00 97 00 00 97 00
+Line:19 - [vm_exe.c:529(Run)]
+1: ip:0x64 ip_rel:0xFFFFFF7A(-134) sp:0x181 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0067: 97 00 00 97 00 00 97 04
+1: offs:0x6D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x67 ip_rel:0xFFFFFF7D(-131) sp:0x17D hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006A: 97 00 00 97 04 00 18 00
+1: offs:0x6D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6A ip_rel:0xFFFFFF80(-128) sp:0x179 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006D: 97 04 00 18 00 01 00 00
+1: offs:0x71 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6D ip_rel:0xFFFFFF83(-125) sp:0x175 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0070: 18 00 01 00 00 07 26 47
+1: ip:0x70 ip_rel:0xFFFFFF86(-122) sp:0x171 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+0075: 07 26 47 00 04 28 01 14
+1: ip:0x75 ip_rel:0xFFFFFF8B(-117) sp:0x175 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0076: 26 47 00 04 28 01 14 00
+1: func_offs:71 - [vm_exe.c:846(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x175 hp:0x7D vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0047: 93 00 00 00 93 04 00 00
+1: offs:0x7D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x175 hp:0x81 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+004B: 93 04 00 00 9E 04 00 9E
+1: offs:0x81 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x4B ip_rel:0xFFFFFF61(-159) sp:0x175 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+004F: 9E 04 00 9E 00 00 01 12
+1: offs:0x81 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x4F ip_rel:0xFFFFFF65(-155) sp:0x179 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0052: 9E 00 00 01 12 00 97 04
+1: offs:0x7D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x52 ip_rel:0xFFFFFF68(-152) sp:0x17D hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0055: 01 12 00 97 04 00 18 00
+Line:18 - [vm_exe.c:529(Run)]
+1: ip:0x55 ip_rel:0xFFFFFF6B(-149) sp:0x17D hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0058: 97 04 00 18 00 00 00 00
+1: offs:0x81 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x58 ip_rel:0xFFFFFF6E(-146) sp:0x179 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 00 00 00 00 0B 15 1D
+1: ip:0x5B ip_rel:0xFFFFFF71(-143) sp:0x175 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0B 15 1D 00 01 13 00 97
+1: ip:0x60 ip_rel:0xFFFFFF76(-138) sp:0x179 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 15 1D 00 01 13 00 97 00
+value:1  jmp2offs:29 - [vm_exe.c:757(Run)]
+1: ip:0x61 ip_rel:0xFFFFFF77(-137) sp:0x17D hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0064: 01 13 00 97 00 00 97 00
+Line:19 - [vm_exe.c:529(Run)]
+1: ip:0x64 ip_rel:0xFFFFFF7A(-134) sp:0x17D hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0067: 97 00 00 97 00 00 97 04
+1: offs:0x7D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x67 ip_rel:0xFFFFFF7D(-131) sp:0x179 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006A: 97 00 00 97 04 00 18 00
+1: offs:0x7D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6A ip_rel:0xFFFFFF80(-128) sp:0x175 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006D: 97 04 00 18 00 01 00 00
+1: offs:0x81 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6D ip_rel:0xFFFFFF83(-125) sp:0x171 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0070: 18 00 01 00 00 07 26 47
+1: ip:0x70 ip_rel:0xFFFFFF86(-122) sp:0x16D hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+0075: 07 26 47 00 04 28 01 14
+1: ip:0x75 ip_rel:0xFFFFFF8B(-117) sp:0x171 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0076: 26 47 00 04 28 01 14 00
+1: func_offs:71 - [vm_exe.c:846(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x171 hp:0x8D vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0047: 93 00 00 00 93 04 00 00
+1: offs:0x8D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x171 hp:0x91 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+004B: 93 04 00 00 9E 04 00 9E
+1: offs:0x91 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x4B ip_rel:0xFFFFFF61(-159) sp:0x171 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+004F: 9E 04 00 9E 00 00 01 12
+1: offs:0x91 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x4F ip_rel:0xFFFFFF65(-155) sp:0x175 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0052: 9E 00 00 01 12 00 97 04
+1: offs:0x8D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x52 ip_rel:0xFFFFFF68(-152) sp:0x179 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0055: 01 12 00 97 04 00 18 00
+Line:18 - [vm_exe.c:529(Run)]
+1: ip:0x55 ip_rel:0xFFFFFF6B(-149) sp:0x179 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0058: 97 04 00 18 00 00 00 00
+1: offs:0x91 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x58 ip_rel:0xFFFFFF6E(-146) sp:0x175 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 00 00 00 00 0B 15 1D
+1: ip:0x5B ip_rel:0xFFFFFF71(-143) sp:0x171 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0B 15 1D 00 01 13 00 97
+1: ip:0x60 ip_rel:0xFFFFFF76(-138) sp:0x175 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 15 1D 00 01 13 00 97 00
+value:1  jmp2offs:29 - [vm_exe.c:757(Run)]
+1: ip:0x61 ip_rel:0xFFFFFF77(-137) sp:0x179 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0064: 01 13 00 97 00 00 97 00
+Line:19 - [vm_exe.c:529(Run)]
+1: ip:0x64 ip_rel:0xFFFFFF7A(-134) sp:0x179 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0067: 97 00 00 97 00 00 97 04
+1: offs:0x8D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x67 ip_rel:0xFFFFFF7D(-131) sp:0x175 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006A: 97 00 00 97 04 00 18 00
+1: offs:0x8D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6A ip_rel:0xFFFFFF80(-128) sp:0x171 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006D: 97 04 00 18 00 01 00 00
+1: offs:0x91 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6D ip_rel:0xFFFFFF83(-125) sp:0x16D hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0070: 18 00 01 00 00 07 26 47
+1: ip:0x70 ip_rel:0xFFFFFF86(-122) sp:0x169 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+0075: 07 26 47 00 04 28 01 14
+1: ip:0x75 ip_rel:0xFFFFFF8B(-117) sp:0x16D hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0076: 26 47 00 04 28 01 14 00
+1: func_offs:71 - [vm_exe.c:846(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x16D hp:0x9D vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0047: 93 00 00 00 93 04 00 00
+1: offs:0x9D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x16D hp:0xA1 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+004B: 93 04 00 00 9E 04 00 9E
+1: offs:0xA1 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x4B ip_rel:0xFFFFFF61(-159) sp:0x16D hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+004F: 9E 04 00 9E 00 00 01 12
+1: offs:0xA1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x4F ip_rel:0xFFFFFF65(-155) sp:0x171 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0052: 9E 00 00 01 12 00 97 04
+1: offs:0x9D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x52 ip_rel:0xFFFFFF68(-152) sp:0x175 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0055: 01 12 00 97 04 00 18 00
+Line:18 - [vm_exe.c:529(Run)]
+1: ip:0x55 ip_rel:0xFFFFFF6B(-149) sp:0x175 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0058: 97 04 00 18 00 00 00 00
+1: offs:0xA1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x58 ip_rel:0xFFFFFF6E(-146) sp:0x171 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 00 00 00 00 0B 15 1D
+1: ip:0x5B ip_rel:0xFFFFFF71(-143) sp:0x16D hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0B 15 1D 00 01 13 00 97
+1: ip:0x60 ip_rel:0xFFFFFF76(-138) sp:0x171 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 15 1D 00 01 13 00 97 00
+value:1  jmp2offs:29 - [vm_exe.c:757(Run)]
+1: ip:0x61 ip_rel:0xFFFFFF77(-137) sp:0x175 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0064: 01 13 00 97 00 00 97 00
+Line:19 - [vm_exe.c:529(Run)]
+1: ip:0x64 ip_rel:0xFFFFFF7A(-134) sp:0x175 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0067: 97 00 00 97 00 00 97 04
+1: offs:0x9D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x67 ip_rel:0xFFFFFF7D(-131) sp:0x171 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006A: 97 00 00 97 04 00 18 00
+1: offs:0x9D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6A ip_rel:0xFFFFFF80(-128) sp:0x16D hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006D: 97 04 00 18 00 01 00 00
+1: offs:0xA1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6D ip_rel:0xFFFFFF83(-125) sp:0x169 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0070: 18 00 01 00 00 07 26 47
+1: ip:0x70 ip_rel:0xFFFFFF86(-122) sp:0x165 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+0075: 07 26 47 00 04 28 01 14
+1: ip:0x75 ip_rel:0xFFFFFF8B(-117) sp:0x169 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0076: 26 47 00 04 28 01 14 00
+1: func_offs:71 - [vm_exe.c:846(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x169 hp:0xAD vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0047: 93 00 00 00 93 04 00 00
+1: offs:0xAD - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x169 hp:0xB1 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+004B: 93 04 00 00 9E 04 00 9E
+1: offs:0xB1 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x4B ip_rel:0xFFFFFF61(-159) sp:0x169 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+004F: 9E 04 00 9E 00 00 01 12
+1: offs:0xB1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x4F ip_rel:0xFFFFFF65(-155) sp:0x16D hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0052: 9E 00 00 01 12 00 97 04
+1: offs:0xAD - [vm_exe.c:105(read_var_offset)]
+1: ip:0x52 ip_rel:0xFFFFFF68(-152) sp:0x171 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0055: 01 12 00 97 04 00 18 00
+Line:18 - [vm_exe.c:529(Run)]
+1: ip:0x55 ip_rel:0xFFFFFF6B(-149) sp:0x171 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0058: 97 04 00 18 00 00 00 00
+1: offs:0xB1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x58 ip_rel:0xFFFFFF6E(-146) sp:0x16D hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 00 00 00 00 0B 15 1D
+1: ip:0x5B ip_rel:0xFFFFFF71(-143) sp:0x169 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0B 15 1D 00 01 13 00 97
+1: ip:0x60 ip_rel:0xFFFFFF76(-138) sp:0x16D hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 15 1D 00 01 13 00 97 00
+value:1  jmp2offs:29 - [vm_exe.c:757(Run)]
+1: ip:0x61 ip_rel:0xFFFFFF77(-137) sp:0x171 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0064: 01 13 00 97 00 00 97 00
+Line:19 - [vm_exe.c:529(Run)]
+1: ip:0x64 ip_rel:0xFFFFFF7A(-134) sp:0x171 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0067: 97 00 00 97 00 00 97 04
+1: offs:0xAD - [vm_exe.c:105(read_var_offset)]
+1: ip:0x67 ip_rel:0xFFFFFF7D(-131) sp:0x16D hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006A: 97 00 00 97 04 00 18 00
+1: offs:0xAD - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6A ip_rel:0xFFFFFF80(-128) sp:0x169 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006D: 97 04 00 18 00 01 00 00
+1: offs:0xB1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6D ip_rel:0xFFFFFF83(-125) sp:0x165 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0070: 18 00 01 00 00 07 26 47
+1: ip:0x70 ip_rel:0xFFFFFF86(-122) sp:0x161 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+0075: 07 26 47 00 04 28 01 14
+1: ip:0x75 ip_rel:0xFFFFFF8B(-117) sp:0x165 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0076: 26 47 00 04 28 01 14 00
+1: func_offs:71 - [vm_exe.c:846(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x165 hp:0xBD vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0047: 93 00 00 00 93 04 00 00
+1: offs:0xBD - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x165 hp:0xC1 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+004B: 93 04 00 00 9E 04 00 9E
+1: offs:0xC1 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x4B ip_rel:0xFFFFFF61(-159) sp:0x165 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+004F: 9E 04 00 9E 00 00 01 12
+1: offs:0xC1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x4F ip_rel:0xFFFFFF65(-155) sp:0x169 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0052: 9E 00 00 01 12 00 97 04
+1: offs:0xBD - [vm_exe.c:105(read_var_offset)]
+1: ip:0x52 ip_rel:0xFFFFFF68(-152) sp:0x16D hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0055: 01 12 00 97 04 00 18 00
+Line:18 - [vm_exe.c:529(Run)]
+1: ip:0x55 ip_rel:0xFFFFFF6B(-149) sp:0x16D hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0058: 97 04 00 18 00 00 00 00
+1: offs:0xC1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x58 ip_rel:0xFFFFFF6E(-146) sp:0x169 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 00 00 00 00 0B 15 1D
+1: ip:0x5B ip_rel:0xFFFFFF71(-143) sp:0x165 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0B 15 1D 00 01 13 00 97
+1: ip:0x60 ip_rel:0xFFFFFF76(-138) sp:0x169 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 15 1D 00 01 13 00 97 00
+value:1  jmp2offs:29 - [vm_exe.c:757(Run)]
+1: ip:0x61 ip_rel:0xFFFFFF77(-137) sp:0x16D hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0064: 01 13 00 97 00 00 97 00
+Line:19 - [vm_exe.c:529(Run)]
+1: ip:0x64 ip_rel:0xFFFFFF7A(-134) sp:0x16D hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0067: 97 00 00 97 00 00 97 04
+1: offs:0xBD - [vm_exe.c:105(read_var_offset)]
+1: ip:0x67 ip_rel:0xFFFFFF7D(-131) sp:0x169 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006A: 97 00 00 97 04 00 18 00
+1: offs:0xBD - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6A ip_rel:0xFFFFFF80(-128) sp:0x165 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+006D: 97 04 00 18 00 01 00 00
+1: offs:0xC1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x6D ip_rel:0xFFFFFF83(-125) sp:0x161 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0070: 18 00 01 00 00 07 26 47
+1: ip:0x70 ip_rel:0xFFFFFF86(-122) sp:0x15D hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+0075: 07 26 47 00 04 28 01 14
+1: ip:0x75 ip_rel:0xFFFFFF8B(-117) sp:0x161 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+0076: 26 47 00 04 28 01 14 00
+1: func_offs:71 - [vm_exe.c:846(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x161 hp:0xCD vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0047: 93 00 00 00 93 04 00 00
+1: offs:0xCD - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x47 ip_rel:0xFFFFFF5D(-163) sp:0x161 hp:0xD1 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+004B: 93 04 00 00 9E 04 00 9E
+1: offs:0xD1 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x4B ip_rel:0xFFFFFF61(-159) sp:0x161 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+004F: 9E 04 00 9E 00 00 01 12
+1: offs:0xD1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x4F ip_rel:0xFFFFFF65(-155) sp:0x165 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0052: 9E 00 00 01 12 00 97 04
+1: offs:0xCD - [vm_exe.c:105(read_var_offset)]
+1: ip:0x52 ip_rel:0xFFFFFF68(-152) sp:0x169 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0055: 01 12 00 97 04 00 18 00
+Line:18 - [vm_exe.c:529(Run)]
+1: ip:0x55 ip_rel:0xFFFFFF6B(-149) sp:0x169 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0058: 97 04 00 18 00 00 00 00
+1: offs:0xD1 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x58 ip_rel:0xFFFFFF6E(-146) sp:0x165 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+005B: 18 00 00 00 00 0B 15 1D
+1: ip:0x5B ip_rel:0xFFFFFF71(-143) sp:0x161 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+0060: 0B 15 1D 00 01 13 00 97
+1: ip:0x60 ip_rel:0xFFFFFF76(-138) sp:0x165 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+0061: 15 1D 00 01 13 00 97 00
+value:0  jmp2offs:29 - [vm_exe.c:757(Run)]
+1: ip:0x7E ip_rel:0xFFFFFF94(-108) sp:0x169 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0081: 01 15 00 18 00 01 00 00
+Line:21 - [vm_exe.c:529(Run)]
+1: ip:0x81 ip_rel:0xFFFFFF97(-105) sp:0x169 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0084: 18 00 01 00 00 28 01 16
+1: ip:0x84 ip_rel:0xFFFFFF9A(-102) sp:0x165 hp:0xD5 vars_base:0xCD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+0089: 28 01 16 00 01 17 00 29
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x165 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+0079: 04 28 01 14 00 14 0C 00
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x169 hp:0xC5 vars_base:0xBD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+007A: 28 01 14 00 14 0C 00 01
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x169 hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+0079: 04 28 01 14 00 14 0C 00
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x16D hp:0xB5 vars_base:0xAD
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+007A: 28 01 14 00 14 0C 00 01
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x16D hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+0079: 04 28 01 14 00 14 0C 00
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x171 hp:0xA5 vars_base:0x9D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+007A: 28 01 14 00 14 0C 00 01
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x171 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+0079: 04 28 01 14 00 14 0C 00
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x175 hp:0x95 vars_base:0x8D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+007A: 28 01 14 00 14 0C 00 01
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x175 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+0079: 04 28 01 14 00 14 0C 00
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x179 hp:0x85 vars_base:0x7D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+007A: 28 01 14 00 14 0C 00 01
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x179 hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+0079: 04 28 01 14 00 14 0C 00
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x17D hp:0x75 vars_base:0x6D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+007A: 28 01 14 00 14 0C 00 01
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x17D hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+0079: 04 28 01 14 00 14 0C 00
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x181 hp:0x65 vars_base:0x5D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+007A: 28 01 14 00 14 0C 00 01
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x181 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+0079: 04 28 01 14 00 14 0C 00
+1: ip:0x79 ip_rel:0xFFFFFF8F(-113) sp:0x185 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+007A: 28 01 14 00 14 0C 00 01
+1: ip:0x35E ip_rel:0x274(628) sp:0x185 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0274: 19 0D 01 60 19 28 88 00
+offs:269  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x35E ip_rel:0x274(628) sp:0x182 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0278: 19 28 88 00 24 01 01 56
+offs:34856  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x362 ip_rel:0x278(632) sp:0x17F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+027C: 24 01 01 56 00 18 00 02
+func_id:1 - [vm_exe.c:768(Run)]
+1: ip:0x366 ip_rel:0x27C(636) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+027E: 01 56 00 18 00 02 00 00
+Line:86 - [vm_exe.c:529(Run)]
+1: ip:0x368 ip_rel:0x27E(638) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0281: 18 00 02 00 00 18 00 08
+1: ip:0x36B ip_rel:0x281(641) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+0286: 18 00 08 00 00 26 91 00
+1: ip:0x370 ip_rel:0x286(646) sp:0x187 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_PRG_FUNC(0x26)   cmd_size:3 - [vm_exe.c:513(Run)]
+028B: 26 91 00 1E 3D 00 01 57
+1: func_offs:145 - [vm_exe.c:846(Run)]
+1: ip:0x91 ip_rel:0xFFFFFFA7(-89) sp:0x187 hp:0x4D vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0091: 93 00 00 00 93 04 00 00
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x91 ip_rel:0xFFFFFFA7(-89) sp:0x187 hp:0x51 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+0095: 93 04 00 00 9E 04 00 9E
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0x95 ip_rel:0xFFFFFFAB(-85) sp:0x187 hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+0099: 9E 04 00 9E 00 00 01 1A
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0x99 ip_rel:0xFFFFFFAF(-81) sp:0x18B hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+009C: 9E 00 00 01 1A 00 93 08
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x9C ip_rel:0xFFFFFFB2(-78) sp:0x18F hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+009F: 01 1A 00 93 08 00 00 18
+Line:26 - [vm_exe.c:529(Run)]
+1: ip:0x9F ip_rel:0xFFFFFFB5(-75) sp:0x18F hp:0x55 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+INIT_gVAR(0x93) MOD  cmd_size:4 - [vm_exe.c:513(Run)]
+00A2: 93 08 00 00 18 00 01 00
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+size:0 - [vm_exe.c:559(Run)]
+1: ip:0xA2 ip_rel:0xFFFFFFB8(-72) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00A6: 18 00 01 00 00 9E 08 00
+1: ip:0xA6 ip_rel:0xFFFFFFBC(-68) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00AB: 9E 08 00 01 1B 00 97 04
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xAB ip_rel:0xFFFFFFC1(-63) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00AE: 01 1B 00 97 04 00 18 00
+Line:27 - [vm_exe.c:529(Run)]
+1: ip:0xAE ip_rel:0xFFFFFFC4(-60) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00B1: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xB1 ip_rel:0xFFFFFFC7(-57) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00B4: 18 00 00 00 00 0B 15 22
+1: ip:0xB4 ip_rel:0xFFFFFFCA(-54) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+00B9: 0B 15 22 00 01 1C 00 97
+1: ip:0xB9 ip_rel:0xFFFFFFCF(-49) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BA: 15 22 00 01 1C 00 97 08
+value:1  jmp2offs:34 - [vm_exe.c:757(Run)]
+1: ip:0xBA ip_rel:0xFFFFFFD0(-48) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BD: 01 1C 00 97 08 00 97 00
+Line:28 - [vm_exe.c:529(Run)]
+1: ip:0xBD ip_rel:0xFFFFFFD3(-45) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C0: 97 08 00 97 00 00 04 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC0 ip_rel:0xFFFFFFD6(-42) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C3: 97 00 00 04 9E 08 00 01
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC3 ip_rel:0xFFFFFFD9(-39) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+00C6: 04 9E 08 00 01 1D 00 97
+1: ip:0xC6 ip_rel:0xFFFFFFDC(-36) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C7: 9E 08 00 01 1D 00 97 04
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC7 ip_rel:0xFFFFFFDD(-35) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00CA: 01 1D 00 97 04 00 18 00
+Line:29 - [vm_exe.c:529(Run)]
+1: ip:0xCA ip_rel:0xFFFFFFE0(-32) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00CD: 97 04 00 18 00 01 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xCD ip_rel:0xFFFFFFE3(-29) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00D0: 18 00 01 00 00 07 9E 04
+1: ip:0xD0 ip_rel:0xFFFFFFE6(-26) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+00D5: 07 9E 04 00 01 1E 00 14
+1: ip:0xD5 ip_rel:0xFFFFFFEB(-21) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00D6: 9E 04 00 01 1E 00 14 D2
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xD6 ip_rel:0xFFFFFFEC(-20) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00D9: 01 1E 00 14 D2 FF 01 1F
+Line:30 - [vm_exe.c:529(Run)]
+1: ip:0xD9 ip_rel:0xFFFFFFEF(-17) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP(0x14)   cmd_size:3 - [vm_exe.c:513(Run)]
+00DC: 14 D2 FF 01 1F 00 97 08
+jmp2offs:-46 - [vm_exe.c:746(Run)]
+1: ip:0xAE ip_rel:0xFFFFFFC4(-60) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00B1: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xB1 ip_rel:0xFFFFFFC7(-57) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00B4: 18 00 00 00 00 0B 15 22
+1: ip:0xB4 ip_rel:0xFFFFFFCA(-54) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+00B9: 0B 15 22 00 01 1C 00 97
+1: ip:0xB9 ip_rel:0xFFFFFFCF(-49) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BA: 15 22 00 01 1C 00 97 08
+value:1  jmp2offs:34 - [vm_exe.c:757(Run)]
+1: ip:0xBA ip_rel:0xFFFFFFD0(-48) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BD: 01 1C 00 97 08 00 97 00
+Line:28 - [vm_exe.c:529(Run)]
+1: ip:0xBD ip_rel:0xFFFFFFD3(-45) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C0: 97 08 00 97 00 00 04 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC0 ip_rel:0xFFFFFFD6(-42) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C3: 97 00 00 04 9E 08 00 01
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC3 ip_rel:0xFFFFFFD9(-39) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+00C6: 04 9E 08 00 01 1D 00 97
+1: ip:0xC6 ip_rel:0xFFFFFFDC(-36) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C7: 9E 08 00 01 1D 00 97 04
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC7 ip_rel:0xFFFFFFDD(-35) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00CA: 01 1D 00 97 04 00 18 00
+Line:29 - [vm_exe.c:529(Run)]
+1: ip:0xCA ip_rel:0xFFFFFFE0(-32) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00CD: 97 04 00 18 00 01 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xCD ip_rel:0xFFFFFFE3(-29) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00D0: 18 00 01 00 00 07 9E 04
+1: ip:0xD0 ip_rel:0xFFFFFFE6(-26) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+00D5: 07 9E 04 00 01 1E 00 14
+1: ip:0xD5 ip_rel:0xFFFFFFEB(-21) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00D6: 9E 04 00 01 1E 00 14 D2
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xD6 ip_rel:0xFFFFFFEC(-20) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00D9: 01 1E 00 14 D2 FF 01 1F
+Line:30 - [vm_exe.c:529(Run)]
+1: ip:0xD9 ip_rel:0xFFFFFFEF(-17) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP(0x14)   cmd_size:3 - [vm_exe.c:513(Run)]
+00DC: 14 D2 FF 01 1F 00 97 08
+jmp2offs:-46 - [vm_exe.c:746(Run)]
+1: ip:0xAE ip_rel:0xFFFFFFC4(-60) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00B1: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xB1 ip_rel:0xFFFFFFC7(-57) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00B4: 18 00 00 00 00 0B 15 22
+1: ip:0xB4 ip_rel:0xFFFFFFCA(-54) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+00B9: 0B 15 22 00 01 1C 00 97
+1: ip:0xB9 ip_rel:0xFFFFFFCF(-49) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BA: 15 22 00 01 1C 00 97 08
+value:1  jmp2offs:34 - [vm_exe.c:757(Run)]
+1: ip:0xBA ip_rel:0xFFFFFFD0(-48) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BD: 01 1C 00 97 08 00 97 00
+Line:28 - [vm_exe.c:529(Run)]
+1: ip:0xBD ip_rel:0xFFFFFFD3(-45) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C0: 97 08 00 97 00 00 04 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC0 ip_rel:0xFFFFFFD6(-42) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C3: 97 00 00 04 9E 08 00 01
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC3 ip_rel:0xFFFFFFD9(-39) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+00C6: 04 9E 08 00 01 1D 00 97
+1: ip:0xC6 ip_rel:0xFFFFFFDC(-36) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C7: 9E 08 00 01 1D 00 97 04
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC7 ip_rel:0xFFFFFFDD(-35) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00CA: 01 1D 00 97 04 00 18 00
+Line:29 - [vm_exe.c:529(Run)]
+1: ip:0xCA ip_rel:0xFFFFFFE0(-32) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00CD: 97 04 00 18 00 01 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xCD ip_rel:0xFFFFFFE3(-29) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00D0: 18 00 01 00 00 07 9E 04
+1: ip:0xD0 ip_rel:0xFFFFFFE6(-26) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+00D5: 07 9E 04 00 01 1E 00 14
+1: ip:0xD5 ip_rel:0xFFFFFFEB(-21) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00D6: 9E 04 00 01 1E 00 14 D2
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xD6 ip_rel:0xFFFFFFEC(-20) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00D9: 01 1E 00 14 D2 FF 01 1F
+Line:30 - [vm_exe.c:529(Run)]
+1: ip:0xD9 ip_rel:0xFFFFFFEF(-17) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP(0x14)   cmd_size:3 - [vm_exe.c:513(Run)]
+00DC: 14 D2 FF 01 1F 00 97 08
+jmp2offs:-46 - [vm_exe.c:746(Run)]
+1: ip:0xAE ip_rel:0xFFFFFFC4(-60) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00B1: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xB1 ip_rel:0xFFFFFFC7(-57) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00B4: 18 00 00 00 00 0B 15 22
+1: ip:0xB4 ip_rel:0xFFFFFFCA(-54) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+00B9: 0B 15 22 00 01 1C 00 97
+1: ip:0xB9 ip_rel:0xFFFFFFCF(-49) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BA: 15 22 00 01 1C 00 97 08
+value:1  jmp2offs:34 - [vm_exe.c:757(Run)]
+1: ip:0xBA ip_rel:0xFFFFFFD0(-48) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BD: 01 1C 00 97 08 00 97 00
+Line:28 - [vm_exe.c:529(Run)]
+1: ip:0xBD ip_rel:0xFFFFFFD3(-45) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C0: 97 08 00 97 00 00 04 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC0 ip_rel:0xFFFFFFD6(-42) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C3: 97 00 00 04 9E 08 00 01
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC3 ip_rel:0xFFFFFFD9(-39) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+00C6: 04 9E 08 00 01 1D 00 97
+1: ip:0xC6 ip_rel:0xFFFFFFDC(-36) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C7: 9E 08 00 01 1D 00 97 04
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC7 ip_rel:0xFFFFFFDD(-35) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00CA: 01 1D 00 97 04 00 18 00
+Line:29 - [vm_exe.c:529(Run)]
+1: ip:0xCA ip_rel:0xFFFFFFE0(-32) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00CD: 97 04 00 18 00 01 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xCD ip_rel:0xFFFFFFE3(-29) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00D0: 18 00 01 00 00 07 9E 04
+1: ip:0xD0 ip_rel:0xFFFFFFE6(-26) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+00D5: 07 9E 04 00 01 1E 00 14
+1: ip:0xD5 ip_rel:0xFFFFFFEB(-21) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00D6: 9E 04 00 01 1E 00 14 D2
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xD6 ip_rel:0xFFFFFFEC(-20) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00D9: 01 1E 00 14 D2 FF 01 1F
+Line:30 - [vm_exe.c:529(Run)]
+1: ip:0xD9 ip_rel:0xFFFFFFEF(-17) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP(0x14)   cmd_size:3 - [vm_exe.c:513(Run)]
+00DC: 14 D2 FF 01 1F 00 97 08
+jmp2offs:-46 - [vm_exe.c:746(Run)]
+1: ip:0xAE ip_rel:0xFFFFFFC4(-60) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00B1: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xB1 ip_rel:0xFFFFFFC7(-57) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00B4: 18 00 00 00 00 0B 15 22
+1: ip:0xB4 ip_rel:0xFFFFFFCA(-54) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+00B9: 0B 15 22 00 01 1C 00 97
+1: ip:0xB9 ip_rel:0xFFFFFFCF(-49) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BA: 15 22 00 01 1C 00 97 08
+value:1  jmp2offs:34 - [vm_exe.c:757(Run)]
+1: ip:0xBA ip_rel:0xFFFFFFD0(-48) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BD: 01 1C 00 97 08 00 97 00
+Line:28 - [vm_exe.c:529(Run)]
+1: ip:0xBD ip_rel:0xFFFFFFD3(-45) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C0: 97 08 00 97 00 00 04 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC0 ip_rel:0xFFFFFFD6(-42) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C3: 97 00 00 04 9E 08 00 01
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC3 ip_rel:0xFFFFFFD9(-39) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+00C6: 04 9E 08 00 01 1D 00 97
+1: ip:0xC6 ip_rel:0xFFFFFFDC(-36) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C7: 9E 08 00 01 1D 00 97 04
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC7 ip_rel:0xFFFFFFDD(-35) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00CA: 01 1D 00 97 04 00 18 00
+Line:29 - [vm_exe.c:529(Run)]
+1: ip:0xCA ip_rel:0xFFFFFFE0(-32) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00CD: 97 04 00 18 00 01 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xCD ip_rel:0xFFFFFFE3(-29) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00D0: 18 00 01 00 00 07 9E 04
+1: ip:0xD0 ip_rel:0xFFFFFFE6(-26) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+00D5: 07 9E 04 00 01 1E 00 14
+1: ip:0xD5 ip_rel:0xFFFFFFEB(-21) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00D6: 9E 04 00 01 1E 00 14 D2
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xD6 ip_rel:0xFFFFFFEC(-20) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00D9: 01 1E 00 14 D2 FF 01 1F
+Line:30 - [vm_exe.c:529(Run)]
+1: ip:0xD9 ip_rel:0xFFFFFFEF(-17) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP(0x14)   cmd_size:3 - [vm_exe.c:513(Run)]
+00DC: 14 D2 FF 01 1F 00 97 08
+jmp2offs:-46 - [vm_exe.c:746(Run)]
+1: ip:0xAE ip_rel:0xFFFFFFC4(-60) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00B1: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xB1 ip_rel:0xFFFFFFC7(-57) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00B4: 18 00 00 00 00 0B 15 22
+1: ip:0xB4 ip_rel:0xFFFFFFCA(-54) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+00B9: 0B 15 22 00 01 1C 00 97
+1: ip:0xB9 ip_rel:0xFFFFFFCF(-49) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BA: 15 22 00 01 1C 00 97 08
+value:1  jmp2offs:34 - [vm_exe.c:757(Run)]
+1: ip:0xBA ip_rel:0xFFFFFFD0(-48) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BD: 01 1C 00 97 08 00 97 00
+Line:28 - [vm_exe.c:529(Run)]
+1: ip:0xBD ip_rel:0xFFFFFFD3(-45) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C0: 97 08 00 97 00 00 04 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC0 ip_rel:0xFFFFFFD6(-42) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C3: 97 00 00 04 9E 08 00 01
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC3 ip_rel:0xFFFFFFD9(-39) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+00C6: 04 9E 08 00 01 1D 00 97
+1: ip:0xC6 ip_rel:0xFFFFFFDC(-36) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C7: 9E 08 00 01 1D 00 97 04
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC7 ip_rel:0xFFFFFFDD(-35) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00CA: 01 1D 00 97 04 00 18 00
+Line:29 - [vm_exe.c:529(Run)]
+1: ip:0xCA ip_rel:0xFFFFFFE0(-32) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00CD: 97 04 00 18 00 01 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xCD ip_rel:0xFFFFFFE3(-29) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00D0: 18 00 01 00 00 07 9E 04
+1: ip:0xD0 ip_rel:0xFFFFFFE6(-26) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+00D5: 07 9E 04 00 01 1E 00 14
+1: ip:0xD5 ip_rel:0xFFFFFFEB(-21) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00D6: 9E 04 00 01 1E 00 14 D2
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xD6 ip_rel:0xFFFFFFEC(-20) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00D9: 01 1E 00 14 D2 FF 01 1F
+Line:30 - [vm_exe.c:529(Run)]
+1: ip:0xD9 ip_rel:0xFFFFFFEF(-17) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP(0x14)   cmd_size:3 - [vm_exe.c:513(Run)]
+00DC: 14 D2 FF 01 1F 00 97 08
+jmp2offs:-46 - [vm_exe.c:746(Run)]
+1: ip:0xAE ip_rel:0xFFFFFFC4(-60) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00B1: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xB1 ip_rel:0xFFFFFFC7(-57) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00B4: 18 00 00 00 00 0B 15 22
+1: ip:0xB4 ip_rel:0xFFFFFFCA(-54) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+00B9: 0B 15 22 00 01 1C 00 97
+1: ip:0xB9 ip_rel:0xFFFFFFCF(-49) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BA: 15 22 00 01 1C 00 97 08
+value:1  jmp2offs:34 - [vm_exe.c:757(Run)]
+1: ip:0xBA ip_rel:0xFFFFFFD0(-48) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BD: 01 1C 00 97 08 00 97 00
+Line:28 - [vm_exe.c:529(Run)]
+1: ip:0xBD ip_rel:0xFFFFFFD3(-45) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C0: 97 08 00 97 00 00 04 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC0 ip_rel:0xFFFFFFD6(-42) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C3: 97 00 00 04 9E 08 00 01
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC3 ip_rel:0xFFFFFFD9(-39) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+00C6: 04 9E 08 00 01 1D 00 97
+1: ip:0xC6 ip_rel:0xFFFFFFDC(-36) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C7: 9E 08 00 01 1D 00 97 04
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC7 ip_rel:0xFFFFFFDD(-35) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00CA: 01 1D 00 97 04 00 18 00
+Line:29 - [vm_exe.c:529(Run)]
+1: ip:0xCA ip_rel:0xFFFFFFE0(-32) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00CD: 97 04 00 18 00 01 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xCD ip_rel:0xFFFFFFE3(-29) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00D0: 18 00 01 00 00 07 9E 04
+1: ip:0xD0 ip_rel:0xFFFFFFE6(-26) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+00D5: 07 9E 04 00 01 1E 00 14
+1: ip:0xD5 ip_rel:0xFFFFFFEB(-21) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00D6: 9E 04 00 01 1E 00 14 D2
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xD6 ip_rel:0xFFFFFFEC(-20) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00D9: 01 1E 00 14 D2 FF 01 1F
+Line:30 - [vm_exe.c:529(Run)]
+1: ip:0xD9 ip_rel:0xFFFFFFEF(-17) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP(0x14)   cmd_size:3 - [vm_exe.c:513(Run)]
+00DC: 14 D2 FF 01 1F 00 97 08
+jmp2offs:-46 - [vm_exe.c:746(Run)]
+1: ip:0xAE ip_rel:0xFFFFFFC4(-60) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00B1: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xB1 ip_rel:0xFFFFFFC7(-57) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00B4: 18 00 00 00 00 0B 15 22
+1: ip:0xB4 ip_rel:0xFFFFFFCA(-54) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+00B9: 0B 15 22 00 01 1C 00 97
+1: ip:0xB9 ip_rel:0xFFFFFFCF(-49) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BA: 15 22 00 01 1C 00 97 08
+value:1  jmp2offs:34 - [vm_exe.c:757(Run)]
+1: ip:0xBA ip_rel:0xFFFFFFD0(-48) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BD: 01 1C 00 97 08 00 97 00
+Line:28 - [vm_exe.c:529(Run)]
+1: ip:0xBD ip_rel:0xFFFFFFD3(-45) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C0: 97 08 00 97 00 00 04 9E
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC0 ip_rel:0xFFFFFFD6(-42) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C3: 97 00 00 04 9E 08 00 01
+1: offs:0x4D - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC3 ip_rel:0xFFFFFFD9(-39) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MUL(0x4)   cmd_size:1 - [vm_exe.c:513(Run)]
+00C6: 04 9E 08 00 01 1D 00 97
+1: ip:0xC6 ip_rel:0xFFFFFFDC(-36) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00C7: 9E 08 00 01 1D 00 97 04
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xC7 ip_rel:0xFFFFFFDD(-35) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00CA: 01 1D 00 97 04 00 18 00
+Line:29 - [vm_exe.c:529(Run)]
+1: ip:0xCA ip_rel:0xFFFFFFE0(-32) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00CD: 97 04 00 18 00 01 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xCD ip_rel:0xFFFFFFE3(-29) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00D0: 18 00 01 00 00 07 9E 04
+1: ip:0xD0 ip_rel:0xFFFFFFE6(-26) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+MINUS(0x7)   cmd_size:1 - [vm_exe.c:513(Run)]
+00D5: 07 9E 04 00 01 1E 00 14
+1: ip:0xD5 ip_rel:0xFFFFFFEB(-21) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x9E) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00D6: 9E 04 00 01 1E 00 14 D2
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xD6 ip_rel:0xFFFFFFEC(-20) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00D9: 01 1E 00 14 D2 FF 01 1F
+Line:30 - [vm_exe.c:529(Run)]
+1: ip:0xD9 ip_rel:0xFFFFFFEF(-17) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP(0x14)   cmd_size:3 - [vm_exe.c:513(Run)]
+00DC: 14 D2 FF 01 1F 00 97 08
+jmp2offs:-46 - [vm_exe.c:746(Run)]
+1: ip:0xAE ip_rel:0xFFFFFFC4(-60) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00B1: 97 04 00 18 00 00 00 00
+1: offs:0x51 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xB1 ip_rel:0xFFFFFFC7(-57) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_NUM(0x18)   cmd_size:5 - [vm_exe.c:513(Run)]
+00B4: 18 00 00 00 00 0B 15 22
+1: ip:0xB4 ip_rel:0xFFFFFFCA(-54) sp:0x187 hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+GT(0xB)   cmd_size:1 - [vm_exe.c:513(Run)]
+00B9: 0B 15 22 00 01 1C 00 97
+1: ip:0xB9 ip_rel:0xFFFFFFCF(-49) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+JMP_POP_CMPZ(0x15)   cmd_size:3 - [vm_exe.c:513(Run)]
+00BA: 15 22 00 01 1C 00 97 08
+value:0  jmp2offs:34 - [vm_exe.c:757(Run)]
+1: ip:0xDC ip_rel:0xFFFFFFF2(-14) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+00DF: 01 1F 00 97 08 00 28 01
+Line:31 - [vm_exe.c:529(Run)]
+1: ip:0xDF ip_rel:0xFFFFFFF5(-11) sp:0x18F hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x97) MOD  cmd_size:3 - [vm_exe.c:513(Run)]
+00E2: 97 08 00 28 01 20 00 29
+1: offs:0x55 - [vm_exe.c:105(read_var_offset)]
+1: ip:0xE2 ip_rel:0xFFFFFFF8(-8) sp:0x18B hp:0x59 vars_base:0x4D
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+RETVAL(0x28)   cmd_size:1 - [vm_exe.c:513(Run)]
+00E5: 28 01 20 00 29 01 02 00
+1: ip:0x378 ip_rel:0x28E(654) sp:0x18B hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+POP_VAR(0x1E)   cmd_size:3 - [vm_exe.c:513(Run)]
+028E: 1E 3D 00 01 57 00 19 00
+1: offs:0x3D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x378 ip_rel:0x28E(654) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+DBG(0x1)   cmd_size:3 - [vm_exe.c:513(Run)]
+0291: 01 57 00 19 00 00 60 19
+Line:87 - [vm_exe.c:529(Run)]
+1: ip:0x37B ip_rel:0x291(657) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0294: 19 00 00 60 19 0F 01 60
+offs:0  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x37E ip_rel:0x294(660) sp:0x18C hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+0298: 19 0F 01 60 17 3D 00 19
+offs:271  type:96 - [vm_exe.c:637(Run)]
+1: ip:0x382 ip_rel:0x298(664) sp:0x189 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_VAR(0x17)   cmd_size:3 - [vm_exe.c:513(Run)]
+029C: 17 3D 00 19 82 08 00 24
+1: offs:0x3D - [vm_exe.c:105(read_var_offset)]
+1: ip:0x386 ip_rel:0x29C(668) sp:0x185 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+PUSH_PNT(0x19)   cmd_size:4 - [vm_exe.c:513(Run)]
+029F: 19 82 08 00 24 02 03 05
+offs:2178  type:0 - [vm_exe.c:637(Run)]
+1: ip:0x389 ip_rel:0x29F(671) sp:0x182 hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+CALL_INT_PROC(0x24)   cmd_size:2 - [vm_exe.c:513(Run)]
+02A3: 24 02 03 05 54 65 73 74
+func_id:2 - [vm_exe.c:768(Run)]
+1: ip:0x38D ip_rel:0x2A3(675) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]
+1: Decode cmd: - [vm_exe.c:507(Run)]
+END(0x3)   cmd_size:1 - [vm_exe.c:513(Run)]
+02A5: 03 05 54 65 73 74 3A 06
+1: ip:0x38F ip_rel:0x2A5(677) sp:0x18F hp:0x45 vars_base:0x0
+ - [vm_exe.c:64(dump_pnts)]

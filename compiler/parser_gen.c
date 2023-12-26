@@ -75,7 +75,8 @@ const char *GetParseErrorStr(parse_error_t error) {
     return parse_errorrs_str[error];
 }
 
-parse_error_t Parse_string(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info) {
+parse_error_t parse_string(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info) {
+    MSG_DBG(DL_TRC, "");
     if (GET_CUR_SKIP_SPACES()) {
         MSG_DBG(DL_TRC, "next_sym >%c<", CUR_SYM());
         if (CUR_SYM() == '"') {  // string ?
@@ -102,7 +103,8 @@ parse_error_t Parse_string(parse_result_t *result, const char *token_str, const_
     return pe_expression_invalid;
 }
 
-parse_error_t Parse_array(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info) {
+parse_error_t parse_array(parse_result_t *result, const char *token_str, const_array_info_t **const_array_info) {
+    MSG_DBG(DL_TRC, "");
     parse_error_t pe;
     if (GET_CUR_SKIP_SPACES() == '{') {  // array
         SKIP_SYM();
@@ -141,10 +143,10 @@ parse_error_t Parse_array(parse_result_t *result, const char *token_str, const_a
 parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info_t *ctx_var_info) {
     parse_error_t pe = pe_no_error;
     MSG_DBG(DL_DBG1, "var:>%s<   mode:%d   cur_sym:%c", result->token.data, mode, CUR_SYM());
-    if (mode < vsm_DECLARE_end && result->declare_scope == 0) {
-        MSG_ERR("Variables must be declared at the beginning of the program/function");
-        return pe_syntax_invalid;
-    }
+    // if (mode < vsm_DECLARE_end && result->declare_scope == 0) {
+    //     MSG_ERR("Variables must be declared at the beginning of the program/function");
+    //    return pe_syntax_invalid;
+    // }
 
     int array_size = -1;
     ctx_var_info->array_compile_time_idx = -1;
@@ -178,7 +180,7 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
                         return pe_array_index_invalid;
                     }
                 } else {
-                    MSG_ERR("Unable to evaluate array size at compile time");
+                    MSG_ERR("Unable to evaluate array index or size at compile time");
                     return pe;
                 }
             }
@@ -335,46 +337,73 @@ void const_action(parse_result_t *result, const_array_info_t *const_array_info) 
     }
 }
 
-parse_error_t Check_as_array(parse_result_t *result, char *token_str, bool look_in_constants, const_array_info_t **const_array_info) {
-    MSG_DBG(DL_DBG1, "token_str: %s", token_str);
-    parse_error_t pe = pe_no_error;
+parse_error_t Check_as_array(parse_result_t *result, uint8_t expr_flags, const_array_info_t **const_array_info) {
+    parse_error_t pe = pe_error_eval_exp;
     // 1. check string
     // char str[250];
     // params_type
-    pe = Parse_string(result, token_str, const_array_info);
-    if (pe == pe_no_error) {  // const
-        if (const_array_info) {
-            const_action(result, *const_array_info);
+    char *token_str = NULL;
+    if (TOKEN_VALID()) {
+        token_str = result->token.data;
+        TOKEN_INVALIDATE();
+    }
+    MSG_DBG(DL_DBG1, "token_str: %s", token_str);
+    if (expr_flags & efl_inline_const_string) {
+        MSG_DBG(DL_DBG1, "test inline as const string");
+        pe = parse_string(result, token_str, const_array_info);
+        if (pe == pe_no_error) {  // const
+            if (const_array_info) {
+                const_action(result, *const_array_info);
+            }
+            MSG_DBG(DL_TRC, "string Ok  CUR_SYM():%d", CUR_SYM());
+            return pe;
         }
-        MSG_DBG(DL_TRC, "string Ok  CUR_SYM():%d", CUR_SYM());
-    } else {  // 2. check array
-        pe = Parse_array(result, token_str, const_array_info);
+    }
+    if (expr_flags & efl_inline_const_array) {
+        MSG_DBG(DL_DBG1, "test as inline const array");
+        pe = parse_array(result, token_str, const_array_info);
         if (pe == pe_no_error) {
             const_action(result, *const_array_info);
-        } else {
-            if (look_in_constants && token_str == NULL) {  // look in the list of constants
-                LINE_PNT_STORE();
-                pe = GetToken(result);
+            return pe;
+        }
+    }
+    if (expr_flags & (efl_const_array | efl_var_array)) {
+        LINE_PNT_STORE();
+        pe = GetToken(result);
+        if (pe == pe_no_error) {
+            TOKEN_INVALIDATE();
+            if (expr_flags & efl_const_array) {  //  look in the list of const arrays
+                MSG_DBG(DL_DBG1, "test as const array");
+                // MSG_DBG(DL_TRC, "token_str1:%s", result->token.data);
+                pe = RegisterConstArray(result, result->token.data, NULL, 0, vt_none, FALSE, const_array_info);
                 if (pe == pe_no_error) {
-                    // MSG_DBG(DL_TRC, "token_str1:%s", result->token.data);
-                    pe = RegisterConstArray(result, result->token.data, NULL, 0, vt_none, FALSE, const_array_info);
-                    if (pe == pe_no_error) {
-                        const_action(result, *const_array_info);
-                        // LINE_PNT_POP();
+                    const_action(result, *const_array_info);
+                    return pe;
+                }
+            }
+            if (expr_flags & efl_var_array) {
+                MSG_DBG(DL_DBG1, "test as var array");
+                ctx_var_info_t ctx_var_info;
+                pe = ParseVar(result, vsm_GET_ARRAY, &ctx_var_info);
+                if (pe == pe_no_error) {
+                    MSG_DBG(DL_DBG1, "is_pointer:%d   type:%d", ctx_var_info.is_pointer, ctx_var_info.var_info->type);
+                    if (ctx_var_info.is_pointer) {
+                        VmOp_ArgVar(result, &ctx_var_info);
+                        return pe;
                     } else {
-                        LINE_PNT_RESTORE();
+                        pe = pe_error_eval_exp;
                     }
-                } else {
-                    // LINE_PNT_RESTORE();  //?
                 }
             }
         }
+        LINE_PNT_RESTORE();
     }
     return pe;
 }
 
 void nextStep(parse_result_t *result, uint8_t *step) {
     uint8_t lstep;
+    result->optional_mod = FALSE;
     while (1) {
         lstep = result->cmd_templ_pnt[0];
         result->cmd_templ_pnt++;
@@ -387,13 +416,22 @@ void nextStep(parse_result_t *result, uint8_t *step) {
     (*step) = lstep & 0x7f;
 }
 
+void definePartArgType(parse_result_t *result, print_part_type_t part_type) {
+    // if (result->enable_code_gen) {
+    VmOp_Debug1(result, "Part", part_type);
+    if (result->params_str.params_cnt < FUNC_MAX_PARAMS) {
+        result->params_str.params_type[result->params_str.params_cnt] = part_type;
+        result->params_str.params_cnt++;
+    }
+    // }
+}
+
 parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
-begin:
     parse_error_t pe = pe_no_error;
 
     line_str_t *line = &result->line_str;
 
-    MSG_DBG(DL_DBG1, "BEGIN step:%d  optional:%d  cmd_templ:%d  line->pnt:%d   params_lvl:%d  params_cnt:%d  >%d", step, result->optional_mod, result->cmd_templ_pnt ? result->cmd_templ_pnt[0] : 0, line->line_pnt_ro, result->params_lvl, result->params_str.params_cnt, CUR_SYM());
+    MSG_DBG(DL_DBG1, "BEGIN step:%d  optional:%d  cmd_templ:%d  line->pnt:%d   params_lvl:%d  params_cnt:%d  >%d<   token_valid:%d  token:%s", step, result->optional_mod, result->cmd_templ_pnt ? result->cmd_templ_pnt[0] : 0, line->line_pnt_ro, result->params_lvl, result->params_str.params_cnt, CUR_SYM(), result->token.token_valid, result->token.data);
     switch (step) {
         case pcs_none:  // cmd no longer has any arguments
             MSG_DBG(DL_DBG1, "CASE end");
@@ -406,6 +444,7 @@ begin:
                 RETURN_ON_ERROR(pe);
                 MSG_DBG(DL_TRC, "token.size:%d", result->token.size);
             }
+
             if (result->token.size == 0) {
                 if (result->token.parsed_cmd) {  // { or }
                     SKIP_SYM();
@@ -417,6 +456,7 @@ begin:
             MSG_DBG(DL_DBG, "cmd >%s<   parsed_cmd:%d  cur_sym:>%c<", result->token.data, result->token.parsed_cmd, CUR_SYM());
 
             uint8_t past_cmd = result->cur_cmd;
+            result->expr_flags = 0;
             if (result->token.parsed_cmd) {  // { or }
                 result->cur_cmd = result->token.parsed_cmd;
                 // result->cmd_templ_pnt = curly_brace_templ;
@@ -428,15 +468,15 @@ begin:
                         MSG_DBG(DL_TRC, "variable assignment detect");
                         result->cur_cmd = cmd_ext_id_LET;
                         result->cmd_templ_pnt = TABLE_CMD_EXT(cmd_ext_id_LET).templ;
-                        nextStep(result, &step);
-                        goto begin;
+                        result->expr_flags = TABLE_CMD_EXT(cmd_ext_id_LET).expr_flags;
+                        goto do_next;
                         break;
                     } else if (cl == '(') {  // it`s func
                         MSG_DBG(DL_TRC, "func call detect");
                         result->cur_cmd = cmd_ext_id_CALL;
                         result->cmd_templ_pnt = TABLE_CMD_EXT(cmd_ext_id_CALL).templ;
-                        nextStep(result, &step);
-                        goto begin;
+                        result->expr_flags = TABLE_CMD_EXT(cmd_ext_id_LET).expr_flags;
+                        goto do_next;
                         break;
                     } else {
                         MSG_ERR("Cmd %s not found!", result->token.data);
@@ -444,16 +484,17 @@ begin:
                     }
                 } else {
                     result->cur_cmd = table_cmd[cmd_table_pnt].cmd_id;
+                    result->expr_flags = table_cmd[cmd_table_pnt].expr_flags;
                     result->cmd_templ_pnt = table_cmd[cmd_table_pnt].templ;
                 }
             }
-
+            TOKEN_INVALIDATE();
             VmOp_Debug(result, "cmd", result->token.data);
             MSG_DBG(DL_TRC, "cur_cmd:%d", result->cur_cmd);
-            char declare_var = 0;
+            // char declare_var = 0;
             switch (result->cur_cmd) {
                 case cmd_id_BRKPNT:
-                    declare_var = 1;
+                    // declare_var = 1;
                     VmOp_BreakPoint(result);
                     break;
                 case cmd_id_STOP:
@@ -556,23 +597,26 @@ begin:
                     }
                     break;
                 case cmd_id_PROC:
-                    result->declare_scope = 1;
+                    // result->declare_scope = 1;
                 //   break;
                 case cmd_id_VAR:
                 case cmd_id_CONST:
                 case cmd_id_BYTE:
                 case cmd_id_CHAR:
-                    declare_var = 1;
+                    // declare_var = 1;
+                    break;
+                case cmd_id_PRINT:
+                case cmd_id_PRINT_LN:
                     break;
                 default: {
                     MSG_DBG(DL_WRN, "TODO check cmd:%s", result->token.data);
                 }
             }
-            if (declare_var == 0) {
-                result->declare_scope = 0;
-            }
+            // if (declare_var == 0) {
+            //     result->declare_scope = 0;
+            // }
         } break;
-        case pcs_multi_type: {  // string or expression or number or var
+        /*case pcs_multi_type: {  // string or expression or number or var
             MSG_DBG(DL_DBG1, "CASE pcs_multi_type");
             char *token_str = NULL;
             if (result->cur_cmd == cmd_id_CONST) {
@@ -584,11 +628,12 @@ begin:
             if (pe) {
                 pe = ParseStep(result, pcs_expression);
             }
-        } break;
+        } break;*/
         case pcs_else: {
             MSG_DBG(DL_DBG1, "CASE pcs_else");
             VmOp_Debug(result, "cmd", "Else");
             pe = GetToken(result);
+            TOKEN_INVALIDATE();
             RETURN_ON_ERROR(pe);
             MSG_DBG(DL_TRC, "token.size:%d", result->token.size);
             pe = pe_syntax_invalid;
@@ -615,19 +660,23 @@ begin:
                     case cmd_ext_id_CALL:
                         MSG_DBG(DL_DBG, "call label: >%s<", result->token.data);
                         pe = ParseFunc(result, 0);
+                        TOKEN_INVALIDATE();
                         break;
                     case cmd_id_PROC:
                         MSG_DBG(DL_DBG, "proc name: >%s<", result->token.data);
                         open_block(result, bt_proc, 1);
                         VmOp_Debug(result, "name", result->token.data);
                         pe = RegisterSub(result, result->token.data, 1, &result->func_info);
+                        TOKEN_INVALIDATE();
                         break;
                     case cmd_id_CONST:
+                        strncpy(result->token_back, result->token.data, TOKEN_MAX_LEN);
                         break;
                     case cmd_id_GOTO:
                         label_info_t *llabel;
                         pe = RegisterLabel(result, result->token.data, 0, &llabel);
                         pe = VmOp_Jmp(result, llabel, 0);
+                        TOKEN_INVALIDATE();
                         break;
                     default: {
                         MSG_DBG(DL_DBG, "TODO use token: >%s< for cmd:%d", result->token.data, result->cur_cmd);
@@ -644,6 +693,7 @@ begin:
                 pe = GetToken(result);
                 RETURN_ON_ERROR(pe);
             }
+            TOKEN_INVALIDATE();
             // MSG_DBG(DL_DBG, "token: %s  result->token.size:%d",result->token.data,result->token.size);
             if (result->token.size > 0) {
                 // result->params_str.params_type[result->params_str.params_cnt] = print_ss_var;
@@ -671,6 +721,11 @@ begin:
                         break;
                     case cmd_ext_id_LET:
                         pe = ParseVar(result, vsm_SET_VAR, &result->ctx_var_info);
+                        MSG_DBG(DL_DBG, "is_pointer: %d", result->ctx_var_info.is_pointer);
+                        if (result->ctx_var_info.is_pointer) {
+                            result->expr_flags = LET_pnt_expr_flags;
+                        }
+
                         break;
                     default: {
                         MSG_DBG(DL_DBG, "TODO use var: >%s< for cmd:%d", result->token.data, result->cur_cmd);
@@ -728,53 +783,62 @@ begin:
             }
         } break;
         case pcs_expression: {
-            MSG_DBG(DL_DBG1, "CASE pcs_expression");
+            MSG_DBG(DL_DBG1, "CASE pcs_expression  cmd:%d  expr_flags:0x%X", result->cur_cmd, result->expr_flags);
             // return pe_no_error;
             // char array_copy = FALSE;
             result->calc_comptime = 0;
             fpt calc_val = 0;
+            bool arg_is_pointer = FALSE;
             const_array_info_t *const_array_info;
-            pe = Check_as_array(result, NULL, FALSE, &const_array_info);
-            if (pe == pe_no_error) {
-                if (result->ctx_var_info.array_auto_size) {
-                    if (const_array_info->type == result->ctx_var_info.var_info->type) {
-                        pe = FixArraySize(result, const_array_info->elm_count, result->ctx_var_info.var_info);
+            pe = Check_as_array(result, result->expr_flags, &const_array_info);
+            if (pe == pe_no_error) {  // expression is array
+                arg_is_pointer = TRUE;
+                if (result->ctx_var_info.var_info) {  // variable assignment
+                    if (result->ctx_var_info.array_auto_size) {
+                        if (const_array_info->type == result->ctx_var_info.var_info->type) {
+                            pe = FixArraySize(result, const_array_info->elm_count, result->ctx_var_info.var_info);
+                        } else {
+                            MSG_DBG(DL_DBG1, "types: %d vs %d", result->ctx_var_info.var_info->type, const_array_info->type);
+                            MSG_ERR("The right and left sides of the expression are incompatible");
+                            pe = pe_syntax_invalid;
+                            break;
+                        }
                     } else {
-                        MSG_DBG(DL_DBG1, "types: %d vs %d", result->ctx_var_info.var_info->type, const_array_info->type);
-                        MSG_ERR("The right and left sides of the expression are incompatible");
-                        pe = pe_syntax_invalid;
-                        break;
-                    }
-                } else {
-                    if (result->ctx_var_info.is_pointer) {
-                        // array_copy = TRUE;
-                    } else {
-                        MSG_ERR("You can't copy an array to an array element");
-                        pe = pe_syntax_invalid;
-                        break;
+                        if (result->ctx_var_info.is_pointer) {
+                            // array_copy = TRUE;
+                        } else {
+                            MSG_ERR("You can't copy an array to an array element");
+                            pe = pe_syntax_invalid;
+                            break;
+                        }
                     }
                 }
+                // break;
             } else {
-                MSG_DBG(DL_DBG1, "===EXP1===  %d", result->cur_cmd);
-                LINE_PNT_STORE();
-                pe = ExpParseCompileTime(result, &calc_val);
-                if (pe == pe_no_error) {
-                    // LINE_PNT_POP();
-                    MSG_DBG(DL_DBG1, "___EXP1___");
-                    if (result->cur_cmd == cmd_id_CONST) {
-                        const_gen_info_t *const_gen_info;
-                        pe = RegisterConstGenVar(result, result->token_back, calc_val, 1, &const_gen_info);
-                        break;
-                    }
-                } else {
-                    if (result->cur_cmd == cmd_id_CONST) {
+                if (result->expr_flags & efl_compile_calc_expr) {
+                    MSG_DBG(DL_DBG1, "===ExpParseCompileTime===");
+                    LINE_PNT_STORE();
+                    pe = ExpParseCompileTime(result, &calc_val);
+                    if (pe == pe_no_error) {
                         // LINE_PNT_POP();
-                        break;
+                        MSG_DBG(DL_DBG1, "___ExpParseCompileTime___");
+                        if (result->cur_cmd == cmd_id_CONST) {
+                            const_gen_info_t *const_gen_info;
+                            pe = RegisterConstGenVar(result, result->token_back, calc_val, 1, &const_gen_info);
+                            break;
+                        }
+                    } else {
+                        if (result->cur_cmd == cmd_id_CONST) {
+                            // LINE_PNT_POP();
+                            break;
+                        }
+                        LINE_PNT_RESTORE();
                     }
-                    MSG_DBG(DL_DBG1, "===EXP2===");
-                    LINE_PNT_RESTORE();
+                }
+                if (pe && result->expr_flags & efl_expr) {
+                    MSG_DBG(DL_DBG1, "===ExpParseRunTime===");
                     pe = ExpParse(result);
-                    MSG_DBG(DL_DBG1, "___EXP2___");
+                    MSG_DBG(DL_DBG1, "___ExpParseRunTime___");
                 }
             }
             if (pe == pe_no_error) {
@@ -795,6 +859,8 @@ begin:
                             pe = VmOp_PopVar(result, &result->ctx_var_info);
                         }
                         break;
+                    case cmd_id_CONST:
+                        break;
                     case cmd_id_WHILE:
                         // result->calc_comptime =  infinite loop
                         break;
@@ -806,9 +872,11 @@ begin:
                         break;
                     case cmd_id_PRINT:
                     case cmd_id_PRINT_LN:
-                        /*case cmd_id_SET_CURS:
-                        case cmd_id_BEEP:
-                        case cmd_id_OUT:*/
+                        if (arg_is_pointer) {
+                            definePartArgType(result, print_ss_pointer);
+                        } else {  // print ?
+                            definePartArgType(result, print_ss_number);
+                        }
                         if (result->calc_comptime) {
                             VmOp_ArgNum(result, calc_val);
                         }
@@ -869,48 +937,31 @@ begin:
                 return pe;
             }
     }
-        // }
-#if 0
-    if (step == 0) {
-        return pe;
-    }
-    nextStep(result, &step);
 
-    MSG_DBG(DL_TRC, "End. Next step:%d,  cur_sym:%d", step, GET_CUR_SKIP_SPACES());
-    if (GET_CUR_SKIP_SPACES()) {
-        TOKEN_INVALIDATE();
-        pe = ParseStep(result, step);
-        MSG_DBG(DL_DBG1, "End ret:%d", pe);
-    } else if (step) {
-        while (step) {
-            if (!result->optional_mod && !result->group_mod) {
-                MSG_DBG(DL_DBG, "Error templ not ended, step:%d", step);
-                pe = pe_syntax_invalid;
-                break;
-            }
-            nextStep(result, &step);
-        }
-    }
-#else
+do_next:
     if (step != 0) {
         nextStep(result, &step);
 
-        MSG_DBG(DL_TRC, "End. Next step:%d,  cur_sym:%d", step, GET_CUR_SKIP_SPACES());
+        MSG_DBG(DL_TRC, "End. Next step:%d,  cur_sym:%d  optional_mod:%d  group_mod:%d", step, GET_CUR_SKIP_SPACES(), result->optional_mod, result->group_mod);
         if (GET_CUR_SKIP_SPACES()) {
-            TOKEN_INVALIDATE();
+            // TOKEN_INVALIDATE();
             pe = ParseStep(result, step);
             MSG_DBG(DL_DBG1, "End ret:%d", pe);
         } else if (step) {
-            while (step) {
+            if (!result->optional_mod) {
+                MSG_DBG(DL_DBG, "Error templ not ended, step:%d", step);
+                pe = pe_syntax_invalid;
+            }
+            /*while (step) {
                 if (!result->optional_mod && !result->group_mod) {
                     MSG_DBG(DL_DBG, "Error templ not ended, step:%d", step);
                     pe = pe_syntax_invalid;
                     break;
                 }
                 nextStep(result, &step);
-            }
+            }*/
         }
     }
-#endif
+
     return pe;
 }

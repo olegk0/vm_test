@@ -39,7 +39,8 @@ parse_error_t parse_func_params(parse_result_t *result, int *params_cnt, func_pa
                 pe = ExpParse(result);
                 break;
             case ft_pointer:
-                pe = Check_as_array(result, NULL, TRUE, &const_array_info);
+                TOKEN_INVALIDATE();
+                pe = Check_as_array(result, efl_ALL, &const_array_info);
                 if (pe) {  // lookup among vars arrays
                     result->line_str.line_pnt_ro += result->token.size;
                     ctx_var_info_t ctx_var_info;

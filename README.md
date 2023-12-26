@@ -33,7 +33,7 @@ Here is an attempt to write your own virtual machine.
 	
 ### Functions
 	FUNC - definition
-	RET_VAL - set return value
+	RETURN - return value
  
 ### Other keywords
 	IF

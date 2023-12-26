@@ -86,13 +86,25 @@ void dump_code(uint8_t *code_block, int entry_point) {
 #endif
 }
 
+void var_zerro(int addr, int size) {
+    MSG_DBG(DL_TRC, "addr:%d  size:%d", addr, size);
+    // if (hp < addr + size) {
+    hp = addr + size;
+    //}
+    for (int i = 0; i < size; i++) {
+        mem_heap[addr + i] = 0;
+    }
+}
+
 #if VARS_ADDR_BITS == 16
-#define READ_VAR_OFFS(var)                                      \
-    int var = (code_block[ip + 1] | (code_block[ip + 2] << 8)); \
-    if (cmd_mod) {                                              \
-        var += vars_base;                                       \
-    }                                                           \
-    MSG_INF("offs:0x%X", var);
+int read_var_offset(uint8_t *code_block, uint8_t cmd_mod) {
+    int var = (code_block[ip + 1] | (code_block[ip + 2] << 8));
+    if (cmd_mod) {
+        var += vars_base;
+    }
+    MSG_DBG(DL_DBG, "offs:0x%X", var);
+    return var;
+}
 
 void push_var_pnt(int addr) {
     // MSG_DBG(DL_TRC, "PUSH pnt:%d", addr);
@@ -192,11 +204,9 @@ void push_var(int var_offs) {
     // int val = 0;
     for (int i = 0; i < BITS_TO_BYTES(FPT_BITS); i++) {
         mem_heap[sp] = mem_heap[var_offs + i];
-        // val |= mem_heap[sp] << (8 * i);
         //  MSG_INF("PUSH_VAR:%d  %d", val, mem_heap[sp]);
         sp--;  // stack down
     }
-    // MSG_INF("value:%d", val >> 8);
 }
 
 void pop_var(int var_offs) {
@@ -461,11 +471,11 @@ void print_from_stack(print_params_t *print_param) {
             int size;
             vm_var_type_t pnt_type;
             uint8_t *pnt = pop_var_pnt(&size, &pnt_type);
-            MSG_DBG(DL_DBG, "pnt_type:%d  size:%d", pnt_type, size);
+            MSG_DBG(DL_DBG1, "pnt_type:%d  size:%d", pnt_type, size);
             print_str(pnt, pnt_type, size);
         } break;
         case print_ss_number:
-            MSG_DBG(DL_DBG, "print_ss_expr");
+            MSG_DBG(DL_DBG1, "print_ss_expr");
             print_gen_num(pop_num());
             break;
         default:
@@ -495,7 +505,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
             clrtobot();
         }
         MSG_DBG(DL_DBG, "Decode cmd:");
-        dump_pnts(vm_header->entry_point);
+        // dump_pnts(vm_header->entry_point);
         uint8_t raw_cmd = code_block[ip];
         char cmd_mod = raw_cmd & VM_CMD_MOD;
         uint8_t cmd = raw_cmd & (~VM_CMD_MOD);
@@ -522,19 +532,31 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 MSG_ERR("Unknown instruction:0x%X", cmd);
                 return ec_inval_code;
                 break;
-            case vmo_ALLOC: {
-                int size = code_block[ip + 1];
-                hp += size;
-                MSG_INF("size:%d", size);
-            } break;
-            case vmo_FREE: {
-                int size = code_block[ip + 1];
-                hp -= size;
-                MSG_INF("size:%d", size);
-                if (hp < 0) {
-                    MSG_ERR("Heap corrupted");
-                    ret = ec_stack_corrupted;
+            case vmo_INIT_gVAR:
+            case vmo_INIT_bVAR: {
+                /*
+                1. GET var_offset
+                2. GET size(byte)
+                3.
+                */
+                int var_offs = read_var_offset(code_block, cmd_mod);
+                uint8_t size = code_block[ip + 3];
+                int tsize = size;
+                int tvar_offs = var_offs;
+                if (tsize > 0) {  // array
+                    tvar_offs++;  // skip size byte
+                } else {          // gen var
+                    tsize = 1;
                 }
+                if (cmd == vmo_INIT_gVAR) {
+                    var_zerro(tvar_offs, tsize * BITS_TO_BYTES(FPT_BITS));
+                } else {
+                    var_zerro(tvar_offs, tsize);
+                }
+                if (size > 0) {  // array. init
+                    mem_heap[var_offs] = size;
+                }
+                MSG_INF("size:%d", size);
             } break;
             case vmo_LOAD_BYTE: {
                 /*
@@ -542,7 +564,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 2. GET value(byte)
                 3. vars [var_offset]  =  value
                 */
-                READ_VAR_OFFS(var_offs);
+                int var_offs = read_var_offset(code_block, cmd_mod);
                 uint8_t byte = code_block[ip + 3];
                 // MSG_DBG(DL_TRC, "LOAD_BYTE:%d to %d", byte, var_offs);
                 mem_heap[var_offs] = byte;
@@ -559,7 +581,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 2. POP value(gen_num)
                 3. vars[byte_offset]  =  value( byte)
                 */
-                READ_VAR_OFFS(var_offs);
+                int var_offs = read_var_offset(code_block, cmd_mod);
                 mem_heap[var_offs] = mem_heap[sp + BITS_TO_BYTES(FPT_WBITS)];
                 sp += BITS_TO_BYTES(FPT_BITS);
             } break;
@@ -569,7 +591,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 2. POP value(gen_num)
                 3. vars[var_offset]  =  value
                 */
-                READ_VAR_OFFS(var_offs);
+                int var_offs = read_var_offset(code_block, cmd_mod);
                 pop_var(var_offs);
             } break;
             case vmo_POP_bARRAY_BY_IDX: {
@@ -580,7 +602,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 4. arrays [array_offset + array_idx] =  value
                 */
                 {
-                    READ_VAR_OFFS(var_offs);
+                    int var_offs = read_var_offset(code_block, cmd_mod);
                     int arr_idx = mem_heap[sp + BITS_TO_BYTES(FPT_BITS) + BITS_TO_BYTES(FPT_WBITS)];  // ARRAY_INDEX_BITS == 8
                     uint8_t val = mem_heap[sp + BITS_TO_BYTES(FPT_WBITS)];
                     mem_heap[var_offs + arr_idx + 1] = val;
@@ -620,7 +642,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 1. GET var_offset
                 2. PUSH vars[var_offset](gen_num)
                 */
-                READ_VAR_OFFS(var_offs);
+                int var_offs = read_var_offset(code_block, cmd_mod);
                 push_var(var_offs);
             } break;
             case vmo_PUSH_BYTE: {
@@ -628,7 +650,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 1. GET byte_offset
                 2. PUSH vars[byte_offset] (as gen_num)
                 */
-                READ_VAR_OFFS(var_offs);
+                int var_offs = read_var_offset(code_block, cmd_mod);
                 push_num(i2fpt(mem_heap[var_offs]));
             } break;
             case vmo_PUSH_bARRAY_BY_IDX: {
@@ -638,7 +660,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 3. PUSH arrays[array_offset + array_idx]
                 */
                 {
-                    READ_VAR_OFFS(var_offs);
+                    int var_offs = read_var_offset(code_block, cmd_mod);
                     int arr_idx = mem_heap[sp + BITS_TO_BYTES(FPT_WBITS)];  // ARRAY_INDEX_BITS == 8
                     sp += BITS_TO_BYTES(FPT_BITS);                          // pop arr_idx
                     uint8_t val = mem_heap[var_offs + arr_idx + 1];
@@ -652,7 +674,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 2. POP src_array_pnt(pnt with type)
                 3. Copy
                 */
-                READ_VAR_OFFS(dest_array_offset);
+                int dest_array_offset = read_var_offset(code_block, cmd_mod);
                 int src_array_size;
                 vm_var_type_t pnt_type;
                 uint8_t *src_array_pnt = pop_var_pnt(&src_array_size, &pnt_type);
@@ -680,7 +702,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 2. POP src_array_pnt(pnt with type)
                 3. Copy
                 */
-                READ_VAR_OFFS(dest_array_offset);
+                int dest_array_offset = read_var_offset(code_block, cmd_mod);
                 int src_array_size;
                 vm_var_type_t pnt_type;
                 uint8_t *src_array_pnt = pop_var_pnt(&src_array_size, &pnt_type);
@@ -755,8 +777,9 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                         */
                         int size;
                         vm_var_type_t pnt_type;
+                        MSG_DBG(DL_TRC, "sp:%d", sp);
                         uint8_t *pnt = pop_var_pnt(&size, &pnt_type);
-                        MSG_DBG(DL_DBG1, "PRINT size:%d  cont:%X %X %X", size, pnt[0], pnt[1], pnt[2]);
+                        MSG_DBG(DL_DBG1, "PRINT sp:%d  size:%d  cont:%X %X %X", sp, size, pnt[0], pnt[1], pnt[2]);
                         print_params_t print_params[size * 2];
                         int pt = size - 1;
                         int stack_offs = 0;
@@ -786,6 +809,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                             print_from_stack(&print_params[i]);
                         }
                         sp = sp_back + stack_offs;
+                        MSG_DBG(DL_TRC, "-sp:%d", sp);
                         if (func_id == cmd_id_PRINT_LN) {
                             waddch(main_window, '\n');
                         }
@@ -795,16 +819,16 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 }
                 // ret = ec_call_unknown_func;
             } break;
-            case vmo_STORE_RETVAL:
+            case vmo_RETVAL:
                 pop_var(vars_base - BITS_TO_BYTES(FPT_BITS));  // store return value (to special place in heap) from stack
-                break;
+                // break;
             case vmo_RET:
                 // ip = ret_addr;
                 //  ip = pop_code_addr(BITS_TO_BYTES(FPT_BITS));
                 hp = vars_base - BITS_TO_BYTES(FPT_BITS);
-                push_var(hp);                    // push return value from special place in heap
-                ip = pop_code_addr_from_heap();  // return address
-                vars_base = pop_var_pnt_from_heap();
+                push_var(hp);                         // move return value from special place in heap to stack
+                ip = pop_code_addr_from_heap();       // restore return address from heap
+                vars_base = pop_var_pnt_from_heap();  // retore vars_base from heap
                 cmd_size = 0;
                 break;
             /*case vmo_POP_RET:
@@ -821,8 +845,8 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 int16_t func_offs = CODE_OFFS();
                 MSG_DBG(DL_DBG, "func_offs:%d", func_offs);
                 // ret_addr = ip + cmd_size;
-                push_var_pnt_to_heap(vars_base);
-                push_code_addr_to_heap(ip + cmd_size);  // return address
+                push_var_pnt_to_heap(vars_base);        // store vars_base to heap
+                push_code_addr_to_heap(ip + cmd_size);  // store return address to heap
                 hp += BITS_TO_BYTES(FPT_BITS);          // reserve for return value
                 ip = func_offs;
                 vars_base = hp;
@@ -930,8 +954,12 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 ret = ec_inval_code;
         }
         MSG_DBG(DL_TRC, "=====");
+        if (hp >= sp || sp >= STACK_SIZE) {
+            MSG_ERR("Stack overflow");
+            ret = ec_stack_corrupted;
+        }
         if (print_stat || ret) {
-            // dump_pnts(vm_header->entry_point);
+            dump_pnts(vm_header->entry_point);
             dump_vars();
             dump_stack();
             wrefresh(stack_window);
@@ -941,11 +969,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
             wrefresh(pnts_window);
         }
         wrefresh(main_window);
-        if (hp >= sp || sp >= STACK_SIZE) {
-            MSG_ERR("Stack overflow");
-            ret = ec_stack_corrupted;
-            break;
-        }
+
         if (ret) {
             if (ret == ec_break_point) {
                 MSG_INF("Break point at line: %d", line_num);

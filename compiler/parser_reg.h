@@ -51,8 +51,6 @@ void Print_fpt(fpt A);
 parse_error_t ParseNum(parse_result_t *result, expr_info_t *expr_cur);
 void AutoName(parse_result_t *result, char *str, int size_max, char *suf);
 
-void DefinePartArgType(parse_result_t *result, print_part_type_t part_type);
-
 #ifdef __cplusplus
 }
 #endif

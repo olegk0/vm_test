@@ -1,34 +1,396 @@
 DBG {0x1} #2 NewLine, code offs: 3 
 DBG #2 cmd CONST , code offs: 3 
-DBG {0x1} #4 NewLine, code offs: 6 
-DBG #4 cmd CHAR , code offs: 6 
-DBG #4 Part 8 , code offs: 6 
-PUSH_PNT {0x1B} offs: 0 type: 96 ( #4_arr26 )
-ALLOC {0x12} offs: 0 size: 12 ( TEXT0 )
-LOAD_BYTE {0x23} offs: 0 (TEXT0 ), byte: 11 
-COPY_TO_bARRAY {0x24} offs: 0 ( TEXT0 )
-DBG {0x1} #5 NewLine, code offs: 22 
-DBG #5 cmd BYTE , code offs: 22 
-ALLOC {0x12} offs: 12 size: 11 ( BYTE_ARR1 )
-LOAD_BYTE {0x23} offs: 12 (BYTE_ARR1 ), byte: 10 
-DBG {0x1} #6 NewLine, code offs: 31 
-DBG #6 cmd BYTE , code offs: 31 
-DBG #6 Part 8 , code offs: 31 
-PUSH_PNT {0x1B} offs: 12 type: 80 ( #6_arr24 )
-ALLOC {0x12} offs: 23 size: 4 ( BYTE_ARR2 )
-LOAD_BYTE {0x23} offs: 23 (BYTE_ARR2 ), byte: 3 
-COPY_TO_bARRAY {0x24} offs: 23 ( BYTE_ARR2 )
-DBG {0x1} #7 NewLine, code offs: 47 
-DBG #7 cmd VAR , code offs: 47 
-ALLOC {0x12} offs: 27 size: 21 ( VAR_ARR1 )
-LOAD_BYTE {0x23} offs: 27 (VAR_ARR1 ), byte: 5 
-DBG {0x1} #9 NewLine, code offs: 56 
-DBG #9 cmd VAR , code offs: 56 
-DBG #9 Part 8 , code offs: 56 
-PUSH_PNT {0x1B} offs: 16 type: 64 ( #9_arr29 )
-ALLOC {0x12} offs: 48 size: 13 ( VAR_ARR2 )
-LOAD_BYTE {0x23} offs: 48 (VAR_ARR2 ), byte: 3 
-COPY_TO_gARRAY {0x25} offs: 48 ( VAR_ARR2 )
-DBG {0x1} #10 NewLine, code offs: 72 
-DBG #10 cmd STOP , code offs: 72 
+DBG {0x1} #3 NewLine, code offs: 6 
+DBG #3 cmd CONST , code offs: 6 
+DBG {0x1} #4 NewLine, code offs: 9 
+DBG #4 cmd CONST , code offs: 9 
+DBG {0x1} #6 NewLine, code offs: 12 
+DBG #6 cmd FUNC , code offs: 12 
+DBG #6 name FUNC1 , code offs: 12 
+DBG #6 Begin sub: FUNC1 , code offs: 0 
+DBG {0x1} #8 NewLine, code offs: 3 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+CALL_INT_FUNC {0x25} 2 
+DBG {0x1} #9 NewLine, code offs: 12 
+DBG #9 cmd  , code offs: 12 
+RET {0x29} 
+DBG #9 End sub: FUNC1 , code offs: 12 
+DBG {0x1} #11 NewLine, code offs: 15 
+DBG #11 cmd FUNC , code offs: 15 
+DBG #11 name FUNC2 , code offs: 15 
+DBG #11 Begin sub: FUNC2 , code offs: 13 
+INIT_gVAR MOD {0x93} offs: 0 size: 0 e,  4 b( VNUM )
+INIT_gVAR MOD {0x93} offs: 4 size: 0 e,  4 b( VAL1 )
+INIT_gVAR MOD {0x93} offs: 8 size: 0 e,  4 b( VAL2 )
+POP_VAR MOD {0x9E} offs: 8 ( VAL2 )
+POP_VAR MOD {0x9E} offs: 4 ( VAL1 )
+POP_VAR MOD {0x9E} offs: 0 ( VNUM )
+DBG {0x1} #12 NewLine, code offs: 37 
+CALL_PRG_FUNC {0x26} offset: 0 
+POP_TO_NOWHERE {0x1C} 
+DBG {0x1} #13 NewLine, code offs: 44 
+DBG #13 cmd PRINT , code offs: 44 
+PUSH_VAR MOD {0x97} offs: 0 ( VNUM )
+DBG #13 Part 2 , code offs: 47 
+PUSH_PNT {0x19} offs: 13 type: 96 ( #13_arr16 )
+DBG #13 Part 8 , code offs: 51 
+PUSH_VAR MOD {0x97} offs: 4 ( VAL1 )
+DBG #13 Part 2 , code offs: 54 
+PUSH_PNT {0x19} offs: 16 type: 96 ( #13_arr29 )
+DBG #13 Part 8 , code offs: 58 
+PUSH_VAR MOD {0x97} offs: 8 ( VAL2 )
+DBG #13 Part 2 , code offs: 61 
+PUSH_PNT {0x19} inline: 164482 type: 0 
+CALL_INT_PROC {0x24} 1 
+DBG {0x1} #15 NewLine, code offs: 70 
+DBG #15 cmd  , code offs: 70 
+RET {0x29} 
+DBG #15 End sub: FUNC2 , code offs: 15 
+DBG {0x1} #17 NewLine, code offs: 18 
+DBG #17 cmd FUNC , code offs: 18 
+DBG #17 name POW , code offs: 18 
+DBG #17 Begin sub: POW , code offs: 71 
+INIT_gVAR MOD {0x93} offs: 0 size: 0 e,  4 b( BASE )
+INIT_gVAR MOD {0x93} offs: 4 size: 0 e,  4 b( DEG )
+POP_VAR MOD {0x9E} offs: 4 ( DEG )
+POP_VAR MOD {0x9E} offs: 0 ( BASE )
+DBG {0x1} #18 NewLine, code offs: 88 
+DBG #18 cmd IF , code offs: 88 
+PUSH_VAR MOD {0x97} offs: 4 ( DEG )
+PUSH_NUM {0x18} 0 
+PUSH GT {0xB} (NUM) 0 
+JMP_POP_CMPZ {0x15} Label: 1 (line -1 )
+DBG {0x1} #19 NewLine, code offs: 103 
+DBG #19 cmd RETURN , code offs: 103 
+PUSH_VAR MOD {0x97} offs: 0 ( BASE )
+PUSH_VAR MOD {0x97} offs: 0 ( BASE )
+PUSH_VAR MOD {0x97} offs: 4 ( DEG )
+PUSH_NUM {0x18} 1 
+PUSH MINUS {0x7} (NUM) 1 
+CALL_PRG_FUNC {0x26} offset: 71 
+PUSH MUL {0x4} (FUNC: POW )0 
+RETVAL {0x28} 
+DBG {0x1} #20 NewLine, code offs: 126 
+DBG #20 cmd  , code offs: 126 
+JMP {0x14} Label: 2 (line -1 )
+DBG #20 Label: 1 , code offs: 129 
+DBG #20 cmd Else , code offs: 129 
+DBG #20 cmd  , code offs: 129 
+DBG {0x1} #21 NewLine, code offs: 132 
+DBG #21 cmd RETURN , code offs: 132 
+PUSH_NUM {0x18} 1 
+RETVAL {0x28} 
+DBG {0x1} #22 NewLine, code offs: 141 
+DBG #22 cmd  , code offs: 141 
+DBG #22 Label: 2 , code offs: 141 
+DBG {0x1} #23 NewLine, code offs: 144 
+DBG #23 cmd  , code offs: 144 
+RET {0x29} 
+DBG #23 End sub: POW , code offs: 18 
+DBG {0x1} #25 NewLine, code offs: 21 
+DBG #25 cmd FUNC , code offs: 21 
+DBG #25 name POW0 , code offs: 21 
+DBG #25 Begin sub: POW0 , code offs: 145 
+INIT_gVAR MOD {0x93} offs: 0 size: 0 e,  4 b( BASE )
+INIT_gVAR MOD {0x93} offs: 4 size: 0 e,  4 b( DEG )
+POP_VAR MOD {0x9E} offs: 4 ( DEG )
+POP_VAR MOD {0x9E} offs: 0 ( BASE )
+DBG {0x1} #26 NewLine, code offs: 162 
+DBG #26 cmd VAR , code offs: 162 
+INIT_gVAR MOD {0x93} offs: 8 size: 0 e,  4 b( RET )
+PUSH_NUM {0x18} 1 
+POP_VAR MOD {0x9E} offs: 8 ( RET )
+DBG {0x1} #27 NewLine, code offs: 177 
+DBG #27 cmd WHILE , code offs: 177 
+DBG #27 Label: 4 , code offs: 177 
+PUSH_VAR MOD {0x97} offs: 4 ( DEG )
+PUSH_NUM {0x18} 0 
+PUSH GT {0xB} (NUM) 0 
+JMP_POP_CMPZ {0x15} Label: 3 (line -1 )
+DBG {0x1} #28 NewLine, code offs: 192 
+PUSH_VAR MOD {0x97} offs: 8 ( RET )
+PUSH_VAR MOD {0x97} offs: 0 ( BASE )
+PUSH MUL {0x4} (VAR: BASE )0 
+POP_VAR MOD {0x9E} offs: 8 ( RET )
+DBG {0x1} #29 NewLine, code offs: 205 
+PUSH_VAR MOD {0x97} offs: 4 ( DEG )
+PUSH_NUM {0x18} 1 
+PUSH MINUS {0x7} (NUM) 1 
+POP_VAR MOD {0x9E} offs: 4 ( DEG )
+DBG {0x1} #30 NewLine, code offs: 220 
+DBG #30 cmd  , code offs: 220 
+JMP {0x14} Label: 4 (line 27 )
+DBG #30 Label: 3 , code offs: 223 
+DBG {0x1} #31 NewLine, code offs: 226 
+DBG #31 cmd RETURN , code offs: 226 
+PUSH_VAR MOD {0x97} offs: 8 ( RET )
+RETVAL {0x28} 
+DBG {0x1} #32 NewLine, code offs: 233 
+DBG #32 cmd  , code offs: 233 
+RET {0x29} 
+DBG #32 End sub: POW0 , code offs: 21 
+DBG {0x1} #34 NewLine, code offs: 24 
+DBG #34 cmd CHAR , code offs: 24 
+PUSH_PNT {0x19} offs: 21 type: 96 ( #34_arr26 )
+INIT_bVAR {0x12} offs: 0 size: 11 e,  12 b( TEXT0 )
+COPY_TO_bARRAY {0x22} offs: 0 ( TEXT0 )
+DBG {0x1} #35 NewLine, code offs: 38 
+DBG #35 cmd BYTE , code offs: 38 
+INIT_bVAR {0x12} offs: 12 size: 10 e,  11 b( BYTE_ARR1 )
+DBG {0x1} #36 NewLine, code offs: 45 
+DBG #36 cmd BYTE , code offs: 45 
+PUSH_PNT {0x19} offs: 33 type: 80 ( #36_arr24 )
+INIT_bVAR {0x12} offs: 23 size: 3 e,  4 b( BYTE_ARR2 )
+COPY_TO_bARRAY {0x22} offs: 23 ( BYTE_ARR2 )
+DBG {0x1} #37 NewLine, code offs: 59 
+DBG #37 cmd VAR , code offs: 59 
+INIT_gVAR {0x13} offs: 27 size: 5 e,  21 b( VAR_ARR1 )
+DBG {0x1} #38 NewLine, code offs: 66 
+DBG #38 cmd VAR , code offs: 66 
+PUSH_PNT {0x19} offs: 37 type: 64 ( #38_arr29 )
+INIT_gVAR {0x13} offs: 48 size: 3 e,  13 b( VAR_ARR2 )
+COPY_TO_gARRAY {0x23} offs: 48 ( VAR_ARR2 )
+DBG {0x1} #40 NewLine, code offs: 80 
+DBG #40 cmd VAR , code offs: 80 
+INIT_gVAR {0x13} offs: 61 size: 0 e,  4 b( SINGLE_VAR1 )
+DBG {0x1} #41 NewLine, code offs: 87 
+DBG #41 cmd VAR , code offs: 87 
+INIT_gVAR {0x13} offs: 65 size: 0 e,  4 b( SINGLE_VAR2 )
+PUSH_NUM {0x18} 2 
+PUSH INV {0xF} (NUM) 2 
+POP_VAR {0x1E} offs: 65 ( SINGLE_VAR2 )
+DBG {0x1} #43 NewLine, code offs: 103 
+DBG #43 cmd PRINT_LN , code offs: 103 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #43 Part 8 , code offs: 107 
+PUSH_PNT {0x19} offs: 50 type: 96 ( #43_arr28 )
+DBG #43 Part 8 , code offs: 111 
+DBG #43 Part 2 , code offs: 111 
+PUSH_NUM {0x18} 12 
+PUSH_PNT {0x19} inline: 2178 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #44 NewLine, code offs: 125 
+DBG #44 cmd PRINT_LN , code offs: 125 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #44 Part 8 , code offs: 129 
+PUSH_PNT {0x19} offs: 59 type: 96 ( #44_arr29 )
+DBG #44 Part 8 , code offs: 133 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #44 Part 8 , code offs: 137 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #45 NewLine, code offs: 146 
+DBG #45 cmd PRINT_LN , code offs: 146 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #45 Part 8 , code offs: 150 
+PUSH_PNT {0x19} offs: 69 type: 96 ( #45_arr28 )
+DBG #45 Part 8 , code offs: 154 
+PUSH_PNT {0x19} offs: 6 type: 80 ( CNT_ARR )
+DBG #45 Part 8 , code offs: 158 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #48 NewLine, code offs: 167 
+DBG #48 cmd PRINT_LN , code offs: 167 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #48 Part 8 , code offs: 171 
+PUSH_PNT {0x19} offs: 78 type: 96 ( #48_arr26 )
+DBG #48 Part 8 , code offs: 175 
+PUSH_PNT {0x19} offs: 0 ( TEXT0 ) type: 48 
+DBG #48 Part 8 , code offs: 179 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #50 NewLine, code offs: 188 
+DBG #50 cmd PRINT_LN , code offs: 188 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #50 Part 8 , code offs: 192 
+PUSH_PNT {0x19} offs: 85 type: 96 ( #50_arr30 )
+DBG #50 Part 8 , code offs: 196 
+PUSH_PNT {0x19} offs: 23 ( BYTE_ARR2 ) type: 32 
+DBG #50 Part 8 , code offs: 200 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #51 NewLine, code offs: 209 
+DBG #51 cmd PRINT_LN , code offs: 209 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #51 Part 8 , code offs: 213 
+PUSH_PNT {0x19} offs: 96 type: 96 ( #51_arr29 )
+DBG #51 Part 8 , code offs: 217 
+PUSH_PNT {0x19} offs: 48 ( VAR_ARR2 ) type: 16 
+DBG #51 Part 8 , code offs: 221 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #54 NewLine, code offs: 230 
+DBG #54 cmd PRINT_LN , code offs: 230 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #54 Part 8 , code offs: 234 
+PUSH_PNT {0x19} offs: 106 type: 96 ( #54_arr32 )
+DBG #54 Part 8 , code offs: 238 
+PUSH_VAR {0x17} offs: 65 ( SINGLE_VAR2 )
+DBG #54 Part 2 , code offs: 241 
+PUSH_PNT {0x19} inline: 2178 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #55 NewLine, code offs: 250 
+PUSH_NUM {0x18} 10 
+CALL_INT_FUNC {0x25} 1 
+DBG {0x1} #56 NewLine, code offs: 260 
+PUSH_VAR {0x17} offs: 65 ( SINGLE_VAR2 )
+PUSH_NUM {0x18} 12 
+PUSH PLUS {0x6} (NUM) 12 
+PUSH_NUM {0x18} 2 
+PUSH DIV {0x5} (NUM) 2 
+PUSH_NUM {0x18} 5 
+PUSH MUL {0x4} (NUM) 5 
+PUSH_NUM {0x18} 20 
+PUSH MINUS {0x7} (NUM) 20 
+POP_VAR {0x1E} offs: 61 ( SINGLE_VAR1 )
+DBG {0x1} #57 NewLine, code offs: 293 
+PUSH_NUM {0x18} 1 
+PUSH_VAR {0x17} offs: 61 ( SINGLE_VAR1 )
+PUSH_NUM {0x18} 5 
+CALL_PRG_FUNC {0x26} offset: 13 
+POP_TO_NOWHERE {0x1C} 
+DBG {0x1} #58 NewLine, code offs: 313 
+PUSH_NUM {0x18} 59 
+CALL_INT_FUNC {0x25} 1 
+DBG {0x1} #59 NewLine, code offs: 323 
+PUSH_NUM {0x18} 2 
+PUSH_PNT {0x19} offs: 48 ( VAR_ARR2 ) type: 16 
+CALL_INT_FUNC {0x25} 131 
+PUSH_NUM {0x18} 3 
+CALL_PRG_FUNC {0x26} offset: 13 
+POP_TO_NOWHERE {0x1C} 
+DBG {0x1} #60 NewLine, code offs: 346 
+PUSH_NUM {0x18} 10 
+CALL_INT_FUNC {0x25} 1 
+DBG {0x1} #61 NewLine, code offs: 356 
+PUSH_NUM {0x18} 3 
+PUSH_PNT {0x19} offs: 0 ( TEXT0 ) type: 48 
+CALL_INT_FUNC {0x25} 131 
+PUSH_NUM {0x18} 11 
+CALL_PRG_FUNC {0x26} offset: 13 
+POP_TO_NOWHERE {0x1C} 
+DBG {0x1} #62 NewLine, code offs: 379 
+PUSH_NUM {0x18} 59 
+CALL_INT_FUNC {0x25} 1 
+DBG {0x1} #63 NewLine, code offs: 389 
+PUSH_VAR {0x17} offs: 53 ( VAR_ARR2 )
+POP_VAR {0x1E} offs: 61 ( SINGLE_VAR1 )
+DBG {0x1} #64 NewLine, code offs: 398 
+DBG #64 cmd PRINT_LN , code offs: 398 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #64 Part 8 , code offs: 402 
+PUSH_PNT {0x19} offs: 119 type: 96 ( #64_arr32 )
+DBG #64 Part 8 , code offs: 406 
+PUSH_VAR {0x17} offs: 61 ( SINGLE_VAR1 )
+DBG #64 Part 2 , code offs: 409 
+PUSH_PNT {0x19} inline: 2178 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #66 NewLine, code offs: 418 
+PUSH_PNT {0x19} offs: 6 type: 80 ( CNT_ARR )
+COPY_TO_gARRAY {0x23} offs: 27 ( VAR_ARR1 )
+DBG {0x1} #67 NewLine, code offs: 428 
+DBG #67 cmd PRINT_LN , code offs: 428 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #67 Part 8 , code offs: 432 
+PUSH_PNT {0x19} offs: 132 type: 96 ( #67_arr37 )
+DBG #67 Part 8 , code offs: 436 
+PUSH_PNT {0x19} offs: 27 ( VAR_ARR1 ) type: 16 
+DBG #67 Part 8 , code offs: 440 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #69 NewLine, code offs: 449 
+PUSH_PNT {0x19} offs: 48 ( VAR_ARR2 ) type: 16 
+COPY_TO_gARRAY {0x23} offs: 27 ( VAR_ARR1 )
+DBG {0x1} #70 NewLine, code offs: 459 
+DBG #70 cmd PRINT_LN , code offs: 459 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #70 Part 8 , code offs: 463 
+PUSH_PNT {0x19} offs: 150 type: 96 ( #70_arr38 )
+DBG #70 Part 8 , code offs: 467 
+PUSH_PNT {0x19} offs: 27 ( VAR_ARR1 ) type: 16 
+DBG #70 Part 8 , code offs: 471 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #72 NewLine, code offs: 480 
+PUSH_PNT {0x19} offs: 48 ( VAR_ARR2 ) type: 16 
+COPY_TO_bARRAY {0x22} offs: 12 ( BYTE_ARR1 )
+DBG {0x1} #73 NewLine, code offs: 490 
+DBG #73 cmd PRINT_LN , code offs: 490 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #73 Part 8 , code offs: 494 
+PUSH_PNT {0x19} offs: 169 type: 96 ( #73_arr39 )
+DBG #73 Part 8 , code offs: 498 
+PUSH_PNT {0x19} offs: 12 ( BYTE_ARR1 ) type: 32 
+DBG #73 Part 8 , code offs: 502 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #75 NewLine, code offs: 511 
+PUSH_NUM {0x18} 100 
+POP_BYTE {0x1D} offs: 13 ( BYTE_ARR1 )
+DBG {0x1} #76 NewLine, code offs: 522 
+DBG #76 cmd PRINT_LN , code offs: 522 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #76 Part 8 , code offs: 526 
+PUSH_PNT {0x19} offs: 189 type: 96 ( #76_arr37 )
+DBG #76 Part 8 , code offs: 530 
+PUSH_PNT {0x19} offs: 12 ( BYTE_ARR1 ) type: 32 
+DBG #76 Part 8 , code offs: 534 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #78 NewLine, code offs: 543 
+PUSH_PNT {0x19} offs: 12 ( BYTE_ARR1 ) type: 32 
+COPY_TO_gARRAY {0x23} offs: 48 ( VAR_ARR2 )
+DBG {0x1} #79 NewLine, code offs: 553 
+DBG #79 cmd PRINT_LN , code offs: 553 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #79 Part 8 , code offs: 557 
+PUSH_PNT {0x19} offs: 207 type: 96 ( #79_arr39 )
+DBG #79 Part 8 , code offs: 561 
+PUSH_PNT {0x19} offs: 48 ( VAR_ARR2 ) type: 16 
+DBG #79 Part 8 , code offs: 565 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #81 NewLine, code offs: 574 
+PUSH_NUM {0x18} 12345 
+PUSH INV {0xF} (NUM) 12345 
+POP_VAR {0x1E} offs: 53 ( VAR_ARR2 )
+DBG {0x1} #82 NewLine, code offs: 586 
+DBG #82 cmd PRINT_LN , code offs: 586 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #82 Part 8 , code offs: 590 
+PUSH_PNT {0x19} offs: 227 type: 96 ( #82_arr42 )
+DBG #82 Part 8 , code offs: 594 
+PUSH_PNT {0x19} offs: 48 ( VAR_ARR2 ) type: 16 
+DBG #82 Part 8 , code offs: 598 
+PUSH_PNT {0x19} inline: 2184 type: 0 
+CALL_INT_PROC {0x24} 2 
+DBG {0x1} #84 NewLine, code offs: 607 
+DBG #84 cmd PRINT , code offs: 607 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #84 Part 8 , code offs: 611 
+PUSH_PNT {0x19} offs: 250 type: 96 ( #84_arr35 )
+DBG #84 Part 8 , code offs: 615 
+PUSH_NUM {0x18} 2 
+PUSH_NUM {0x18} 8 
+CALL_PRG_FUNC {0x26} offset: 71 
+DBG #84 Part 2 , code offs: 628 
+PUSH_PNT {0x19} offs: 269 type: 96 ( #84_arr48 )
+DBG #84 Part 8 , code offs: 632 
+PUSH_PNT {0x19} inline: 34856 type: 0 
+CALL_INT_PROC {0x24} 1 
+DBG {0x1} #86 NewLine, code offs: 641 
+PUSH_NUM {0x18} 2 
+PUSH_NUM {0x18} 8 
+CALL_PRG_FUNC {0x26} offset: 145 
+POP_VAR {0x1E} offs: 61 ( SINGLE_VAR1 )
+DBG {0x1} #87 NewLine, code offs: 660 
+DBG #87 cmd PRINT_LN , code offs: 660 
+PUSH_PNT {0x19} offs: 0 type: 96 ( CNT_TEXT )
+DBG #87 Part 8 , code offs: 664 
+PUSH_PNT {0x19} offs: 271 type: 96 ( #87_arr33 )
+DBG #87 Part 8 , code offs: 668 
+PUSH_VAR {0x17} offs: 61 ( SINGLE_VAR1 )
+DBG #87 Part 2 , code offs: 671 
+PUSH_PNT {0x19} inline: 2178 type: 0 
+CALL_INT_PROC {0x24} 2 
 END {0x3} 

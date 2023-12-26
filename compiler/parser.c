@@ -49,6 +49,7 @@ parse_error_t ParseLine(parse_result_t *result, int line_num, char *line, int li
     result->ctx_var_info.array_compile_time_idx = -1;
     result->ctx_var_info.var_info = NULL;
     result->params_str.params_cnt = 0;
+    result->token.token_valid = FALSE;
 
     if (GET_CUR_SKIP_SPACES() <= ' ') {
         return pe_no_error;

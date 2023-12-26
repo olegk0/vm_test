@@ -2,8 +2,8 @@
 #define VM_EXE_H_
 
 #define DEBUG 1
-#define DEBUG_LVL 2
-// #define WRITE_LOG
+#define DEBUG_LVL 1
+#define WRITE_LOG
 
 #include <stdint.h>
 #include "debug.h"

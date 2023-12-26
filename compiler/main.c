@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
     parse_result_t ppr;
     ParseInit(&ppr);
     ppr.put_sym = put_sym;
-    ppr.declare_scope = 1;
+    // ppr.declare_scope = 1;
 
     parse_error_t pe = pe_no_error;
     int line = 1;
