@@ -13,13 +13,15 @@ static uint8_t cmds_size[] = {VM_CMD_LIST};
 static const char *vm_ops_str[] = {VM_CMD_LIST};
 #undef CONV_TYPE
 
-#define STACK_SIZE 400
-static uint8_t mem_heap[STACK_SIZE + 10];
+#define STACK_SIZE_MIN 200
+static uint8_t *mem_heap;
+static int stack_size;
 static int sp;
 static int hp;
 static int ip;
 static int vars_base;
 static uint8_t *const_block;
+static int line_num = -1;
 
 void dump_stack() {
     wclear(stack_window);
@@ -27,7 +29,7 @@ void dump_stack() {
     if (sp < 0) {
         sp = 0;
     }
-    for (int i = STACK_SIZE - 1; i >= sp; i--) {
+    for (int i = stack_size - 1; i >= sp; i--) {
         if (ll == 0) {
             wprintw(stack_window, "%.4X:", i);
         }
@@ -43,8 +45,8 @@ void dump_stack() {
 void dump_vars() {
     wclear(vars_window);
     int ll = 0;
-    if (hp >= STACK_SIZE) {
-        hp = STACK_SIZE - 1;
+    if (hp >= stack_size) {
+        hp = stack_size - 1;
     }
     for (int i = 0; i < hp; i++) {
         if (ll == 0) {
@@ -61,7 +63,7 @@ void dump_vars() {
 
 void dump_pnts(int entry_point) {
     wprintw(pnts_window, "%.4X %.4X %.4X %.4X\n", ip, sp, hp, vars_base);
-    MSG_DBG(DL_DBG, "ip:0x%X ip_rel:0x%X(%d) sp:0x%X hp:0x%X vars_base:0x%X\n", ip, ip - entry_point, ip - entry_point, sp, hp, vars_base);
+    MSG_DBG(DL_DBG, "line:%d ip:0x%X ip_rel:0x%X(%d) sp:0x%X hp:0x%X vars_base:0x%X", line_num, ip, ip - entry_point, ip - entry_point, sp, hp, vars_base);
 }
 
 void dump_code(uint8_t *code_block, int entry_point) {
@@ -70,7 +72,7 @@ void dump_code(uint8_t *code_block, int entry_point) {
     if (l_ip < 0) {
         l_ip = ip;
     }
-    wprintw(code_window, "%.4X:", l_ip);
+    wprintw(code_window, "(%d)%.4X:", line_num, l_ip);
 #ifdef WRITE_LOG
     fprintf(outLogP, "%.4X:", l_ip);
 #endif
@@ -89,7 +91,6 @@ void dump_code(uint8_t *code_block, int entry_point) {
 void var_zerro(int addr, int size) {
     MSG_DBG(DL_TRC, "addr:%d  size:%d", addr, size);
     // if (hp < addr + size) {
-    hp = addr + size;
     //}
     for (int i = 0; i < size; i++) {
         mem_heap[addr + i] = 0;
@@ -97,33 +98,20 @@ void var_zerro(int addr, int size) {
 }
 
 #if VARS_ADDR_BITS == 16
-int read_var_offset(uint8_t *code_block, uint8_t cmd_mod) {
-    int var = (code_block[ip + 1] | (code_block[ip + 2] << 8));
-    if (cmd_mod) {
-        var += vars_base;
-    }
-    MSG_DBG(DL_DBG, "offs:0x%X", var);
+int read_var_addr(uint8_t *pnt) {  // 0-low, 1-hi
+    int var = (pnt[0] | (pnt[1] << 8));
     return var;
 }
 
-void push_var_pnt(int addr) {
-    // MSG_DBG(DL_TRC, "PUSH pnt:%d", addr);
-    mem_heap[sp] = addr & 0xff;
-    addr >>= 8;
-    sp--;
-    mem_heap[sp] = addr & 0xff;
-    sp--;
+void write_var_addr(uint8_t *pnt, int addr) {  // 0-low, 1-hi
+    pnt[0] = addr;
+    pnt[1] = addr >> 8;
 }
 
-int pop_var_addr() {
-    int addr;
-    sp++;
-    addr = mem_heap[sp];
-    addr <<= 8;
-    sp++;
-    addr |= mem_heap[sp];
-    // MSG_DBG(DL_TRC, "POP pnt:%d", addr);
-    return addr;
+void write_var_addr_reverse(uint8_t *pnt, int addr) {  // 1-hi, 0-low
+    pnt[0] = addr >> 8;
+    pnt--;
+    pnt[0] = addr;
 }
 
 void push_var_pnt_to_heap(int addr) {
@@ -148,6 +136,28 @@ int pop_var_pnt_from_heap() {
 #else
 TODO
 #endif
+
+int read_var_offset(uint8_t *code_block, uint8_t cmd_mod) {
+    int var = read_var_addr(code_block + ip + 1);
+    if (cmd_mod) {
+        var += vars_base;
+    }
+    MSG_DBG(DL_DBG1, "offs:0x%X", var);
+    return var;
+}
+
+void push_var_addr(int addr) {
+    // MSG_DBG(DL_TRC, "PUSH pnt:%d", addr);
+    write_var_addr_reverse(&mem_heap[sp], addr);
+    sp -= BITS_TO_BYTES(VARS_ADDR_BITS);
+}
+
+int pop_var_addr() {
+    int addr = read_var_addr(&mem_heap[sp + 1]);
+    sp += BITS_TO_BYTES(VARS_ADDR_BITS);
+    // MSG_DBG(DL_TRC, "POP pnt:%d", addr);
+    return addr;
+}
 
 #if PRG_ADDR_BITS == 16
 #define CODE_OFFS() \
@@ -197,7 +207,7 @@ int pop_code_addr_from_heap() {
     return addr;
 }
 #else
-    TODO
+TODO
 #endif
 
 void push_var(int var_offs) {
@@ -336,13 +346,17 @@ uint8_t *pop_var_pnt(int *size, vm_var_type_t *pnt_type) {
             *size = mem_heap[addr];
             pnt = mem_heap + addr + 1;
         } break;
-        case vvt_inline:
+        case vvt_inline: {
             /*const_block[vm_header->const_block_size];*/
             *size = BITS_TO_BYTES(VARS_ADDR_BITS);
             pnt = mem_heap + sp;
+            // MSG_DBG(DL_DBG1, "inline pnt:0x%X", pnt);
+            uint8_t t = pnt[1];  // TODO
+            pnt[1] = pnt[2];
+            pnt[2] = t;
             sp += *size;
             (*size)++;
-            break;
+        } break;
         default:
             *size = 0;
     }
@@ -468,6 +482,7 @@ void print_from_stack(print_params_t *print_param) {
     MSG_DBG(DL_TRC, "value_type:%d", print_param->part_type);
     switch (print_param->part_type) {
         case print_ss_pointer: {
+            MSG_DBG(DL_DBG1, "print_ss_pointer");
             int size;
             vm_var_type_t pnt_type;
             uint8_t *pnt = pop_var_pnt(&size, &pnt_type);
@@ -485,12 +500,21 @@ void print_from_stack(print_params_t *print_param) {
 err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_header, char print_stat) {
     err_code_t ret = ec_ok;
     // int ret_addr = 0;
-    int line_num = -1;
+    int recurs_cnt = 0;
+    stack_size = vm_header->heap_min_size * 2;
+    if (stack_size < STACK_SIZE_MIN) {
+        stack_size = STACK_SIZE_MIN;
+    }
+    uint8_t heap[stack_size + BITS_TO_BYTES(FPT_BITS) * 3];
+    mem_heap = heap + BITS_TO_BYTES(FPT_BITS) * 2;
+    for (int i = 0; i < BITS_TO_BYTES(FPT_BITS) * 2; i++) {
+        heap[i] = 0;
+    }
     const_block = _const_block;
     ip = vm_header->entry_point;
     hp = 0;
     vars_base = 0;
-    sp = STACK_SIZE - 1;
+    sp = stack_size - 1;
     char by_step = 1;
     while (ip < vm_header->prg_size) {
         if (by_step) {
@@ -504,7 +528,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
             }
             clrtobot();
         }
-        MSG_DBG(DL_DBG, "Decode cmd:");
+        MSG_DBG(DL_DBG1, "Decode cmd:");
         // dump_pnts(vm_header->entry_point);
         uint8_t raw_cmd = code_block[ip];
         char cmd_mod = raw_cmd & VM_CMD_MOD;
@@ -540,7 +564,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 3.
                 */
                 int var_offs = read_var_offset(code_block, cmd_mod);
-                uint8_t size = code_block[ip + 3];
+                uint8_t size = code_block[ip + BITS_TO_BYTES(VARS_ADDR_BITS) + 1];
                 int tsize = size;
                 int tvar_offs = var_offs;
                 if (tsize > 0) {  // array
@@ -549,9 +573,11 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                     tsize = 1;
                 }
                 if (cmd == vmo_INIT_gVAR) {
-                    var_zerro(tvar_offs, tsize * BITS_TO_BYTES(FPT_BITS));
+                    hp = tvar_offs + tsize * BITS_TO_BYTES(FPT_BITS);
+                    // var_zerro(tvar_offs, tsize * BITS_TO_BYTES(FPT_BITS));
                 } else {
-                    var_zerro(tvar_offs, tsize);
+                    hp = tvar_offs + tsize;
+                    // var_zerro(tvar_offs, tsize);
                 }
                 if (size > 0) {  // array. init
                     mem_heap[var_offs] = size;
@@ -565,7 +591,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 3. vars [var_offset]  =  value
                 */
                 int var_offs = read_var_offset(code_block, cmd_mod);
-                uint8_t byte = code_block[ip + 3];
+                uint8_t byte = code_block[ip + BITS_TO_BYTES(VARS_ADDR_BITS) + 1];
                 // MSG_DBG(DL_TRC, "LOAD_BYTE:%d to %d", byte, var_offs);
                 mem_heap[var_offs] = byte;
             } break;
@@ -594,6 +620,21 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 int var_offs = read_var_offset(code_block, cmd_mod);
                 pop_var(var_offs);
             } break;
+            case vmo_POP_PNT: {
+                /*
+                1. GET var_offset
+                2. POP to var
+                */
+                int var_offs = read_var_offset(code_block, cmd_mod);
+                // stack pointer
+                // type,var absolute offset
+                sp++;
+                uint8_t pnt_type = mem_heap[sp];
+                int pnt_offs = pop_var_addr();
+                mem_heap[var_offs] = pnt_type;
+                write_var_addr(&mem_heap[var_offs + 1], pnt_offs);
+                //  MSG_DBG(DL_DBG, "offs:0x%X", var_offs);
+            } break;
             case vmo_POP_bARRAY_BY_IDX: {
                 /*
                 1. GET array_offset
@@ -617,25 +658,37 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 */
                 for (int i = 1; i <= BITS_TO_BYTES(FPT_BITS); i++) {
                     mem_heap[sp] = code_block[ip + i];
-                    MSG_DBG(DL_TRC, "PUSH_NUM:%d", mem_heap[sp]);
+                    MSG_DBG(DL_TRC, "num:%d", mem_heap[sp]);
                     sp--;  // stack down
                 }
                 break;
             case vmo_PUSH_PNT: {
                 /*
-                1. GET const_offset
-                2. GET const_type
-                3. PUSH const_offset(gen_num)
-                4. PUSH const_type(byte)
+                1. GET pnt_var offset
+                2. PUSH const_offset(gen_num)
                 */
-                mem_heap[sp] = code_block[ip + 1];  // offs1
+                int var_offs = read_var_offset(code_block, cmd_mod);
+                // var pointer
+                // type,h-byte, l-byte
+                int pnt_offs = read_var_addr(&mem_heap[var_offs + 1]);
+                push_var_addr(pnt_offs);
+                mem_heap[sp] = mem_heap[var_offs];
                 sp--;
-                mem_heap[sp] = code_block[ip + 2];  // offs2
+                // MSG_DBG(DL_DBG1, "offs:%d  type:%d", (code_block[ip + 2] << 8) | code_block[ip + 1], code_block[ip + 3]);
+            } break;
+            case vmo_PUSH_OBJ_PNT: {
+                /*
+                1. GET obj_offset
+                2. GET obj_type
+                3. PUSH obj_offset,obj_type
+                */
+                int var_offs = read_var_offset(code_block, cmd_mod);  // pointer is always an absolute address
+                uint8_t type = code_block[ip + BITS_TO_BYTES(VARS_ADDR_BITS) + 1];
+                push_var_addr(var_offs);
+                mem_heap[sp] = type;
                 sp--;
-                mem_heap[sp] = code_block[ip + 3];  // type
-                // MSG_DBG(DL_TRC, "type:%d", mem_heap[sp]);
-                MSG_INF("offs:%d  type:%d", (code_block[ip + 2] << 8) | code_block[ip + 1], code_block[ip + 3]);
-                sp--;
+                MSG_DBG(DL_DBG1, "offs:%d  type:%d", (code_block[ip + 2] << 8) | code_block[ip + 1], code_block[ip + 3]);
+
             } break;
             case vmo_PUSH_VAR: {
                 /*
@@ -659,14 +712,12 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 2. POP array_idx(gen_num)
                 3. PUSH arrays[array_offset + array_idx]
                 */
-                {
-                    int var_offs = read_var_offset(code_block, cmd_mod);
-                    int arr_idx = mem_heap[sp + BITS_TO_BYTES(FPT_WBITS)];  // ARRAY_INDEX_BITS == 8
-                    sp += BITS_TO_BYTES(FPT_BITS);                          // pop arr_idx
-                    uint8_t val = mem_heap[var_offs + arr_idx + 1];
-                    MSG_DBG(DL_TRC, "arr  offs:%d   idx:%d  val:%d", var_offs, arr_idx, val);
-                    push_num(i2fpt(val));
-                }
+                int var_offs = read_var_offset(code_block, cmd_mod);
+                int arr_idx = mem_heap[sp + BITS_TO_BYTES(FPT_WBITS)];  // ARRAY_INDEX_BITS == 8
+                sp += BITS_TO_BYTES(FPT_BITS);                          // pop arr_idx
+                uint8_t val = mem_heap[var_offs + arr_idx + 1];
+                MSG_DBG(DL_TRC, "arr  offs:%d   idx:%d  val:%d", var_offs, arr_idx, val);
+                push_num(i2fpt(val));
             } break;
             case vmo_COPY_TO_bARRAY: {
                 /*
@@ -823,20 +874,17 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 pop_var(vars_base - BITS_TO_BYTES(FPT_BITS));  // store return value (to special place in heap) from stack
                 // break;
             case vmo_RET:
-                // ip = ret_addr;
-                //  ip = pop_code_addr(BITS_TO_BYTES(FPT_BITS));
-                hp = vars_base - BITS_TO_BYTES(FPT_BITS);
-                push_var(hp);                         // move return value from special place in heap to stack
-                ip = pop_code_addr_from_heap();       // restore return address from heap
-                vars_base = pop_var_pnt_from_heap();  // retore vars_base from heap
-                cmd_size = 0;
+                if (recurs_cnt > 0) {
+                    hp = vars_base - BITS_TO_BYTES(FPT_BITS);
+                    push_var(hp);                         // move return value from special place in heap to stack
+                    ip = pop_code_addr_from_heap();       // restore return address from heap
+                    vars_base = pop_var_pnt_from_heap();  // retore vars_base from heap
+                    cmd_size = 0;
+                    recurs_cnt--;
+                } else {  // exit from programm
+                    ret = ec_exit;
+                }
                 break;
-            /*case vmo_POP_RET:
-                ret_addr = pop_code_addr();
-                break;
-            case vmo_PUSH_RET:
-                push_code_addr(ret_addr);
-                break;*/
             case vmo_CALL_PRG_FUNC: {
                 /* internal procedures
                 1. GET func_offs
@@ -851,6 +899,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 ip = func_offs;
                 vars_base = hp;
                 cmd_size = 0;
+                recurs_cnt++;
             } break;
             case vmo_CALL_INT_FUNC:
             case vmo_CALL_LIB_FUNC: {
@@ -954,7 +1003,7 @@ err_code_t Run(uint8_t *code_block, uint8_t *_const_block, vm_header_t *vm_heade
                 ret = ec_inval_code;
         }
         MSG_DBG(DL_TRC, "=====");
-        if (hp >= sp || sp >= STACK_SIZE) {
+        if (hp >= sp || sp >= stack_size) {
             MSG_ERR("Stack overflow");
             ret = ec_stack_corrupted;
         }

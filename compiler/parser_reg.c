@@ -105,20 +105,16 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
     MSG_DBG(DL_TRC, "line:%d  var:%s  array_size:%d  mode:%d", result->line_str.line_num, token_str, array_size, mode);
 
     FIND_OBJECT(var);
-    char new_object = 0;
+    char new_object = 1;
     var_type_t ttype = vt_generic;
     int mem_size = 0;
     int elm_count = 1;
+
     switch (mode) {
-        case vsm_GET_VAR:  // get generic or array element
-            break;
-        case vsm_SET_VAR:  // set generic var
-            break;
         case vsm_DECLARE_VAR_ARRAY:
             ttype = vt_array_of_generic;
             mem_size = array_size * BITS_TO_BYTES(FPT_BITS) + 1;
             elm_count = array_size;
-            new_object = 1;
             break;
         case vsm_DECLARE_CHAR_ARRAY:
         case vsm_DECLARE_BYTE_ARRAY:
@@ -129,20 +125,31 @@ parse_error_t RegisterVar(parse_result_t *result, const char *token_str, int arr
             }
             mem_size = array_size + 1;  // ARRAY_INDEX_BITS / 8;
             elm_count = array_size;
-            new_object = 1;
             break;
         case vsm_DECLARE_VAR:
             mem_size = BITS_TO_BYTES(FPT_BITS);
-            new_object = 1;
+            break;
+        case vsm_DECLARE_g_POINTER:
+            ttype = vt_generic_obj_pointer;
+            mem_size = BITS_TO_BYTES(VARS_ADDR_BITS) + 1;  //+type
+            break;
+        case vsm_DECLARE_b_POINTER:
+            ttype = vt_byte_obj_pointer;
+            mem_size = BITS_TO_BYTES(VARS_ADDR_BITS) + 1;  //+type
+            break;
+        /*case vsm_GET_VAR:  // get generic or array element
+            break;
+        case vsm_SET_VAR:  // set generic var
             break;
         case vsm_SET_ARRAY:
             ttype = vt_arrays;
             break;
         case vsm_GET_ARRAY:
             ttype = vt_arrays;
-            break;
+            break;*/
         default:
-            return pe_syntax_invalid;
+            new_object = 0;
+            // return pe_syntax_invalid;
     }
 
     parse_error_t ret = pe_no_error;

@@ -402,8 +402,13 @@ parse_error_t expPartParse(parse_result_t *result, expr_info_t *expr_cur) {
                         } else {
                             pe = ParseVar(result, vsm_GET_VAR, &expr_cur->ctx_var_info);
                             // MSG_DBG(DL_TRC, "enable_code_gen:%d", result->enable_code_gen);
-                            if (pe == pe_no_error) {
-                                pe = VmOp_ArgVar(result, &expr_cur->ctx_var_info);
+                            if (expr_cur->ctx_var_info.is_object) {
+                                MSG_ERR("Error in using the object");
+                                pe = pe_expression_invalid;
+                            } else {
+                                if (pe == pe_no_error) {
+                                    pe = VmOp_ArgVar(result, &expr_cur->ctx_var_info);
+                                }
                             }
                         }
                     }

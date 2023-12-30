@@ -53,8 +53,25 @@ VECTOR(uint8_t, bytes_vect_t);
 VECTOR(int, ints_vect_t);
 
 typedef enum {
+    vsm_DECLARE_VAR,
+    vsm_DECLARE_BYTE_ARRAY,
+    vsm_DECLARE_CHAR_ARRAY,
+    vsm_DECLARE_VAR_ARRAY,
+    vsm_DECLARE_g_POINTER,
+    vsm_DECLARE_b_POINTER,
+    vsm_DECLARE_end,
+    vsm_GET_VAR,
+    vsm_SET_VAR,    // set generic var
+    vsm_SET_ARRAY,  // as whole array
+    vsm_GET_ARRAY,  // as whole array
+    vsm_POINTER_FLAG = 0x80,
+} var_set_mode_t;
+
+typedef enum {
     vt_none = 0,
     vt_generic,  // fixed point variable
+    vt_generic_obj_pointer,
+    vt_byte_obj_pointer,
     vt_arrays = 0x80,
     vt_array_of_char,
     vt_array_of_byte,
@@ -90,7 +107,7 @@ typedef struct {
 VECTOR(const_array_info_t, const_array_vect_t);
 
 typedef struct {
-    bool is_pointer;
+    bool is_object;
     bool array_auto_size;
     int array_compile_time_idx;
     var_info_t *var_info;
@@ -100,6 +117,7 @@ typedef struct {
     int in_block;
     // var_vect_t vars_vect;
     ctx_var_info_t params_info[FUNC_MAX_PARAMS];
+    uint8_t params[FUNC_MAX_PARAMS + 1];
     uint8_t params_cnt;
     uint8_t func_id;
     int vm_code_offset;
@@ -107,6 +125,7 @@ typedef struct {
     // char main_func;
     // char have_return;
     ctx_var_info_t return_var;
+    var_set_mode_t var_set_mode;
 } func_info_t;
 VECTOR(func_info_t, func_vect_t);
 

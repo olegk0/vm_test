@@ -181,9 +181,13 @@ parse_error_t VmOp_PopVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) 
         case vt_generic:
             op_code = vmo_POP_VAR;
             break;
+        case vt_generic_obj_pointer:
+        case vt_byte_obj_pointer:
+            op_code = vmo_POP_PNT;
+            break;
         case vt_array_of_char:
         case vt_array_of_byte:
-            if (result->ctx_var_info.is_pointer) {
+            if (result->ctx_var_info.is_object) {
                 op_code = vmo_COPY_TO_bARRAY;
             } else {
                 if (ctx_var_info->array_compile_time_idx >= 0) {
@@ -198,7 +202,7 @@ parse_error_t VmOp_PopVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) 
             }
             break;
         case vt_array_of_generic:
-            if (result->ctx_var_info.is_pointer) {
+            if (result->ctx_var_info.is_object) {
                 op_code = vmo_COPY_TO_gARRAY;
             } else {
                 if (ctx_var_info->array_compile_time_idx >= 0) {
@@ -331,24 +335,6 @@ void VmOp_ArgNum(parse_result_t *result, fpt value) {
     // return pe;
 }
 
-/*parse_error_t VmOp_ArgPnt(parse_result_t *result, int value) {
-    parse_error_t pe = pe_no_error;
-    code_op(result, vmo_PUSH_PNT,0);
-    out_num(result, value);
-    code_put_num(result, value, BITS_TO_BYTES(VARS_ADDR_BITS ));
-    put_lst_sym(result, '\n');
-    return pe;
-}
-
-parse_error_t VmOp_ArgArrIndex(parse_result_t *result, int value) {
-    parse_error_t pe = pe_no_error;
-    code_op(result, vmo_PUSH_IDX,0);
-    out_num(result, value);
-    code_put_num(result, value, BITS_TO_BYTES(ARRAY_INDEX_BITS ));
-    put_lst_sym(result, '\n');
-    return pe;
-}*/
-
 parse_error_t VmOp_ArgConstArray(parse_result_t *result, const_array_info_t *const_array_info) {
     MSG_DBG(DL_TRC, "");
     vm_var_type_t type;
@@ -365,7 +351,7 @@ parse_error_t VmOp_ArgConstArray(parse_result_t *result, const_array_info_t *con
         default:
             return pe_syntax_invalid;
     }
-    code_op(result, vmo_PUSH_PNT, 0);
+    code_op(result, vmo_PUSH_OBJ_PNT, 0);
     out_str(result, "offs:");
     out_num(result, const_array_info->mem_offs);
     code_put_num(result, const_array_info->mem_offs, BITS_TO_BYTES(VARS_ADDR_BITS));
@@ -382,7 +368,7 @@ parse_error_t VmOp_ArgConstArray(parse_result_t *result, const_array_info_t *con
 parse_error_t VmOp_ArgConstInline(parse_result_t *result, unsigned int value) {
     MSG_DBG(DL_TRC, "");
     // DefinePartArgType(result, print_ss_pointer);
-    code_op(result, vmo_PUSH_PNT, 0);
+    code_op(result, vmo_PUSH_OBJ_PNT, 0);
     out_str(result, "inline:");
     value = value | (vvt_inline << VARS_ADDR_BITS);
     out_num(result, value);
@@ -400,6 +386,10 @@ parse_error_t VmOp_ArgVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) 
     vm_ops_list_t op_code;
     vm_var_type_t type = 0;
     switch (ctx_var_info->var_info->type) {
+        case vt_generic_obj_pointer:
+        case vt_byte_obj_pointer:
+            op_code = vmo_PUSH_PNT;
+            break;
         case vt_generic:
             op_code = vmo_PUSH_VAR;
             break;
@@ -436,8 +426,8 @@ parse_error_t VmOp_ArgVar(parse_result_t *result, ctx_var_info_t *ctx_var_info) 
             MSG_DBG(DL_DBG, "Wrong var type:%d", ctx_var_info->var_info->type);
             return pe_var_error_parse;
     }
-    if (ctx_var_info->is_pointer) {
-        op_code = vmo_PUSH_PNT;
+    if (ctx_var_info->is_object) {
+        op_code = vmo_PUSH_OBJ_PNT;
     } else {
         type = 0;
     }
@@ -499,6 +489,11 @@ parse_error_t VmOp_VarHeap(parse_result_t *result, var_info_t *var_info, char al
                 break;
             case vt_array_of_char:
             case vt_array_of_byte:
+                op_code = vmo_INIT_bVAR;
+                break;
+            case vt_generic_obj_pointer:
+            case vt_byte_obj_pointer:
+                elm_count = BITS_TO_BYTES(VARS_ADDR_BITS);
                 op_code = vmo_INIT_bVAR;
                 break;
             default:

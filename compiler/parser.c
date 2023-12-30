@@ -45,7 +45,7 @@ parse_error_t ParseLine(parse_result_t *result, int line_num, char *line, int li
     result->enable_code_gen = TRUE;
     // result->enable_code_gen_back = 1;
     //    result->var_info = NULL;
-    //  result->func_info = NULL;
+    // result->func_info = NULL;
     result->ctx_var_info.array_compile_time_idx = -1;
     result->ctx_var_info.var_info = NULL;
     result->params_str.params_cnt = 0;

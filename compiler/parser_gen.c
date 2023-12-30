@@ -147,17 +147,26 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
     //     MSG_ERR("Variables must be declared at the beginning of the program/function");
     //    return pe_syntax_invalid;
     // }
-
+    uint8_t need_pointer = mode & vsm_POINTER_FLAG;
+    mode &= vsm_POINTER_FLAG - 1;
     int array_size = -1;
     ctx_var_info->array_compile_time_idx = -1;
-    ctx_var_info->is_pointer = FALSE;
+    ctx_var_info->is_object = FALSE;
     char token_str_bak[TOKEN_MAX_LEN] = {0};
     bool no_idx = TRUE;
     ctx_var_info->array_auto_size = FALSE;
     // char is_array = 0;
     if (CUR_SYM() == '[') {  // array
         if (mode == vsm_DECLARE_VAR) {
-            mode = vsm_DECLARE_VAR_ARRAY;
+            if (need_pointer) {
+                mode = vsm_DECLARE_g_POINTER;
+            } else {
+                mode = vsm_DECLARE_VAR_ARRAY;
+            }
+        } else {
+            if (need_pointer) {
+                mode = vsm_DECLARE_b_POINTER;
+            }
         }
         no_idx = FALSE;
         // is_array = 1;
@@ -165,56 +174,66 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
         SKIP_SYM();  //'['
         MSG_DBG(DL_DBG, "is array, idx >[ ");
         fpt val;
-        if (mode == vsm_DECLARE_BYTE_ARRAY || mode == vsm_DECLARE_CHAR_ARRAY || mode == vsm_DECLARE_VAR_ARRAY) {
-            if (GET_CUR_SKIP_SPACES() == ']') {  // calculate the size of the array later by the size of the right side
-                MSG_DBG(DL_DBG1, "array_auto_size");
-                array_size = 0;
-                ctx_var_info->array_auto_size = TRUE;
-            } else {
-                pe = ExpParseCompileTime(result, &val);
-                if (pe == pe_no_error) {
-                    array_size = fpt2i(val);
-                    MSG_DBG(DL_DBG, "value:%d", array_size);
-                    if (array_size <= 0) {
-                        MSG_ERR("Array size must be positive");
-                        return pe_array_index_invalid;
-                    }
+        switch (mode) {
+            case vsm_DECLARE_g_POINTER:
+            case vsm_DECLARE_b_POINTER:
+            case vsm_DECLARE_BYTE_ARRAY:
+            case vsm_DECLARE_CHAR_ARRAY:
+            case vsm_DECLARE_VAR_ARRAY:
+                if (GET_CUR_SKIP_SPACES() == ']') {  // calculate the size of the array later by the size of the right side
+                    MSG_DBG(DL_DBG1, "array_auto_size");
+                    array_size = 0;
+                    ctx_var_info->array_auto_size = TRUE;
                 } else {
-                    MSG_ERR("Unable to evaluate array index or size at compile time");
+                    if (need_pointer) {
+                        MSG_ERR("What is required here is not an object but a pointer");
+                        return pe_syntax_invalid;
+                    }
+                    pe = ExpParseCompileTime(result, &val);
+                    if (pe == pe_no_error) {
+                        array_size = fpt2i(val);
+                        MSG_DBG(DL_DBG, "value:%d", array_size);
+                        if (array_size <= 0) {
+                            MSG_ERR("Array size must be positive");
+                            return pe_array_index_invalid;
+                        }
+                    } else {
+                        MSG_ERR("Unable to evaluate array index or size at compile time");
+                        return pe;
+                    }
+                }
+                break;
+            default:  // set/get array
+                LINE_PNT_STORE();
+                // DISABLE_CODE_GEN();
+                pe = ExpParseCompileTime(result, &val);
+                // ENABLE_CODE_GEN();
+                if (pe == pe_no_error) {
+                    ctx_var_info->array_compile_time_idx = fpt2i(val);
+                    // LINE_PNT_POP();
+                } else {
+                    LINE_PNT_RESTORE();
+                    if (pe == pe_error_eval_exp) {
+                        pe = ExpParse(result);
+                    }
+                }
+                if (pe) {
                     return pe;
                 }
-            }
-        } else {  // set/get array
-            LINE_PNT_STORE();
-            // DISABLE_CODE_GEN();
-            pe = ExpParseCompileTime(result, &val);
-            // ENABLE_CODE_GEN();
-            if (pe == pe_no_error) {
-                ctx_var_info->array_compile_time_idx = fpt2i(val);
-                // LINE_PNT_POP();
-            } else {
-                LINE_PNT_RESTORE();
-                if (pe == pe_error_eval_exp) {
-                    pe = ExpParse(result);
+                array_size = 0;
+                if (mode == vsm_GET_VAR) {
+                    mode = vsm_GET_ARRAY;
+                } else {
+                    mode = vsm_SET_ARRAY;
                 }
-            }
-            if (pe) {
-                return pe;
-            }
-            array_size = 0;
-            if (mode == vsm_GET_VAR) {
-                mode = vsm_GET_ARRAY;
-            } else {
-                mode = vsm_SET_ARRAY;
-            }
         }
         GET_CUR_SKIP_SPACES();
         MSG_DBG(DL_DBG, " %c< ", CUR_SYM());
         if (CUR_SYM() == ']') {
             SKIP_SYM();  // ]
             if (ctx_var_info->array_auto_size) {
-                if (GET_CUR_SKIP_SPACES() == '=') {
-                    ctx_var_info->is_pointer = TRUE;
+                if (GET_CUR_SKIP_SPACES() == '=' || result->cur_cmd == cmd_id_PROC) {
+                    ctx_var_info->is_object = TRUE;
                 } else {
                     MSG_ERR("Unable to evaluate array size at compile time");
                     return pe_array_index_invalid;
@@ -223,7 +242,8 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
         } else {
             return pe_syntax_invalid;
         }
-    } else {  // array
+    } else {               // not array
+        need_pointer = 0;  // only for object
         // MSG_ERR("byte and char can only be used as arrays");
     }
     MSG_DBG(DL_DBG1, "cur_sym:>%c<", CUR_SYM());
@@ -238,7 +258,7 @@ parse_error_t ParseVar(parse_result_t *result, var_set_mode_t mode, ctx_var_info
         MSG_DBG(DL_DBG, "var type:%d", ctx_var_info->var_info->type);
         if (ctx_var_info->var_info->type & vt_arrays) {
             if (no_idx) {
-                ctx_var_info->is_pointer = TRUE;
+                ctx_var_info->is_object = TRUE;
             }
         }
     }
@@ -386,8 +406,8 @@ parse_error_t Check_as_array(parse_result_t *result, uint8_t expr_flags, const_a
                 ctx_var_info_t ctx_var_info;
                 pe = ParseVar(result, vsm_GET_ARRAY, &ctx_var_info);
                 if (pe == pe_no_error) {
-                    MSG_DBG(DL_DBG1, "is_pointer:%d   type:%d", ctx_var_info.is_pointer, ctx_var_info.var_info->type);
-                    if (ctx_var_info.is_pointer) {
+                    MSG_DBG(DL_DBG1, "is_object:%d   type:%d", ctx_var_info.is_object, ctx_var_info.var_info->type);
+                    if (ctx_var_info.is_object) {
                         VmOp_ArgVar(result, &ctx_var_info);
                         return pe;
                     } else {
@@ -616,19 +636,6 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
             //     result->declare_scope = 0;
             // }
         } break;
-        /*case pcs_multi_type: {  // string or expression or number or var
-            MSG_DBG(DL_DBG1, "CASE pcs_multi_type");
-            char *token_str = NULL;
-            if (result->cur_cmd == cmd_id_CONST) {
-                token_str = result->token.data;
-                strncpy(result->token_back, token_str, TOKEN_MAX_LEN);
-            }
-            const_array_info_t *const_array_info;
-            pe = Check_as_array(result, token_str, TRUE, &const_array_info);
-            if (pe) {
-                pe = ParseStep(result, pcs_expression);
-            }
-        } break;*/
         case pcs_else: {
             MSG_DBG(DL_DBG1, "CASE pcs_else");
             VmOp_Debug(result, "cmd", "Else");
@@ -663,10 +670,26 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
                         TOKEN_INVALIDATE();
                         break;
                     case cmd_id_PROC:
-                        MSG_DBG(DL_DBG, "proc name: >%s<", result->token.data);
-                        open_block(result, bt_proc, 1);
-                        VmOp_Debug(result, "name", result->token.data);
-                        pe = RegisterSub(result, result->token.data, 1, &result->func_info);
+                        if (result->func_info) {
+                            ctx_var_info_t ctx_var_info;
+                            pe = ParseVar(result, result->func_info->var_set_mode | vsm_POINTER_FLAG, &ctx_var_info);
+                            result->func_info->params_info[result->func_info->params_cnt] = ctx_var_info;
+                            if (ctx_var_info.var_info->type == vt_generic) {
+                                result->func_info->params[result->func_info->params_cnt] = ft_generic;
+                            } else {
+                                result->func_info->params[result->func_info->params_cnt] = ft_pointer;
+                            }
+                            result->func_info->params_cnt++;
+                            if (result->func_info->params_cnt >= FUNC_MAX_PARAMS) {
+                                MSG_ERR("Number of function parameters exceeded");
+                                RETURN_ON_ERROR(pe_object_max_number_exceeded);
+                            }
+                        } else {
+                            MSG_DBG(DL_DBG, "proc name: >%s<", result->token.data);
+                            open_block(result, bt_proc, 1);
+                            VmOp_Debug(result, "name", result->token.data);
+                            pe = RegisterSub(result, result->token.data, 1, &result->func_info);
+                        }
                         TOKEN_INVALIDATE();
                         break;
                     case cmd_id_CONST:
@@ -676,6 +699,26 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
                         label_info_t *llabel;
                         pe = RegisterLabel(result, result->token.data, 0, &llabel);
                         pe = VmOp_Jmp(result, llabel, 0);
+                        TOKEN_INVALIDATE();
+                        break;
+                    case cmd_id_BYTE:  // only array
+                        pe = ParseVar(result, vsm_DECLARE_BYTE_ARRAY, &result->ctx_var_info);
+                        TOKEN_INVALIDATE();
+                        break;
+                    case cmd_id_CHAR:  // only array
+                        pe = ParseVar(result, vsm_DECLARE_CHAR_ARRAY, &result->ctx_var_info);
+                        TOKEN_INVALIDATE();
+                        break;
+                    case cmd_id_VAR:
+                        pe = ParseVar(result, vsm_DECLARE_VAR, &result->ctx_var_info);
+                        TOKEN_INVALIDATE();
+                        break;
+                    case cmd_ext_id_LET:
+                        pe = ParseVar(result, vsm_SET_VAR, &result->ctx_var_info);
+                        MSG_DBG(DL_DBG, "is_object: %d", result->ctx_var_info.is_object);
+                        if (result->ctx_var_info.is_object) {
+                            result->expr_flags = LET_pnt_expr_flags;
+                        }
                         TOKEN_INVALIDATE();
                         break;
                     default: {
@@ -696,37 +739,31 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
             TOKEN_INVALIDATE();
             // MSG_DBG(DL_DBG, "token: %s  result->token.size:%d",result->token.data,result->token.size);
             if (result->token.size > 0) {
-                // result->params_str.params_type[result->params_str.params_cnt] = print_ss_var;
-                // result->params_str.params_cnt++;
-
                 switch (result->cur_cmd) {
                     case cmd_id_PROC: {  // args
-                        ctx_var_info_t ctx_var_info;
-                        pe = ParseVar(result, vsm_DECLARE_VAR, &ctx_var_info);
-                        result->func_info->params_info[result->func_info->params_cnt] = ctx_var_info;
-                        result->func_info->params_cnt++;
-                        if (result->func_info->params_cnt >= FUNC_MAX_PARAMS) {
-                            MSG_ERR("Number of function parameters exceeded");
-                            RETURN_ON_ERROR(pe_object_max_number_exceeded);
+                        int cmd_table_pnt = get_cmd_info_pnt(result->token.data);
+                        if (cmd_table_pnt < 0) {
+                            return pe_syntax_invalid;
+                        } else {
+                            uint8_t cmd_id = table_cmd[cmd_table_pnt].cmd_id;
+                            MSG_DBG(DL_DBG, "cmd_id:%d", cmd_id);
+                            switch (cmd_id) {
+                                case cmd_id_VAR:
+                                    result->func_info->var_set_mode = vsm_DECLARE_VAR;
+                                    break;
+                                case cmd_id_BYTE:
+                                    result->func_info->var_set_mode = vsm_DECLARE_BYTE_ARRAY;
+                                    break;
+                                case cmd_id_CHAR:
+                                    result->func_info->var_set_mode = vsm_DECLARE_CHAR_ARRAY;
+                                    break;
+                                default:
+                                    return pe_syntax_invalid;
+                            }
+                            // result->expr_flags = table_cmd[cmd_table_pnt].expr_flags;
+                            // result->cmd_templ_pnt = table_cmd[cmd_table_pnt].templ;
                         }
                     } break;
-                    case cmd_id_BYTE:  // only array
-                        pe = ParseVar(result, vsm_DECLARE_BYTE_ARRAY, &result->ctx_var_info);
-                        break;
-                    case cmd_id_CHAR:  // only array
-                        pe = ParseVar(result, vsm_DECLARE_CHAR_ARRAY, &result->ctx_var_info);
-                        break;
-                    case cmd_id_VAR:
-                        pe = ParseVar(result, vsm_DECLARE_VAR, &result->ctx_var_info);
-                        break;
-                    case cmd_ext_id_LET:
-                        pe = ParseVar(result, vsm_SET_VAR, &result->ctx_var_info);
-                        MSG_DBG(DL_DBG, "is_pointer: %d", result->ctx_var_info.is_pointer);
-                        if (result->ctx_var_info.is_pointer) {
-                            result->expr_flags = LET_pnt_expr_flags;
-                        }
-
-                        break;
                     default: {
                         MSG_DBG(DL_DBG, "TODO use var: >%s< for cmd:%d", result->token.data, result->cur_cmd);
                         RETURN_ON_ERROR(pe_syntax_invalid);
@@ -742,22 +779,20 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
                 case cmd_id_PROC:
                     MSG_DBG(DL_TRC, "func params cnt: %d", result->func_info->params_cnt);
                     for (int i = result->func_info->params_cnt - 1; i >= 0; i--) {  // reverse
+                        result->func_info->params[result->func_info->params_cnt] = 0;
+                        // if (result->func_info->params_info[i].is_object) {
+                        //} else {
                         pe = VmOp_PopVar(result, &result->func_info->params_info[i]);
+                        //}
                     }
                     // VmOp_PushRet(result);
                     break;
-                /*case cmd_ext_id_CALL:
-                    MSG_DBG(DL_TRC, "func params cnt: %d vs %d", result->params_str.params_cnt, result->func_info->params_cnt);
-                    if (result->func_info->params_cnt != result->params_str.params_cnt) {
-                        MSG_ERR("function parameters mismatch");
-                        RETURN_ON_ERROR(pe_parameters_mismatch);
-                    }
-                    MSG_DBG(DL_TRC, "func params cnt:%d", result->func_info->params_cnt);
-                    break;*/
                 default:
             }
-            result->params_lvl--;
-            pe = check_sym(result, step);
+            if (pe == pe_no_error) {
+                result->params_lvl--;
+                pe = check_sym(result, step);
+            }
             break;
         case '=':
         case '(':
@@ -779,20 +814,23 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
             if (CUR_SYM() == ',') {
                 // inc_param_cnt(result);
                 SKIP_SYM();
-                result->cmd_templ_pnt -= 2;
+                result->cmd_templ_pnt -= 2;                             // -1 - pcs_repeated; -1 - past action
+                while (*(result->cmd_templ_pnt - 1) & pcs_MOD_group) {  // rewind the entire group
+                    result->cmd_templ_pnt--;
+                }
+                MSG_DBG(DL_DBG1, "cmd_templ_pnt:%d", result->cmd_templ_pnt[0]);
+                // goto do_next;
             }
         } break;
         case pcs_expression: {
             MSG_DBG(DL_DBG1, "CASE pcs_expression  cmd:%d  expr_flags:0x%X", result->cur_cmd, result->expr_flags);
-            // return pe_no_error;
-            // char array_copy = FALSE;
             result->calc_comptime = 0;
             fpt calc_val = 0;
-            bool arg_is_pointer = FALSE;
+            bool arg_is_object = FALSE;
             const_array_info_t *const_array_info;
             pe = Check_as_array(result, result->expr_flags, &const_array_info);
             if (pe == pe_no_error) {  // expression is array
-                arg_is_pointer = TRUE;
+                arg_is_object = TRUE;
                 if (result->ctx_var_info.var_info) {  // variable assignment
                     if (result->ctx_var_info.array_auto_size) {
                         if (const_array_info->type == result->ctx_var_info.var_info->type) {
@@ -804,7 +842,7 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
                             break;
                         }
                     } else {
-                        if (result->ctx_var_info.is_pointer) {
+                        if (result->ctx_var_info.is_object) {
                             // array_copy = TRUE;
                         } else {
                             MSG_ERR("You can't copy an array to an array element");
@@ -842,8 +880,6 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
                 }
             }
             if (pe == pe_no_error) {
-                // result->params_str.params_type[result->params_str.params_cnt] = print_ss_expr;
-                // result->params_str.params_cnt++;
                 switch (result->cur_cmd) {
                     case cmd_id_CHAR:
                     case cmd_id_BYTE:
@@ -852,7 +888,7 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
                     case cmd_ext_id_LET:
                         // assign a variable
                         if (result->ctx_var_info.var_info) {
-                            MSG_DBG(DL_DBG1, "calc_comptime:%d    is_pointer:%d", result->calc_comptime, result->ctx_var_info.is_pointer);
+                            MSG_DBG(DL_DBG1, "calc_comptime:%d    is_object:%d", result->calc_comptime, result->ctx_var_info.is_object);
                             if (result->calc_comptime) {
                                 VmOp_ArgNum(result, calc_val);
                             }
@@ -872,7 +908,7 @@ parse_error_t ParseStep(parse_result_t *result, uint8_t step) {
                         break;
                     case cmd_id_PRINT:
                     case cmd_id_PRINT_LN:
-                        if (arg_is_pointer) {
+                        if (arg_is_object) {
                             definePartArgType(result, print_ss_pointer);
                         } else {  // print ?
                             definePartArgType(result, print_ss_number);

@@ -48,4 +48,11 @@ typedef enum {
     print_ss_MAX = 0xf,  // max
 } print_part_type_t;
 
+typedef enum {
+    ft_none,
+    // ft_byte,
+    ft_generic,
+    ft_pointer,
+} func_param_type_t;
+
 #endif

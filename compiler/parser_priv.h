@@ -60,7 +60,8 @@ enum {
     efl_compile_calc_expr = 1 << 4,
     efl_expr = 1 << 5,
 
-    efl_any_array = efl_inline_const_string | efl_inline_const_array | efl_const_array | efl_var_array,
+    efl_any_const = efl_inline_const_string | efl_inline_const_array | efl_const_array,
+    efl_any_array = efl_any_const | efl_var_array,
     efl_any_expr = efl_compile_calc_expr | efl_expr,
     efl_ALL = 0xff,
 };
@@ -92,8 +93,8 @@ typedef enum {
     cmd_id_end = 200,
 } cmd_id_list_t;
 
-#define EXT_OPER_LIST CONV_TYPE(ELSE, 0, {pcs_IND_optional, pcs_command, 0}),               \
-                      CONV_TYPE(LET, efl_any_expr, {pcs_variable, '=', pcs_expression, 0}), \
+#define EXT_OPER_LIST CONV_TYPE(ELSE, 0, {pcs_IND_optional, pcs_command, 0}),            \
+                      CONV_TYPE(LET, efl_any_expr, {pcs_token, '=', pcs_expression, 0}), \
                       CONV_TYPE(CALL, 0, {pcs_token, 0}), /*all funcs have one templ*/
 
 #define LET_pnt_expr_flags (efl_any_array)
@@ -116,18 +117,6 @@ typedef struct {
     char name[TOKEN_MAX_LEN];
 #endif
 } expr_info_t;
-
-typedef enum {
-    vsm_DECLARE_VAR,
-    vsm_DECLARE_BYTE_ARRAY,
-    vsm_DECLARE_CHAR_ARRAY,
-    vsm_DECLARE_VAR_ARRAY,
-    vsm_DECLARE_end,
-    vsm_GET_VAR,
-    vsm_SET_VAR,    // set generic var
-    vsm_SET_ARRAY,  // as whole array
-    vsm_GET_ARRAY,  // as whole array
-} var_set_mode_t;
 
 #define MAX_OF(type) \
     (((type)(~0U) > (type)((1U << ((sizeof(type) << 3) - 1)) - 1U)) ? (unsigned int)(type)(~0U) : (unsigned int)(type)((1U << ((sizeof(type) << 3) - 1)) - 1U))

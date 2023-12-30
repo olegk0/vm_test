@@ -2,7 +2,7 @@
 #define VM_EXE_H_
 
 #define DEBUG 1
-#define DEBUG_LVL 1
+#define DEBUG_LVL 3
 #define WRITE_LOG
 
 #include <stdint.h>
@@ -12,6 +12,7 @@
 typedef enum {
     ec_ok,
     ec_end,
+    ec_exit,
     ec_break_point,
     ec_inval_code,
     ec_call_unknown_func,
